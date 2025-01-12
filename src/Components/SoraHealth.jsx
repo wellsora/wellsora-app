@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa'; // Icons from react-icons
 import { FaBell } from 'react-icons/fa';
+import { FiSearch } from "react-icons/fi";
 const accordionData = [
     {
         number: "01",
@@ -69,7 +70,7 @@ const Sorahealth = () => {
     }, []);
     return (
         <div className='inner-c'>
-            <div className="right-header">
+            <div style={{gap: "425px"}} className="right-header">
                 <div style={{ width: "40%" }} className="header-left-container">
                     <span className="Title-name">Sora health+</span>
                 </div>
@@ -77,16 +78,16 @@ const Sorahealth = () => {
                 <div className="header-right-container">
                     <div className="header-bar">
                         {/* Search Input */}
-                        <div className="search-container">
+                        {/* <div className="search-container">
                             <FaSearch className="search-icon" />
                             <input
                                 type="text"
                                 className="search-input"
                                 placeholder="Search Caring"
                             />
-                        </div>
+                        </div> */}
                         {/* Left Button */}
-                        <button className="create-plan-btn">Search</button>
+                        {/* <button className="create-plan-btn">Search</button> */}
 
                         {/* Notification Icon */}
                         <div className="notification-icon">
@@ -95,7 +96,7 @@ const Sorahealth = () => {
 
 
                         {/* Profile Section */}
-                        <div className="profile-container">
+                        <div style={{    width: "80px"}} className="profile-container">
                             <img
                                 src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
                                 alt="User Profile"
@@ -109,6 +110,50 @@ const Sorahealth = () => {
                     </div>
                 </div>
             </div>
+
+         <div style={{ display: "flex", alignItems: "center", padding: "30px 78px", width:"80%" }}>
+                  {/* Search Input with Icon */}
+                  <div
+                    style={{
+                      flex: 1,
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "13px",
+                      border: "1px solid #ccc",
+                      borderRadius: "5px",
+                      marginRight: "10px",
+                      backgroundColor: "#EFF8FC",
+                    }}
+                  >
+                    <FiSearch style={{ marginRight: "10px", color: "#888" }} />
+                    <input
+                      type="text"
+                      placeholder="My mother just diagnosed with Type 2 diabetes"
+                      style={{
+                        flex: 1,
+                        border: "none",
+                        outline: "none",
+                        fontSize: "14px",
+                        backgroundColor: "#EFF8FC",
+                      }}
+                    />
+                  </div>
+            
+                  {/* Button */}
+                  <button
+                    style={{
+                      padding: "10px 60px",
+                      backgroundColor: "#1B779B", // Adjust color to match the design
+                      color: "white",
+                      border: "none",
+                      borderRadius: "5px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Search
+                  </button>
+                </div>
+            
             <div className="accordion">
                 {accordionData.map((item, index) => (
                     <details key={index} open={item.open}>

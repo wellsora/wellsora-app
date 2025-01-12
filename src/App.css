@@ -1091,3 +1091,35 @@ summary::-webkit-details-marker {
     border-radius: 5px;
 }
 }
+.right-content ::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.right-content ::-webkit-scrollbar-thumb {
+  background-color: #007b9e; /* Color of the scrollbar thumb (the draggable part) */
+  border-radius: 10px; /* Round the corners of the thumb */
+}
+
+.right-content ::-webkit-scrollbar-track {
+  background-color: #f7f7f7; /* Color of the track (the background of the scrollbar) */
+  border-radius: 10px;
+}
+
+.right-content ::-webkit-scrollbar-thumb:hover {
+  background-color: #005f6b; /* Darker thumb on hover */
+}
+.nav-button {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #005f6b;
+  color:white
+}
+
+.active-button {
+  background-color: #ffffff; /* Blue background for active button */
+  color: #005f6b; /* White text for active button */
+}

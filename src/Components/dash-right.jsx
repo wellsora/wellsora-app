@@ -11,21 +11,21 @@ import Modal from './Modal';
 
 const events = [
     {
-        date: "December 26, 2025",
+        date: "December 26, 2024",
         activity: "Visit Dr. Joe for Eye Checkup",
         address: "2344 Lawman Avenue, Fairfax",
         service: "Transport",
         caring: "John Doe",
     },
     {
-        date: "December 31, 2025",
+        date: "December 31, 2024",
         activity: "Visit Dr. Joe for Eye Checkup",
         address: "3400 Spruce Street, PA 19106",
         service: "Support",
         caring: "John Doe",
     },
     {
-        date: "January 02, 2026",
+        date: "January 02, 2025",
         activity: "Visit Dr. Joe for Eye Checkup",
         address: "Address",
         service: "Post Visit",
@@ -55,6 +55,18 @@ const Dashboard_left = () => {
     const handleCreateClick = () => {
         setModalVisible(true);
     };
+    function getStatus(eventDate) {
+        const today = new Date();
+        const date = new Date(eventDate);
+    
+        if (date < today) {
+            return "Done"; // Event is in the past
+        } else if (date.toDateString() === today.toDateString()) {
+            return "In Progress"; // Event is happening today
+        } else {
+            return "New"; // Event is in the future
+        }
+    }
 
     const handleCloseModal = () => {
         setModalVisible(false);
@@ -165,44 +177,64 @@ const Dashboard_left = () => {
                                         </div>
                                     </div>
                                     <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Scheduled Date</th>
-                                                <th>Activity</th>
-                                                <th>Services</th>
-                                                <th>Caring</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {events.map((event, index) => (
-                                                <tr key={index}>
-                                                    <td>{event.date}</td>
-                                                    <td>
-                                                        {event.activity}
-                                                        <div style={{ fontSize: "12px", color: "#777" }}>
-                                                            {event.address}
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <select className="services-dropdown" defaultValue={event.service}>
-                                                            <option value="Transport">Transport</option>
-                                                            <option value="Support">Support</option>
-                                                            <option value="Post Visit">Post Visit</option>
-                                                            <option value="Physical Assistance">Physical Assistance</option>
-                                                            <option value="Health Monitor">Health Monitor</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <button className="caring-btn">{event.caring}</button>
-                                                    </td>
-                                                    <td>
-                                                        <FaEllipsisV />
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+        <thead>
+            <tr>
+                <th>Scheduled Date</th>
+                <th>Activity</th>
+                <th>Services</th>
+                <th>Caring</th>
+                <th>Status</th> {/* New Status Column */}
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {events.map((event, index) => {
+                const status = getStatus(event.date); // Get status dynamically
+
+                return (
+                    <tr key={index}>
+                        <td>{event.date}</td>
+                        <td>
+                            {event.activity}
+                            <div style={{ fontSize: "12px", color: "#777" }}>
+                                {event.address}
+                            </div>
+                        </td>
+                        <td>
+                            <select className="services-dropdown" defaultValue={event.service}>
+                                <option value="Transport">Transport</option>
+                                <option value="Support">Support</option>
+                                <option value="Post Visit">Post Visit</option>
+                                <option value="Physical Assistance">Physical Assistance</option>
+                                <option value="Health Monitor">Health Monitor</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button className="caring-btn">{event.caring}</button>
+                        </td>
+                        <td>
+                            <span
+                                style={{
+                                    color:
+                                        status === "Done"
+                                            ? "#32CD32" // Green for done
+                                            : status === "In Progress"
+                                            ? "#FFA500" // Orange for in progress
+                                            : "#FF6347", // Red for new
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                {status}
+                            </span>
+                        </td>
+                        <td>
+                            <FaEllipsisV />
+                        </td>
+                    </tr>
+                );
+            })}
+        </tbody>
+    </table>
                                 </div>
                             </div>
                         </div>
@@ -220,9 +252,9 @@ const Dashboard_left = () => {
                             <div>January 4, 2022</div>
                         </div>
                         <div className="icons">
-                            <FaGoogle size={20} style={{ marginRight: '5px', cursor: 'pointer' }} />
-                            <FaMicrosoft size={20} style={{ marginRight: '5px', cursor: 'pointer' }} />
-                            <FaApple size={20} style={{ cursor: 'pointer' }} />
+                            <FaGoogle size={15} style={{ marginRight: '5px', cursor: 'pointer' }} />
+                            <FaMicrosoft size={15} style={{ marginRight: '5px', cursor: 'pointer' }} />
+                            <FaApple size={15} style={{ cursor: 'pointer' }} />
                         </div>
                     </div>
                 )}
@@ -233,9 +265,9 @@ const Dashboard_left = () => {
                             <div>January 4, 2022</div>
                         </div>
                         <div className="icons">
-                            <FaGoogle size={20} style={{ marginRight: '5px', cursor: 'pointer' }} />
-                            <FaMicrosoft size={20} style={{ marginRight: '5px', cursor: 'pointer' }} />
-                            <FaApple size={20} style={{ cursor: 'pointer' }} />
+                            <FaGoogle size={15} style={{ marginRight: '5px', cursor: 'pointer' }} />
+                            <FaMicrosoft size={15} style={{ marginRight: '5px', cursor: 'pointer' }} />
+                            <FaApple size={15} style={{ cursor: 'pointer' }} />
                         </div>
                     </div>
                 )}
