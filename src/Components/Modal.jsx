@@ -1,86 +1,174 @@
-import React from 'react';
-import { useState } from 'react';
-
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid"; // Install 'uuid' package using `npm install uuid`
+import LocationInput from "./PlaceAutocomplete/LocationInput";
 const Modal = ({ isVisible, onClose }) => {
-    const [activeStatus, setActiveStatus] = useState('In Progress');
-    const [activeButton, setActiveButton] = useState('Save');
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    appointmentName: "",
+    status: "New",
+    location: "",
+    date: "",
+    time: "",
+    service: "Transport", // Add a default value for the services dropdown
+  });
 
-    if (!isVisible) return null;
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-    const handleStatusClick = (status) => {
-        setActiveStatus(status);
-    };
-    const handleClick = (btnType) => {
-        setActiveButton(btnType);
-        if (btnType === 'cancel') {
-            onClose();
-        }
-    };
+  const handleStatusClick = (status) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      status,
+    }));
+  };
 
-    return (
-        <div className="modal-overlay">
-            <div className="modal-container">
-            
-                <form className='modal-form'>
-                    <input className='model-input' type="text" placeholder="Full name" />
+  const handleSave = (e) => {
+    e.preventDefault(); // Prevent default form submission
+    const uniqueId = uuidv4(); // Generate a unique ID
 
-                    <input type="text" placeholder="Appointment name" />
+    const savedData = { id: uniqueId, ...formData };
 
-                    <label>Status</label>
-                    <div className="status-buttons">
-                        <button
-                            type="button"
-                            className={`btn ${activeStatus === 'In Progress' ? 'active' : ''}`}
-                            onClick={() => handleStatusClick('In Progress')}
-                        >
-                            In Progress
-                        </button>
-                        <button
-                            type="button"
-                            className={`btn ${activeStatus === 'New' ? 'active' : ''}`}
-                            onClick={() => handleStatusClick('New')}
-                        >
-                            New
-                        </button>
-                        <button
-                            type="button"
-                            className={`btn ${activeStatus === 'Resolved' ? 'active' : ''}`}
-                            onClick={() => handleStatusClick('Resolved')}
-                        >
-                            Resolved
-                        </button>
-                    </div>
-                    <input type="text" placeholder="Location" />
-
-                    <div className="datetime-section">
-                        <label>Date and Time</label>
-                        <div className="datetime-container">
-                            <input type="date" className="date-input" />
-                            <input type="time" className="time-input" />
-                        </div>
-                    </div>
-
-
-                    <div className="modal-actions">
-            <button
-                className={`btn-bottom ${activeButton === 'cancel' ? 'active' : ''}`}
-                type="button"
-                onClick={() => handleClick('cancel')}
-            >
-                Cancel
-            </button>
-            <button
-                className={`btn-bottom ${activeButton === 'save' ? 'active' : ''}`}
-                type="submit"
-                onClick={() => handleClick('save')}
-            >
-                Save
-            </button>
-        </div>
-                </form>
-            </div>
-        </div>
+    // Retrieve existing data from local storage or initialize an empty array
+    const existingData = JSON.parse(localStorage.getItem("formEntries")) || [];
+    // Save the new data with the unique ID
+    localStorage.setItem(
+      "formEntries",
+      JSON.stringify([...existingData, savedData])
     );
-}
+    onClose(); // Close the modal
+  };
+
+  if (!isVisible) return null;
+
+  return (
+    <div className="modal-overlay">
+      <div className="modal-container">
+        <form className="modal-form" onSubmit={handleSave}>
+          <div className="name-container">
+            <div className="name-input">
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                required
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="name-input">
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                required
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+
+          <input
+            type="text"
+            required
+            name="appointmentName"
+            placeholder="Appointment Name"
+            value={formData.appointmentName}
+            onChange={handleInputChange}
+          />
+
+          <label>Status</label>
+          <div className="status-buttons">
+            <button
+              type="button"
+              className={`btn ${formData.status === "New" ? "active" : ""}`}
+              onClick={() => handleStatusClick("New")}
+            >
+              New
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                formData.status === "In Progress" ? "active" : ""
+              }`}
+              onClick={() => handleStatusClick("In Progress")}
+            >
+              In Progress
+            </button>
+            <button
+              type="button"
+              className={`btn ${
+                formData.status === "Resolved" ? "active" : ""
+              }`}
+              onClick={() => handleStatusClick("Resolved")}
+            >
+              Resolved
+            </button>
+          </div>
+
+          {/* <input
+            type="text"
+            name="location"
+            placeholder="Location"
+            value={formData.location}
+            onChange={handleInputChange}
+          /> */}
+
+          <LocationInput formData={formData} setFormData={setFormData} />
+
+          <div className="datetime-section">
+            <label>Date and Time</label>
+            <div className="datetime-container">
+              <input
+                required
+                type="date"
+                name="date"
+                className="date-input"
+                value={formData.date}
+                onChange={handleInputChange}
+              />
+              <input
+                type="time"
+                name="time"
+                required
+                className="time-input"
+                value={formData.time}
+                onChange={handleInputChange}
+              />
+            </div>
+          </div>
+
+          <select
+            name="service"
+            required
+            className="services"
+            value={formData.service}
+            onChange={handleInputChange}
+          >
+            <option value="Transport">Transport</option>
+            <option value="Support">Support</option>
+            <option value="Post Visit">Post Visit</option>
+            <option value="Physical Assistance">Physical Assistance</option>
+            <option value="Health Monitor">Health Monitor</option>
+          </select>
+
+          <div className="modal-actions">
+            <button className="btn-bottom" type="button" onClick={onClose}>
+              Cancel
+            </button>
+            <button className="btn-bottom" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default Modal;

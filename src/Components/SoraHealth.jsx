@@ -1,143 +1,232 @@
-import React, { useEffect, useState } from 'react';
-import { FaSearch } from 'react-icons/fa'; // Icons from react-icons
-import { FaBell } from 'react-icons/fa';
-const accordionData = [
-    {
-        number: "01",
-        title: "Emergency Cost Coverage",
-        content: [
-            "Health Insurance: Check with your health insurance provider to understand what your plan covers in emergency situations. Most insurance plans include emergency room visits.",
-            "Explore government assistance programs for those who qualify.",
-            "Consider setting up an emergency fund for unexpected costs."
-        ],
-        buttons: ["Cardiovascular Disease Testing", "Cardiovascular Disease Risk Reduction Visit"],
-        open: false,
-    },
-    {
-        number: "02",
-        title: "What factors typically influence the cost of a hospital stay?",
-        content: [
-            "Length of stay: Longer stays usually cost more.",
-            "Type of care: Intensive care units (ICUs) are more expensive.",
-            "Insurance coverage: Your out-of-pocket costs depend on your insurance policy."
-        ],
-        buttons: ["Learn More"],
-        open: false,
-    },
-    {
-        number: "03",
-        title: "Prescription Drug Costs",
-        content: [
-            "Drug brand: Generic drugs are typically cheaper than branded ones.",
-            "Insurance coverage: Check if your policy covers specific prescriptions.",
-            "Discount programs: Many pharmacies offer discount cards for common drugs."
-        ],
-        buttons: ["View Discounts", "Check Coverage"],
-        open: false,
-    },
-    {
-        number: "04",
-        title: "High blood pressure appointments",
-        content: [
-            "Routine check-ups: Regular visits to monitor blood pressure.",
-            "Lifestyle recommendations: Guidance on diet and exercise.",
-            "Medication adjustments: Ensuring the right dosage for effective management."
-        ],
-        buttons: ["Find Providers", "Learn Tips"],
-        open: false,
-    },
-    {
-        number: "05",
-        title: "Mental Health Services Costs",
-        content: [
-            "Therapy sessions: Costs vary based on provider and session length.",
-            "Insurance: Some policies cover mental health services.",
-            "Community programs: Free or low-cost options may be available in your area."
-        ],
-        buttons: ["Find Therapists", "Learn More"],
-        open: false,
-    },
+import React, { useEffect, useState } from "react";
+import { FaBell } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
+import { HiDotsVertical } from "react-icons/hi";
+
+// API URL and key (You should ideally store the key securely)
+const apiUrl = process.env.apiUrl;
+const apiKey =process.env.apiKey
+const initialAccordionData = [
+  {
+    number: "01",
+    title: "What is emergency cost coverage in the U.S., and how does it work?",
+    content: [
+      "Emergency cost coverage is how insurance pays for emergencies. The Affordable Care Act (ACA) requires most plans to cover emergencies without approval, at the same cost in or out of network. You may still owe deductibles, copays (copayments), or other costs. Check your plan.",
+    ],
+    open: false,
+  },
+  {
+    number: "02",
+    title: "What factors typically influence the cost of a hospital stay?",
+    content: [
+      "The cost of a hospital stay depends on the type of care needed, like surgery or urgent care (UCU), length of stay, hospital location, and insurance. Extra costs include tests, medications, specialist visits, and follow-up care. Understanding these factors helps plan hospital expenses.",
+    ],
+    open: false,
+  },
+  {
+    number: "03",
+    title:
+      "What factors influence prescription drug costs and how can you manage them?",
+    content: [
+      "Prescription drug costs depend on factors like the type of medication (generic or brand-name), insurance coverage, pharmacy location, and available discounts. Without insurance, prices can be high, but discount cards, manufacturer coupons, and assistance programs can help lower costs. Always compare options carefully",
+    ],
+    open: false,
+  },
+  {
+    number: "04",
+    title:
+      "Why are regular appointments important for managing high blood pressure?",
+    content: [
+      "High blood pressure appointments are vital to monitor your condition, adjust medications, and prevent complications like heart disease or stroke. Doctors measure your blood pressure, review your lifestyle, and may order tests. Regular visits help manage risks and support long-term health effectively.",
+    ],
+    open: false,
+  },
+  {
+    number: "05",
+    title: "What influences the cost of mental health services?",
+    content: [
+      "Mental health service costs depend on factors like therapy type (individual, group, or specialized), provider expertise, session length, and insurance coverage. Without insurance, costs vary widely, but sliding-scale fees, community programs, or telehealth options may help make care more affordable.",
+    ],
+    open: false,
+  },
 ];
 
 const Sorahealth = () => {
-    const [currentDate, setCurrentDate] = useState("");
-    useEffect(() => {
-        const date = new Date();
-        const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        const formattedDate = date.toLocaleDateString('en-US', options);
-        setCurrentDate(formattedDate);
-    }, []);
-    return (
-        <div className='inner-c'>
-            <div className="right-header">
-                <div style={{ width: "40%" }} className="header-left-container">
-                    <span className="Title-name">Sora health+</span>
-                </div>
+  const [currentDate, setCurrentDate] = useState("");
+  const [accordionData, setAccordionData] = useState(initialAccordionData);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [apiResult, setApiResult] = useState(""); // State to store the API result
 
-                <div className="header-right-container">
-                    <div className="header-bar">
-                        {/* Search Input */}
-                        <div className="search-container">
-                            <FaSearch className="search-icon" />
-                            <input
-                                type="text"
-                                className="search-input"
-                                placeholder="Search Caring"
-                            />
-                        </div>
-                        {/* Left Button */}
-                        <button className="create-plan-btn">Search</button>
+  useEffect(() => {
+    const date = new Date();
+    const options = {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString("en-US", options);
+    setCurrentDate(formattedDate);
+  }, []);
 
-                        {/* Notification Icon */}
-                        <div className="notification-icon">
-                            <FaBell />
-                        </div>
+  const fetchApiData = async () => {
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: searchQuery || "Tell me something about health",
+            },
+          ],
+        }),
+      });
 
+      const data = await response.json();
+      const result = data.choices[0].message.content; // Get the response text from the API
+      setApiResult(result); // Update state with API result
+    } catch (error) {
+      console.error("Error fetching API data:", error);
+      setApiResult("Failed to fetch data from API.");
+    }
+  };
 
-                        {/* Profile Section */}
-                        <div className="profile-container">
-                            <img
-                                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
-                                alt="User Profile"
-                                className="profile-picture"
-                            />
-                            <div className="profile-info">
-                                <span className="profile-name">First Name</span>
-                                <span className="profile-link">View Profile</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="accordion">
-                {accordionData.map((item, index) => (
-                    <details key={index} open={item.open}>
-                        <summary>
-                            <span className="number">{item.number}</span> <span className="detail-title">{item.title}</span>
-                            <span className="expand-icon">+</span>
-                        </summary>
-                        {item.content && (
-                            <div className="content">
-                                <ul>
-                                    {item.content.map((bullet, bulletIndex) => (
-                                        <li key={bulletIndex}>{bullet}</li>
-                                    ))}
-                                </ul>
-                                {item.buttons && (
-                                    <div className="buttons">
-                                        {item.buttons.map((buttonText, btnIndex) => (
-                                            <button key={btnIndex}>{buttonText}</button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        )}
-                    </details>
-                ))}
-            </div>
+  const handleAccordionToggle = (index) => {
+    const updatedAccordionData = [...accordionData];
+    updatedAccordionData[index].open = !updatedAccordionData[index].open;
+    setAccordionData(updatedAccordionData);
+  };
+
+  //   const filteredData = accordionData.filter(item => {
+  //     const searchLowerCase = searchQuery.toLowerCase();
+  //     const titleMatch = item.title.toLowerCase().includes(searchLowerCase);
+  //     const contentMatch = item.content.some(contentItem => contentItem.toLowerCase().includes(searchLowerCase));
+  //     return titleMatch || contentMatch;
+  //   });
+
+  return (
+    <div className="inner-c">
+      <div style={{ gap: "112px" }} className="right-header">
+        <div style={{ width: "40%" }} className="header-left-container">
+          <span className="Title-name">Sora health+</span>
         </div>
-    );
+        <div className="header-right-container">
+          <div className="header-bar">
+            <div className="notification-icon">
+              <FaBell />
+            </div>
+            <div className="profile-container">
+              <img
+                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
+                alt="User Profile"
+                className="profile-picture"
+              />
+              <HiDotsVertical size={20} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "30px 78px",
+          width: "99%",
+          paddingBottom: "0%",
+        }}
+      >
+        <div
+          style={{
+            flex: 1,
+            display: "flex",
+            alignItems: "center",
+            padding: "13px",
+            border: "1px solid #ccc",
+            borderRadius: "5px",
+            marginRight: "10px",
+            backgroundColor: "#ffffffff",
+          }}
+        >
+          <FiSearch style={{ marginRight: "10px", color: "#888" }} />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
+            placeholder="e.g. what symptoms signal hypertension?"
+            style={{
+              flex: 1,
+              border: "none",
+              outline: "none",
+              fontSize: "14px",
+              backgroundColor: "#fffffff",
+              color: "#9E9E9E",
+              fontStyle: "italic",
+            }}
+          />
+        </div>
+
+        <button
+          style={{
+            padding: "10px 83px",
+            backgroundColor: "#1B779B",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={fetchApiData} // Call the API when the button is clicked
+        >
+          Search
+        </button>
+      </div>
+
+      <div className="main-undersearch">
+        <div className="span-div">
+          <span className="undersearch-text">
+            {apiResult ||
+              "Sora Health+ is your caregiving companion. We provide resources, tips, and personalized guidance to help you care for loved ones with confidence. Think of us as a supportive friend, simplifying caregiving. For medical concerns or emergencies, please call your doctor immediately."}
+          </span>
+        </div>
+      </div>
+
+      <div className="accordion">
+        {accordionData.map((item, index) => (
+          <details key={index} open={item.open}>
+            <summary
+              onClick={(e) => {
+                e.preventDefault();
+                handleAccordionToggle(index);
+              }}
+            >
+              <span className="number">{item.number}</span>
+              <span className="detail-title">{item.title}</span>
+              <span className="expand-icon">{item.open ? "-" : "+"}</span>
+            </summary>
+            {item.content && (
+              <div className="content">
+                <ul style={{ listStyle: "none" }}>
+                  {item.content.map((bullet, bulletIndex) => (
+                    <li key={bulletIndex}>{bullet}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </details>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Sorahealth;
-
