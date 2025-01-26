@@ -212,7 +212,7 @@ const ConnectingBoard = () => {
             <h4>Information</h4>
             <p>{modalItem.visitType || modalItem.name || modalItem}</p>
             <p>{modalItem.description || modalItem.directions || ''}</p>
-    
+  
             <button onClick={closeModal}>Close</button>
           </div>
         </div>
