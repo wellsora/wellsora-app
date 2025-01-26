@@ -10,6 +10,7 @@ import { Caregiver } from "./Components/Caregiver";
 import Settings from "./Components/Settings";
 import Login from "./Components/Signin";
 import "./App.css";
+import Signup from './Components/Signup';
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
           <Route path="/findcaregiver" element={<Caregiver />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          
         </Routes>
       </div>
     </Router>

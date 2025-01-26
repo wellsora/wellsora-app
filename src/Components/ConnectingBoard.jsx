@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaBell, FaHeartbeat } from 'react-icons/fa';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FaClipboardList, FaPills, FaAllergies, FaUserFriends, FaHeart } from 'react-icons/fa';
@@ -16,6 +16,11 @@ import { Caregiver } from './Caregiver';
 import Settings from "./Settings"
 
 import "../App.css";
+import { redirectToLogin } from './FhirEpic/oauthHelpers';
+import { useSearchParams } from "react-router-dom";
+import { exchangeCodeForToken, setTokens } from "./FhirEpic/oauthHelpers";
+import { apiClient } from "./FhirEpic/apiClient";
+
 
 // Dummy data for each section
 const dummyData = {
@@ -65,10 +70,104 @@ const ConnectingBoard = () => {
               return <div>Select a section</div>;
       }
   };
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("code");
 
-  // Handle tab selection
-  const handleTabClick = (tab) => {
-    setSelectedTab(tab);
+  // fhir resources
+  const [encounter, setEncounter] = useState(null); // Track past visits
+  const [medications, setMedications] = useState(null); // Track medications
+  const [allergies, setAllergies] = useState(null); // Track allergies
+  const [careTeam, setCareTeam] = useState(null); // Track care team
+  const [conditions, setConditions] = useState(null); // Track conditions
+
+  // Fetch data functions
+  const fetchEncounterData = async () => {
+    try {
+      const patientId = sessionStorage.getItem("patientId");
+      const response = await apiClient.get(`/Encounter?patient=${patientId}`);
+      setEncounter(response.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+
+  const fetchMedicationsData = async () => {
+    try {
+      const patientId = sessionStorage.getItem("patientId");
+      const response = await apiClient.get(`/MedicationRequest?patient=${patientId}&status=active`);
+      setMedications(response.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+
+  const fetchAllergiesData = async () => {
+    try {
+      const patientId = sessionStorage.getItem("patientId");
+      const response = await apiClient.get(`/AllergyIntolerance?patient=${patientId}`);
+      setAllergies(response.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+
+  const fetchCareTeamData = async () => {
+    try {
+      const patientId = sessionStorage.getItem("patientId");
+      const response = await apiClient.get(`CareTeam?patient=${patientId}`);
+      setCareTeam(response.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+
+  const fetchConditionsData = async () => {
+    try {
+      const patientId = sessionStorage.getItem("patientId");
+      const response = await apiClient.get(`/Condition?patient=${patientId}&category=problem-list-item`);
+      setConditions(response.data);
+    } catch (error) {
+      console.error("Error fetching patient data:", error);
+    }
+  };
+
+  useEffect(() => {
+    const handleOAuthCallback = async () => {
+      console.log(code);
+      if (code) {
+        try {
+          const tokens = await exchangeCodeForToken(code);
+          setTokens(tokens); // Save tokens
+          window.location.href = "/connectingrecords"; // Redirect to connectingrecords
+        } catch (error) {
+          console.error("Error during token exchange:", error);
+        }
+      }
+    };
+
+    handleOAuthCallback();
+
+    fetchEncounterData();
+
+    // console.log("Encounter data: ", encounter);
+    
+  }, [code]);
+ 
+
+// Handle tab selection
+const handleTabClick = (tab) => {
+  setSelectedTab(tab);
+
+  switch (tab) {
+    case 'past-visits':
+      return fetchEncounterData();
+    case 'medications':
+      return fetchMedicationsData();
+    case 'allergies':
+      return fetchAllergiesData();
+    default:
+      return;
+    }
   };
 
   // Open modal for specific item
@@ -100,12 +199,15 @@ const ConnectingBoard = () => {
   const handleConfirmStep2 = () => {
     setShowStep2Modal(false);
     setShowStep3Modal(true); // Step 3 Modal appears
+    redirectToLogin();
   };
 
   const handleConfirmStep3 = () => {
     setShowStep3Modal(false);
     alert('All steps completed!');
   };
+
+  // console.log(dummyData);
 
   // Render tab content
   const renderTabContent = () => {
@@ -114,18 +216,20 @@ const ConnectingBoard = () => {
         return (
           <div className='main-d'>
             <h3>Past Visits</h3>
-            {dummyData['past-visits'].map((visit, index) => (
-              <div className='item-c' key={index}>
-                <div className="r">
-                  <h4>{visit.title}</h4>
-                  <p>{visit.doctor}</p>
-                  <p>{visit.clinic}</p>
-                </div>
-                <div className="l">
-                  <p>{visit.date}</p>
-                  <button onClick={() => openModal(visit)}>Visit Results</button>
-                </div>
-              </div>
+            {encounter?.entry?.map((visit, index) => (
+              visit.resource.resourceType === 'Encounter' && (
+          <div className='item-c' key={index}>
+            <div className="r">
+              <h4>{visit.resource.type?.[0].text || "NA"}</h4>
+              <p>{visit.resource.participant?.[0]?.individual?.type|| "NA"} - {visit.resource.participant?.[0]?.individual?.display || "NA"}</p>
+              <p>{visit.resource.location?.[0]?.location?.display || "NA"}</p>
+            </div>
+            <div className="l">
+              <p>{visit.resource.period?.start.split('T')[0] || "NA"}</p>
+              <button onClick={() => openModal(visit)}>Visit Results</button>
+            </div>
+          </div>
+              )
             ))}
           </div>
         );
@@ -133,17 +237,19 @@ const ConnectingBoard = () => {
         return (
           <div className='main-d'>
             <h3>Medications</h3>
-            {dummyData.medications.map((med, index) => (
+            {medications?.entry?.map((med, index) => (
+              med.resource.resourceType === 'MedicationRequest' && (
               <div className='item-c' key={index}>
                 <div className="r">
-                  <h4>{med.name}</h4>
-                  <p>{med.dosage}</p>
+                  <h4>{med.resource.medicationReference?.display || "NA"}</h4>
+                  <p>{med.resource.medicationReference?.display || "NA"}</p>
                 </div>
                 <div className="l">
-                  <p>{med.date}</p>
+                  <p>{med.resource.authoredOn || "NA"}</p>
                   <button onClick={() => openModal(med)}>View Details</button>
                 </div>
               </div>
+              )
             ))}
           </div>
         );
@@ -151,18 +257,41 @@ const ConnectingBoard = () => {
         return (
           <div className='main-d'>
             <h3>Allergies</h3>
-            {dummyData.allergies.map((allergy, index) => (
-              <div className='item-c' key={index}>
+            {allergies?.entry?.map((allergy, index) => (
+              allergy.resource.resourceType === 'AllergyIntolerance' && (
+              <div style={{padding: '2%'}} className='item-c' key={index}>
                 <div className="r">
-                  <p>{allergy}</p>
-                </div>
-                <div className="l">
-                  {/* <button onClick={() => openModal(allergy)}>More Info</button> */}
+                  <p>{allergy.resource.code?.coding?.[0].display || "NA"} - {allergy.resource.code?.text || "NA"}</p>
                 </div>
               </div>
+              )
             ))}
           </div>
         );
+      case 'care-team':
+        return (
+          // render we couldn't find you care Team infomation in ui 
+          <div className='main-d'>
+            <h3>Care Team</h3>
+            <div style={{padding: '2%'}} className='item-c'>
+                <div className="r">
+                  <p>We couldn't find any infomation in your records</p>
+                </div>
+            </div>
+          </div>
+        )
+      case 'conditions':
+        return (
+          // render we couldn't find you conditions infomation in ui
+          <div className='main-d'>
+            <h3>Conditions</h3>
+            <div style={{padding: '2%'}} className='item-c'>
+                <div className="r">
+                  <p>We couldn't find any infomation in your records</p>
+                </div>
+            </div>
+          </div>
+        )
       default:
         return null;
     }
@@ -264,11 +393,11 @@ const ConnectingBoard = () => {
             <a href="#allergies" onClick={() => handleTabClick('allergies')} className={selectedTab === 'allergies' ? 'selected' : ''}>
               <FaAllergies /> Allergies
             </a>
-            <a href="#Care Team" onClick={() => handleTabClick('CareTeam')} className={selectedTab === 'CareTeam' ? 'selected' : ''}>
+            <a href="#care-team" onClick={() => handleTabClick('care-team')} className={selectedTab === 'care-team' ? 'selected' : ''}>
   <FaUserFriends size={20} style={{ marginRight: '10px' }} /> {/* Updated icon */}
   Care Team
 </a>
-<a href="Conditions" onClick={() => handleTabClick('Conditions')} className={selectedTab === 'Conditions' ? 'selected' : ''}>
+<a href="#conditions" onClick={() => handleTabClick('conditions')} className={selectedTab === 'conditions' ? 'selected' : ''}>
   <FaHeart size={20} style={{ marginRight: '10px' }} /> {/* Updated icon */}
   Conditions
 </a>
@@ -347,27 +476,43 @@ const ConnectingBoard = () => {
         <FaHeartbeat size={40} style={{ color: "#EA7551" }} />
       </div>
       
-      {/* Modal content based on item type */}
-      {modalItem && modalItem.title ? (
-        // Display content for 'past-visits'
+      {/* Modal content based on item type  */}
+      {modalItem && modalItem.resource && modalItem.resource.resourceType && (
         <div>
-          <h3>{modalItem.title}</h3>
-          <p><strong>Doctor:</strong> {modalItem.doctor}</p>
-          <p><strong>Clinic:</strong> {modalItem.clinic}</p>
-          <p><strong>Date:</strong> {modalItem.date}</p>
-          <p><strong>Description:</strong> {modalItem.description}</p>
+          {(() => {
+            switch (modalItem.resource.resourceType) {
+              case 'Encounter':
+                return (
+                  <div>
+                    <h3>{modalItem.resource.type?.[0].text || "NA"}</h3>
+                    <p><strong>Doctor:</strong> {modalItem.resource.participant?.[0]?.individual?.display || "NA"}</p>
+                    <p><strong>Clinic:</strong> {modalItem.resource.location?.[0]?.location?.display || "NA"}</p>
+                    <p><strong>Date:</strong> {modalItem.resource.period?.start.split('T')[0] || "NA"}</p>
+                    {/* <p><strong>Description:</strong> {modalItem.resource.text?.div || "NA"}</p> */}
+                  </div>
+                );
+              case 'MedicationRequest':
+                return (
+                  <div>
+                    <h3>{modalItem.resource.medicationReference?.display || "NA"}</h3>
+                    {/* <p><strong>Dosage:</strong> {modalItem.resource.dosageInstruction?.[0]?.text || "NA"}</p> */}
+                    <p><strong>Date:</strong> {modalItem.resource.authoredOn || "NA"}</p>
+                    <p><strong>Directions:</strong> {modalItem.resource.dosageInstruction?.[0]?.text || "NA"}</p>
+                  </div>
+                );
+              case 'AllergyIntolerance':
+                return (
+                  <div>
+                    <h3>{modalItem.resource.code?.coding?.[0].display || "NA"}</h3>
+                    <p><strong>Reaction:</strong> {modalItem.resource.reaction?.[0]?.manifestation?.[0]?.text || "NA"}</p>
+                  </div>
+                );
+              default:
+                return null;
+            }
+          })()}
         </div>
-      ) : modalItem && modalItem.name ? (
-        // Display content for 'medications'
-        <div>
-          <h3>{modalItem.name}</h3>
-          <p><strong>Dosage:</strong> {modalItem.dosage}</p>
-          <p><strong>Date:</strong> {modalItem.date}</p>
-          <p><strong>Directions:</strong> {modalItem.directions}</p>
-        </div>
-      ) : null}
-
-      {/* Close Modal Button */}
+      )}
       <button onClick={closeModal}>Close</button>
     </div>
   </div>
