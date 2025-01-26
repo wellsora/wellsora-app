@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid"; // Install 'uuid' package using `npm install uuid`
-import LocationInput from "./PlaceAutocomplete/LocationInput";
+import LocationInput from "./PlaceAutocomplete/LocationInput"; // Ensure this is a valid component
+
 const Modal = ({ isVisible, onClose }) => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -10,7 +11,7 @@ const Modal = ({ isVisible, onClose }) => {
     location: "",
     date: "",
     time: "",
-    service: "Transport", // Add a default value for the services dropdown
+    service: "Transport", // Default value for services dropdown
   });
 
   const handleInputChange = (e) => {
@@ -29,19 +30,21 @@ const Modal = ({ isVisible, onClose }) => {
   };
 
   const handleSave = (e) => {
-    e.preventDefault(); // Prevent default form submission
-    const uniqueId = uuidv4(); // Generate a unique ID
+    e.preventDefault(); // Prevent form submission
 
+    const uniqueId = uuidv4(); // Generate a unique ID
     const savedData = { id: uniqueId, ...formData };
 
     // Retrieve existing data from local storage or initialize an empty array
     const existingData = JSON.parse(localStorage.getItem("formEntries")) || [];
+
     // Save the new data with the unique ID
     localStorage.setItem(
       "formEntries",
       JSON.stringify([...existingData, savedData])
     );
-    onClose(); // Close the modal
+
+    onClose(); // Close the modal after saving the data
   };
 
   if (!isVisible) return null;
@@ -93,32 +96,21 @@ const Modal = ({ isVisible, onClose }) => {
             </button>
             <button
               type="button"
-              className={`btn ${
-                formData.status === "In Progress" ? "active" : ""
-              }`}
+              className={`btn ${formData.status === "In Progress" ? "active" : ""}`}
               onClick={() => handleStatusClick("In Progress")}
             >
               In Progress
             </button>
             <button
               type="button"
-              className={`btn ${
-                formData.status === "Resolved" ? "active" : ""
-              }`}
+              className={`btn ${formData.status === "Resolved" ? "active" : ""}`}
               onClick={() => handleStatusClick("Resolved")}
             >
               Resolved
             </button>
           </div>
 
-          {/* <input
-            type="text"
-            name="location"
-            placeholder="Location"
-            value={formData.location}
-            onChange={handleInputChange}
-          /> */}
-
+          {/* LocationInput component */}
           <LocationInput formData={formData} setFormData={setFormData} />
 
           <div className="datetime-section">

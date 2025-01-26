@@ -56,7 +56,7 @@ const Dashboard = () => {
     const currentYear = today.getFullYear();
     const currentDay = today.getDate();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
+     console.log()
     // Load data from localStorage
     useEffect(() => {
         const loadData = () => {
@@ -165,9 +165,9 @@ const Dashboard = () => {
 
     const getStatusColor = (status) => {
         switch(status) {
-            case 'New': return { bg: '#FFCF331A', color: '#FFCF33' };
-            case 'In Progress': return { bg: '#33FF521A', color: '#009B01B0' };
-            default: return { bg: '#FB54571A', color: '#FF0005' };
+            case 'New': return { bg: '#FB54571A', color: '#FF0005' };
+            case 'In Progress': return { bg: '#FFCF331A', color: '#FFCF33' };
+            default: return { bg: '#33FF521A', color: '#009B01B0' };
         }
     };
 
@@ -231,7 +231,7 @@ const handleCloseModal = () => {
         <div className='dash-container'>
             <div className="left-container">
                 <div className='dash-logo'>
-                   <span className="logo">Wellsora+</span>
+                   <span className="logo">Wellsora</span>
                    {/* <img className='logo' src={logoimage} alt="" /> */}
                 </div>
                 <div className="buttons-container">
@@ -394,14 +394,18 @@ const handleCloseModal = () => {
                         {eventlist.length > 0 ? (
                             eventlist.map((event, index) => (
                                 <tr key={index}>
-                                    <td>
-                                        <div style={{ display: "flex", flexDirection: "column" }} className="sch">
-                                            <span>{event.date}</span>
-                                            <span style={{ fontSize: "12px", color: "#777" }}>
-                                                {event.time}
-                                            </span>
-                                        </div>
-                                    </td>
+                                   <td>
+  <div style={{ display: "flex", flexDirection: "column" }} className="sch">
+    {/* Format the date */}
+    <span>{new Date(event.date).toLocaleDateString()}</span>
+    
+    {/* Format the time (ensure it's 12-hour format with AM/PM) */}
+    <span style={{ fontSize: "12px", color: "#777" }}>
+      {new Date(`1970-01-01T${event.time}Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
+    </span>
+  </div>
+</td>
+
                                     <td>
                                         {event.appointmentName}
                                         <div style={{ fontSize: "12px", color: "#777" }}>

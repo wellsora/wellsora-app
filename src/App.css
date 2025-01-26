@@ -35,8 +35,12 @@
   align-content: center;
   flex-direction: row;
 }
-.logo{
+.logo {
   width: 100%;
+  color: white;
+  text-align: center;
+  font-size: 3em;
+  font-weight: 600;
 }
 /* Container styling */
 .buttons-container {
@@ -538,7 +542,7 @@
   overflow-x: auto;
   background-color: #fff;
   width: 100%;
-  width: 58em;
+  width: 65em;
 }
 
 .table-container h2 {
@@ -547,7 +551,7 @@
 }
 
 .table {
-  width: 63em;
+  width: 75em;
   border-collapse: collapse;
   text-align: left;
   font-size: 14px;
