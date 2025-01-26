@@ -231,7 +231,8 @@ const handleCloseModal = () => {
         <div className='dash-container'>
             <div className="left-container">
                 <div className='dash-logo'>
-                    <img className='logo' src={logoimage} alt="" />
+                   <span className="logo">Wellsora+</span>
+                   {/* <img className='logo' src={logoimage} alt="" /> */}
                 </div>
                 <div className="buttons-container">
                 <div className="nav-left-buttons-container">

@@ -172,7 +172,7 @@ const ConnectingBoard = () => {
     <div className='dash-container'>
       <div className="left-container">
         <div className='dash-logo'>
-          <img className='logo' src={logoimage} alt="" />
+          {/* <img className='logo' src={logoimage} alt="" /> */}
         </div>
          <div className="buttons-container">
                   <div className="nav-left-buttons-container">
@@ -241,7 +241,7 @@ const ConnectingBoard = () => {
         <div className='inner-c'>
           <div className="right-header">
             <div style={{ width: "40%" }} className="header-left-container">
-              <span className="Title-name">Connecting board</span>
+              <span className="Title-name">Connecting Records</span>
             </div>
             <div className="header-right-container">
               <div className="header-bar">

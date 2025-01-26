@@ -418,7 +418,7 @@ const Benefits = () => {
     <div className="dash-container">
       <div className="left-container">
         <div className="dash-logo">
-          <img className='logo' src={logoimage} alt="" />
+          {/* <img className='logo' src={logoimage} alt="" /> */}
         </div>
         <div className="buttons-container">
           <div className="nav-left-buttons-container">
