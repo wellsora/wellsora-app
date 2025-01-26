@@ -12,7 +12,6 @@ import { FaHeartbeat } from "react-icons/fa";
 import { MdLocalHospital } from "react-icons/md";
 import Cookies from "js-cookie"; // Import js-cookie
 
-
 const Benefits = () => {
   const [isModalOpen, setModalOpen] = useState(false); // Connect Insurance Modal
   const [isInsuranceChosen, setInsuranceChosen] = useState(false); // Choose Insurance Modal
@@ -259,108 +258,90 @@ const Benefits = () => {
     
       {/* Connect Insurance Modal */}
       {isModalOpen && (
-        <div className="ins-modal-overlay">
-          <div className="svg-model">
-          <svg
-            width="102"
-            height="132"
-            viewBox="0 0 102 132"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M114.412 -14C127.912 -14 139.219 -8.99815 148.331 1.00556C157.444 11.0093 162 22.9056 162 36.6944C162 39.1278 161.865 41.5273 161.595 43.8931C161.325 46.2588 160.852 48.5907 160.178 50.8889H109.552L95.7825 30.2056C95.1075 29.1241 94.1625 28.2454 92.9475 27.5694C91.7325 26.8935 90.45 26.5556 89.1 26.5556C87.345 26.5556 85.7588 27.0963 84.3412 28.1778C82.9238 29.2593 81.945 30.6111 81.405 32.2333L70.47 65.0833L63.3825 54.5389C62.7075 53.4574 61.7625 52.5787 60.5475 51.9028C59.3325 51.2269 58.05 50.8889 56.7 50.8889H1.8225C1.1475 48.5907 0.675 46.2588 0.405 43.8931C0.135 41.5273 0 39.1954 0 36.8972C0 22.9731 4.5225 11.0093 13.5675 1.00556C22.6125 -8.99815 33.885 -14 47.385 -14C53.865 -14 59.9738 -12.7157 65.7113 -10.1472C71.4488 -7.5787 76.545 -3.9963 81 0.599999C85.32 -3.9963 90.3487 -7.5787 96.0863 -10.1472C101.824 -12.7157 107.933 -14 114.412 -14ZM81 132C78.57 132 76.2412 131.561 74.0137 130.682C71.7862 129.803 69.795 128.485 68.04 126.728L13.77 72.1806C12.96 71.3694 12.2175 70.5583 11.5425 69.7472C10.8675 68.9361 10.1925 68.0574 9.5175 67.1111H52.245L66.015 87.7944C66.69 88.8759 67.635 89.7546 68.85 90.4305C70.065 91.1065 71.3475 91.4444 72.6975 91.4444C74.4525 91.4444 76.0725 90.9037 77.5575 89.8222C79.0425 88.7407 80.055 87.3889 80.595 85.7667L91.53 52.9167L98.415 63.4611C99.225 64.5426 100.238 65.4213 101.452 66.0972C102.668 66.7731 103.95 67.1111 105.3 67.1111H152.28L150.255 69.5444L148.23 71.9778L93.7575 126.728C92.0025 128.485 90.045 129.803 87.885 130.682C85.725 131.561 83.43 132 81 132Z"
-              fill="#4CA7A8"
-              fill-opacity="0.12"
-            />
-          </svg>
+  <div className="ins-modal-overlay">
+      <div className="img-absolute">
+            <svg
+              width="96"
+              height="122"
+              viewBox="0 0 96 122"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M114.412 -24C127.912 -24 139.219 -18.9981 148.331 -8.99444C157.444 1.00926 162 12.9056 162 26.6944C162 29.1278 161.865 31.5273 161.595 33.8931C161.325 36.2588 160.852 38.5907 160.178 40.8889H109.552L95.7825 20.2056C95.1075 19.1241 94.1625 18.2454 92.9475 17.5694C91.7325 16.8935 90.45 16.5556 89.1 16.5556C87.345 16.5556 85.7588 17.0963 84.3412 18.1778C82.9238 19.2593 81.945 20.6111 81.405 22.2333L70.47 55.0833L63.3825 44.5389C62.7075 43.4574 61.7625 42.5787 60.5475 41.9028C59.3325 41.2269 58.05 40.8889 56.7 40.8889H1.8225C1.1475 38.5907 0.675 36.2588 0.405 33.8931C0.135 31.5273 0 29.1954 0 26.8972C0 12.9731 4.5225 1.00926 13.5675 -8.99444C22.6125 -18.9981 33.885 -24 47.385 -24C53.865 -24 59.9738 -22.7157 65.7113 -20.1472C71.4488 -17.5787 76.545 -13.9963 81 -9.4C85.32 -13.9963 90.3487 -17.5787 96.0863 -20.1472C101.824 -22.7157 107.933 -24 114.412 -24ZM81 122C78.57 122 76.2412 121.561 74.0137 120.682C71.7862 119.803 69.795 118.485 68.04 116.728L13.77 62.1806C12.96 61.3694 12.2175 60.5583 11.5425 59.7472C10.8675 58.9361 10.1925 58.0574 9.5175 57.1111H52.245L66.015 77.7944C66.69 78.8759 67.635 79.7546 68.85 80.4305C70.065 81.1065 71.3475 81.4444 72.6975 81.4444C74.4525 81.4444 76.0725 80.9037 77.5575 79.8222C79.0425 78.7407 80.055 77.3889 80.595 75.7667L91.53 42.9167L98.415 53.4611C99.225 54.5426 100.238 55.4213 101.452 56.0972C102.668 56.7731 103.95 57.1111 105.3 57.1111H152.28L150.255 59.5444L148.23 61.9778L93.7575 116.728C92.0025 118.485 90.045 119.803 87.885 120.682C85.725 121.561 83.43 122 81 122Z"
+                fill="#4CA7A8"
+                fill-opacity="0.12"
+              />
+            </svg>
+          </div>
+    <div className="ins-modal-content">
+      <h2 className="ins-modal-title">Connect Insurance</h2>
+      <p className="ins-modal-description">
+        Access all your insurance in one place
+      </p>
+      <div className="ins-modal-actions">
+        <button
+          className="ins-btn-primary"
+          onClick={openChooseInsuranceModal}
+        >
+          Choose Insurance
+        </button>
+        <button className="ins-btn-secondary" onClick={closeModal}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+{isInsuranceChosen && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+    <div className="img-absolute">
+            <svg
+              width="96"
+              height="122"
+              viewBox="0 0 96 122"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M114.412 -24C127.912 -24 139.219 -18.9981 148.331 -8.99444C157.444 1.00926 162 12.9056 162 26.6944C162 29.1278 161.865 31.5273 161.595 33.8931C161.325 36.2588 160.852 38.5907 160.178 40.8889H109.552L95.7825 20.2056C95.1075 19.1241 94.1625 18.2454 92.9475 17.5694C91.7325 16.8935 90.45 16.5556 89.1 16.5556C87.345 16.5556 85.7588 17.0963 84.3412 18.1778C82.9238 19.2593 81.945 20.6111 81.405 22.2333L70.47 55.0833L63.3825 44.5389C62.7075 43.4574 61.7625 42.5787 60.5475 41.9028C59.3325 41.2269 58.05 40.8889 56.7 40.8889H1.8225C1.1475 38.5907 0.675 36.2588 0.405 33.8931C0.135 31.5273 0 29.1954 0 26.8972C0 12.9731 4.5225 1.00926 13.5675 -8.99444C22.6125 -18.9981 33.885 -24 47.385 -24C53.865 -24 59.9738 -22.7157 65.7113 -20.1472C71.4488 -17.5787 76.545 -13.9963 81 -9.4C85.32 -13.9963 90.3487 -17.5787 96.0863 -20.1472C101.824 -22.7157 107.933 -24 114.412 -24ZM81 122C78.57 122 76.2412 121.561 74.0137 120.682C71.7862 119.803 69.795 118.485 68.04 116.728L13.77 62.1806C12.96 61.3694 12.2175 60.5583 11.5425 59.7472C10.8675 58.9361 10.1925 58.0574 9.5175 57.1111H52.245L66.015 77.7944C66.69 78.8759 67.635 79.7546 68.85 80.4305C70.065 81.1065 71.3475 81.4444 72.6975 81.4444C74.4525 81.4444 76.0725 80.9037 77.5575 79.8222C79.0425 78.7407 80.055 77.3889 80.595 75.7667L91.53 42.9167L98.415 53.4611C99.225 54.5426 100.238 55.4213 101.452 56.0972C102.668 56.7731 103.95 57.1111 105.3 57.1111H152.28L150.255 59.5444L148.23 61.9778L93.7575 116.728C92.0025 118.485 90.045 119.803 87.885 120.682C85.725 121.561 83.43 122 81 122Z"
+                fill="#4CA7A8"
+                fill-opacity="0.12"
+              />
+            </svg>
           </div>
 
-          <div className="ins-modal-content">
-          <div className="modal-header">
-                          <FaHeartbeat
-                            size={40}
-                            style={{ color: "#EA7551", fontSize: "1em" }}
-                          />
-             </div>
-            <h2 className="ins-modal-title">Connect Insurance</h2>
-            <p className="ins-modal-description">
-              Access your all insurance in one place
-            </p>
-            <div className="ins-modal-actions">
-              <button
-                className="ins-btn-primary"
-                onClick={openChooseInsuranceModal}
-              >
-                Choose Insurance
-              </button>
-              <button className="ins-btn-secondary" onClick={closeModal}>
-                Cancel
-              </button>
+      <h2 className="ins-modal-title">Choose Your Insurance</h2>
+      <p className="ins-modal-description">
+        Choose your insurance from the list below.
+      </p>
+      <div className="ins-list-container">
+        {["HealthGuard", "MediSafe", "SecureCare", "FamilyShield"].map(
+          (insurance) => (
+            <div
+              key={insurance}
+              className="ins-list-item"
+              onClick={() => handleSelectInsurance(insurance)}
+            >
+              {insurance}
             </div>
-            <div className="ins-secure-badge">
-              <span>
-              <TbVaccine size={20} />
-              <span>HIPP Secure</span>
-              </span>
-              <span>Encrypted</span>
-            </div>
-          
-          </div>
-        </div>
-      )}
+          )
+        )}
+      </div>
+      <div className="ins-modal-actions">
+        <button
+          className="ins-btn-secondary"
+          onClick={closeChooseInsuranceModal}
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
-      {/* Choose Insurance Modal */}
-      {isInsuranceChosen && (
-        <div className="ins-modal-overlay">
-          <div className="svg-model">
-          <svg
-            width="102"
-            height="132"
-            viewBox="0 0 102 132"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M114.412 -14C127.912 -14 139.219 -8.99815 148.331 1.00556C157.444 11.0093 162 22.9056 162 36.6944C162 39.1278 161.865 41.5273 161.595 43.8931C161.325 46.2588 160.852 48.5907 160.178 50.8889H109.552L95.7825 30.2056C95.1075 29.1241 94.1625 28.2454 92.9475 27.5694C91.7325 26.8935 90.45 26.5556 89.1 26.5556C87.345 26.5556 85.7588 27.0963 84.3412 28.1778C82.9238 29.2593 81.945 30.6111 81.405 32.2333L70.47 65.0833L63.3825 54.5389C62.7075 53.4574 61.7625 52.5787 60.5475 51.9028C59.3325 51.2269 58.05 50.8889 56.7 50.8889H1.8225C1.1475 48.5907 0.675 46.2588 0.405 43.8931C0.135 41.5273 0 39.1954 0 36.8972C0 22.9731 4.5225 11.0093 13.5675 1.00556C22.6125 -8.99815 33.885 -14 47.385 -14C53.865 -14 59.9738 -12.7157 65.7113 -10.1472C71.4488 -7.5787 76.545 -3.9963 81 0.599999C85.32 -3.9963 90.3487 -7.5787 96.0863 -10.1472C101.824 -12.7157 107.933 -14 114.412 -14ZM81 132C78.57 132 76.2412 131.561 74.0137 130.682C71.7862 129.803 69.795 128.485 68.04 126.728L13.77 72.1806C12.96 71.3694 12.2175 70.5583 11.5425 69.7472C10.8675 68.9361 10.1925 68.0574 9.5175 67.1111H52.245L66.015 87.7944C66.69 88.8759 67.635 89.7546 68.85 90.4305C70.065 91.1065 71.3475 91.4444 72.6975 91.4444C74.4525 91.4444 76.0725 90.9037 77.5575 89.8222C79.0425 88.7407 80.055 87.3889 80.595 85.7667L91.53 52.9167L98.415 63.4611C99.225 64.5426 100.238 65.4213 101.452 66.0972C102.668 66.7731 103.95 67.1111 105.3 67.1111H152.28L150.255 69.5444L148.23 71.9778L93.7575 126.728C92.0025 128.485 90.045 129.803 87.885 130.682C85.725 131.561 83.43 132 81 132Z"
-              fill="#4CA7A8"
-              fill-opacity="0.12"
-            />
-          </svg>
-          </div>
-          <div className="ins-modal-content">
-            <div className="icons-center">
-          <MdLocalHospital size={50} style={{ color: "#EA7551", fontSize: "1em" }}/>
-
-            </div>
-            <h2 className="ins-modal-title">Choose your Insurance</h2>
-            <p className="ins-modal-description">
-              Choose your insurance from these to connect your
-            </p>
-            <div className="ins-list-container">
-              {["HealthGuard", "MediSafe", "SecureCare", "FamilyShield"].map(
-                (insurance) => (
-                  <div
-                    key={insurance}
-                    className="ins-list-item"
-                    onClick={() => handleSelectInsurance(insurance)}
-                  >
-                    {insurance}
-                  </div>
-                )
-              )}
-            </div>
-            <div className="ins-modal-actions">
-              <button
-                className="ins-btn-secondary"
-                onClick={closeChooseInsuranceModal}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
  {modalState.open && modalState.benefit && (
   <div className="modal-overlay">
     <div className="modal-content">

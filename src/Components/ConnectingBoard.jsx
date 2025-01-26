@@ -1,18 +1,13 @@
 import React, { useState } from 'react';
-import { FaBell } from 'react-icons/fa';
+import { FaBell, FaHeartbeat } from 'react-icons/fa';
 import { HiDotsVertical } from 'react-icons/hi';
 import { FaClipboardList, FaPills, FaAllergies, FaUserFriends, FaHeart } from 'react-icons/fa';
 import logoimage from "../assets/logoimage.svg";
-import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'react-icons/fa'; // Icons from react-icons
-import { BsHeartPulseFill } from 'react-icons/bs'; // Another icon from react-icons
-import { IoIosStats } from 'react-icons/io'; // Stats icon from react-icons
+import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'react-icons/fa';
+import { BsHeartPulseFill } from 'react-icons/bs';
+import { IoIosStats } from 'react-icons/io';
 import { TbLogout2 } from "react-icons/tb";
-import Dashboard_left from "./dash-right";
-import Sorahealth from "./SoraHealth";
-import Privacy from './Privacy';
-import Benefits from './Benefits';
-import { Caregiver } from './Caregiver';
-import Settings from "./Settings"
+import "../App.css";
 
 // Dummy data for each section
 const dummyData = {
@@ -32,33 +27,13 @@ const dummyData = {
 
 const ConnectingBoard = () => {
   const [selectedTab, setSelectedTab] = useState('past-visits');
-  const [showModal, setShowModal] = useState(false);
+  const [showInsuranceModal, setShowInsuranceModal] = useState(false);
+  const [showStep1Modal, setShowStep1Modal] = useState(false); // Step 1 Modal
+  const [showStep2Modal, setShowStep2Modal] = useState(false); // Step 2 Modal
+  const [showStep3Modal, setShowStep3Modal] = useState(false); // Step 3 Modal
+  const [showModal, setShowModal] = useState(false); // Modal state to show content
   const [modalItem, setModalItem] = useState(null); // Store the item clicked for options
-  const [activeScreen, setActiveScreen] = useState("Connecting Records");
-
-    const renderActiveScreen = () => {
-        switch (activeScreen) {
-            case "Dashboard":
-                return <Dashboard_left />;
-            case "Sora Health":
-                return <Sorahealth />;
-            case "Connecting Records":
-                return <ConnectingBoard />;
-            case "Benefits":
-                return <Benefits />;
-            case "Find a Caregiver":
-                return <Caregiver/>;
-            case "Setting":
-                return <Settings/>;
-            case "Privacy Policy":
-                return <Privacy />;
-            default:
-                return <div>Select a section</div>;
-        }
-    };
-
-    // Function to check if the button is the active one
-    const isActive = (screen) => activeScreen === screen ? 'active-button' : '';
+  const [selectedProvider, setSelectedProvider] = useState(null); // Track selected provider
 
   // Handle tab selection
   const handleTabClick = (tab) => {
@@ -67,14 +42,38 @@ const ConnectingBoard = () => {
 
   // Open modal for specific item
   const openModal = (item) => {
-    setModalItem(item);
-    setShowModal(true);
+    setModalItem(item);  // Set the item that was clicked (e.g., a medication or visit)
+    setShowModal(true);   // Show the modal
   };
 
   // Close modal
   const closeModal = () => {
-    setShowModal(false);
-    setModalItem(null);
+    setShowModal(false); // Close the modal
+    setModalItem(null);   // Reset the modal item
+  };
+
+  // Insurance Modal Logic
+  const openInsuranceModal = () => setShowInsuranceModal(true);
+  const closeInsuranceModal = () => setShowInsuranceModal(false);
+
+  const handleConfirmInsurance = () => {
+    setShowInsuranceModal(false);
+    setShowStep1Modal(true); // Step 1 Modal appears
+  };
+
+  const handleConfirmStep1 = () => {
+    setShowStep1Modal(false);
+    setShowStep2Modal(true); // Step 2 Modal appears
+  };
+
+  const handleConfirmStep2 = () => {
+    setShowStep2Modal(false);
+    setShowStep3Modal(true); // Step 3 Modal appears
+  };
+
+  const handleConfirmStep3 = () => {
+    setShowStep3Modal(false);
+    alert('All steps completed!');
   };
 
   // Render tab content
@@ -133,184 +132,153 @@ const ConnectingBoard = () => {
             ))}
           </div>
         );
-      case 'care-team':
-        return (
-          <div className='main-d'>
-            <h3>Care Team</h3>
-            {dummyData['care-team'].map((teamMember, index) => (
-              <div className='item-c' key={index}>
-                <div className="r">
-                  <img src="" alt="" />
-                  <p>{teamMember}</p>
-                </div>
-                <div className="l">
-                  <button onClick={() => openModal(teamMember)}>Contact</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        );
-      case 'conditions':
-        return (
-          <div className='main-d'>
-            <h3>Conditions</h3>
-            {dummyData.conditions.map((condition, index) => (
-              <div className='item-c' key={index}>
-                <div className="r">
-                  <p>{condition}</p>
-                </div>
-                <div className="l">
-                  <button onClick={() => openModal(condition)}>View Details</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        );
       default:
         return null;
     }
   };
 
   return (
-
     <div className='dash-container'>
-    <div className="left-container">
+      <div className="left-container">
         <div className='dash-logo'>
-            <img className='logo' src={logoimage} alt="" />
+          <img className='logo' src={logoimage} alt="" />
         </div>
         <div className="buttons-container">
-            <div className="nav-left-buttons-container">
-                <ul>
-                    <li onClick={() => setActiveScreen("Dashboard")} className={`nav-button ${isActive("Dashboard")}`}>
-                        <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
-                        Dashboard
-                    </li>
-                    <li onClick={() => setActiveScreen("Sora Health")} className={`nav-button ${isActive("Sora Health")}`}>
-                        <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-                        Sora Health
-                    </li>
-                    <li onClick={() => setActiveScreen("Connecting Records")} className={`nav-button ${isActive("Connecting Records")}`}>
-                        <IoIosStats size={20} style={{ marginRight: '10px' }} />
-                        Connecting Records
-                    </li>
-                    <li onClick={() => setActiveScreen("Benefits")} className={`nav-button ${isActive("Benefits")}`}>
-                        <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
-                        Benefits
-                    </li>
-                    <li onClick={() => setActiveScreen("Find a Caregiver")} className={`nav-button ${isActive("Find a Caregiver")}`}>
-                        <FaSearch size={20} style={{ marginRight: '10px' }} />
-                        Find a Caregiver
-                    </li>
-                </ul>
-            </div>
-            <div className="nav-bottom-buttons-container">
-                <ul style={{padding: "20px"}}>
-                    <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
-                        <FaCog size={20} style={{ marginRight: '10px' }} />
-                        Setting
-                    </li>
-                    <li onClick={() => setActiveScreen("Privacy Policy")} className={`nav-button ${isActive("Privacy Policy")}`}>
-                        <FaLock size={20} style={{ marginRight: '10px' }} />
-                        Privacy Policy
-                    </li>
-                    <li className="nav-button">
-                        <TbLogout2 size={20} style={{ marginRight: '10px' }} />
-                        Logout
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div className="right-container">
-        
-   
-
-    <div className='inner-c'>
-      {/* Header Section */}
-      <div className="right-header">
-        <div style={{ width: "40%" }} className="header-left-container">
-          <span className="Title-name">Connecting board</span>
-        </div>
-
-        <div className="header-right-container">
-          <div className="header-bar">
-            <button className="create-plan-btn">Connect your records</button>
-
-            <div className="notification-icon">
-              <FaBell />
-            </div>
-
-            <div className="profile-container">
-              <img
-                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
-                alt="User Profile"
-                className="profile-picture"
-              />
-              <HiDotsVertical style={{ fontSize: 30 }} />
-            </div>
+          <div className="nav-left-buttons-container">
+            <ul>
+              <li className={`nav-button`}>
+                <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+                Dashboard
+              </li>
+              <li className={`nav-button`}>
+                <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+                Sora Health
+              </li>
+              <li className={`nav-button`}>
+                <IoIosStats size={20} style={{ marginRight: '10px' }} />
+                Connecting Records
+              </li>
+              <li className={`nav-button`}>
+                <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+                Benefits
+              </li>
+              <li className={`nav-button`}>
+                <FaSearch size={20} style={{ marginRight: '10px' }} />
+                Find a Caregiver
+              </li>
+            </ul>
           </div>
         </div>
       </div>
 
-      {/* Navbar with Tab Selection */}
-      <div className="navbar2">
-        <a
-          href="#past-visits"
-          onClick={() => handleTabClick('past-visits')}
-          className={selectedTab === 'past-visits' ? 'selected' : ''}
-        >
-          <FaClipboardList /> Past Visits
-        </a>
-        <a
-          href="#medications"
-          onClick={() => handleTabClick('medications')}
-          className={selectedTab === 'medications' ? 'selected' : ''}
-        >
-          <FaPills /> Medications
-        </a>
-        <a
-          href="#allergies"
-          onClick={() => handleTabClick('allergies')}
-          className={selectedTab === 'allergies' ? 'selected' : ''}
-        >
-          <FaAllergies /> Allergies
-        </a>
-        <a
-          href="#care-team"
-          onClick={() => handleTabClick('care-team')}
-          className={selectedTab === 'care-team' ? 'selected' : ''}
-        >
-          <FaUserFriends /> Care Team
-        </a>
-        <a
-          href="#conditions"
-          onClick={() => handleTabClick('conditions')}
-          className={selectedTab === 'conditions' ? 'selected' : ''}
-        >
-          <FaHeart /> Conditions
-        </a>
+      <div className="right-container">
+        <div className='inner-c'>
+          <div className="right-header">
+            <div style={{ width: "40%" }} className="header-left-container">
+              <span className="Title-name">Connecting board</span>
+            </div>
+            <div className="header-right-container">
+              <div className="header-bar">
+                <button className="create-plan-btn" onClick={openInsuranceModal}>Connect your records</button>
+                <div className="notification-icon">
+                  <FaBell />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Navbar with Tab Selection */}
+          <div className="navbar2">
+            <a href="#past-visits" onClick={() => handleTabClick('past-visits')} className={selectedTab === 'past-visits' ? 'selected' : ''}>
+              <FaClipboardList /> Past Visits
+            </a>
+            <a href="#medications" onClick={() => handleTabClick('medications')} className={selectedTab === 'medications' ? 'selected' : ''}>
+              <FaPills /> Medications
+            </a>
+            <a href="#allergies" onClick={() => handleTabClick('allergies')} className={selectedTab === 'allergies' ? 'selected' : ''}>
+              <FaAllergies /> Allergies
+            </a>
+          </div>
+
+          {/* Tab Content */}
+          <div className="tab-content">{renderTabContent()}</div>
+        </div>
       </div>
 
-      {/* Tab Content */}
-      <div className="tab-content">{renderTabContent()}</div>
-
-      {/* Modal for displaying item details */}
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h4>Information</h4>
-            <p>{modalItem.visitType || modalItem.name || modalItem}</p>
-            <p>{modalItem.description || modalItem.directions || ''}</p>
-  
-            <button onClick={closeModal}>Close</button>
+      {/* Insurance Modal */}
+      {showInsuranceModal && (
+        <div className="ins-modal-overlay">
+          <div className="ins-modal-content">
+            <div className="modal-header">
+              <FaHeartbeat size={40} style={{ color: "#EA7551" }} />
+            </div>
+            <h2 className="ins-modal-title">Access all your records</h2>
+            <p className="ins-modal-description">Access your medical information in one place</p>
+            <div className="ins-modal-actions">
+              <button onClick={handleConfirmInsurance}>Connect Records</button>
+              <button onClick={closeInsuranceModal}>Cancel</button>
+            </div>
           </div>
         </div>
       )}
-    </div>
-    </div>
-</div>
 
+      {/* Step 1 Modal */}
+      {showStep1Modal && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+    <div className="modal-header">
+              <FaHeartbeat size={40} style={{ color: "#EA7551" }} />
+            </div>
+      <h2>Select your health provider</h2>
+      <p>Choose from the list of available health providers:</p>
+      <div className="health-provider-list">
+        {/* Add a list of health providers */}
+        {['HealthGuard', 'MediSafe', 'SecureCare', 'FamilyShield'].map((provider, index) => (
+          <div
+            key={index}
+            className={`health-provider-item ${selectedProvider === provider ? 'selected' : ''}`}
+            onClick={() => setSelectedProvider(provider)} // Set selected provider
+          >
+            {provider}
+          </div>
+        ))}
+      </div>
+      <button 
+        onClick={handleConfirmStep1} 
+        disabled={!selectedProvider} // Disable continue button if no provider is selected
+      >
+        Continue
+      </button>
+    </div>
+  </div>
+)}
+
+
+      {/* Step 2 Modal */}
+      {showStep2Modal && (
+        <div className="ins-modal-overlay">
+          <div className="ins-modal-content">
+          <div className="modal-header">
+              <FaHeartbeat size={40} style={{ color: "#EA7551" }} />
+            </div>
+            <h2>Connect to your Health portal</h2>
+            <button onClick={handleConfirmStep2}>Proceed</button>
+          </div>
+        </div>
+      )}
+
+      {/* Step 3 Modal */}
+      {/* {showStep3Modal && (
+        <div className="ins-modal-overlay">
+          <div className="ins-modal-content">
+            <h2>Step 3: Final Review</h2>
+            <p>Review all the details and finalize the setup.</p>
+            <button onClick={handleConfirmStep3}>Finish</button>
+            <button onClick={() => setShowStep3Modal(false)}>Cancel</button>
+          </div>
+        </div>
+      )} */}
+    </div>
   );
 };
 

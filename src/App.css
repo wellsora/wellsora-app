@@ -2215,9 +2215,8 @@ p {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin: 1.5rem 0;
+  /* margin: 1.5rem 0; */
 }
-
 .ins-list-item {
   padding: 1rem;
   border: 1px solid #ddd;
@@ -2291,4 +2290,21 @@ p {
   border-radius: 8px;
   max-width: 400px;
   width: 100%;
+}
+.health-provider-list {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.health-provider-item {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.health-provider-item.selected {
+  background-color: #f0f0f0;
+  border-color: #007bff;
 }
