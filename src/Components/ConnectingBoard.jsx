@@ -157,7 +157,7 @@ const ConnectingBoard = () => {
                   <p>{allergy}</p>
                 </div>
                 <div className="l">
-                  <button onClick={() => openModal(allergy)}>More Info</button>
+                  {/* <button onClick={() => openModal(allergy)}>More Info</button> */}
                 </div>
               </div>
             ))}
@@ -315,6 +315,49 @@ const ConnectingBoard = () => {
           </div>
         </div>
       )}
+      {showModal && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content2">
+      <div className="modal-header">
+        <FaHeartbeat size={40} style={{ color: "#EA7551" }} />
+      </div>
+      
+      {/* Modal content based on item type */}
+      {modalItem && modalItem.title ? (
+        // Display content for 'past-visits'
+        <div>
+          <h3>{modalItem.title}</h3>
+          <p><strong>Doctor:</strong> {modalItem.doctor}</p>
+          <p><strong>Clinic:</strong> {modalItem.clinic}</p>
+          <p><strong>Date:</strong> {modalItem.date}</p>
+          <p><strong>Description:</strong> {modalItem.description}</p>
+        </div>
+      ) : modalItem && modalItem.name ? (
+        // Display content for 'medications'
+        <div>
+          <h3>{modalItem.name}</h3>
+          <p><strong>Dosage:</strong> {modalItem.dosage}</p>
+          <p><strong>Date:</strong> {modalItem.date}</p>
+          <p><strong>Directions:</strong> {modalItem.directions}</p>
+        </div>
+      ) : null}
+
+      {/* Close Modal Button */}
+      <button onClick={closeModal}>Close</button>
+    </div>
+  </div>
+)}
+
+{showInsuranceModal && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+      <h2>Access all your records</h2>
+      <button onClick={handleConfirmInsurance}>Connect Records</button>
+      <button onClick={closeInsuranceModal}>Cancel</button>
+    </div>
+  </div>
+)}
+
 
       {/* Step 3 Modal */}
       {/* {showStep3Modal && (

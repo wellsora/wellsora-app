@@ -2007,7 +2007,7 @@ button {
   width: 100%;
   border: 1px solid #2E02494D;
   border-radius: 15px;
-  padding: 1%;
+  padding: 3% 1%;
 }
 .main-d{
   width: 95%;
@@ -2322,4 +2322,16 @@ p {
   padding: 0% 3%;
   border-radius: 6px;
   color: #ffffff;
+}
+.ins-modal-content2 {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  height: 17em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
