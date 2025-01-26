@@ -34,7 +34,7 @@ const ConnectingBoard = () => {
   const [selectedTab, setSelectedTab] = useState('past-visits');
   const [showModal, setShowModal] = useState(false);
   const [modalItem, setModalItem] = useState(null); // Store the item clicked for options
-  const [activeScreen, setActiveScreen] = useState("Dashboard");
+  const [activeScreen, setActiveScreen] = useState("Connecting Records");
 
     const renderActiveScreen = () => {
         switch (activeScreen) {

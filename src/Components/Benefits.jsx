@@ -12,6 +12,7 @@ import { FaHeartbeat } from "react-icons/fa";
 import { MdLocalHospital } from "react-icons/md";
 import Cookies from "js-cookie"; // Import js-cookie
 
+
 const Benefits = () => {
   const [isModalOpen, setModalOpen] = useState(false); // Connect Insurance Modal
   const [isInsuranceChosen, setInsuranceChosen] = useState(false); // Choose Insurance Modal

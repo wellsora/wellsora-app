@@ -13,7 +13,7 @@ import { Caregiver } from './Caregiver';
 import Settings from "./Settings"
 
 const Dashboard = () => {
-    const [activeScreen, setActiveScreen] = useState("Connecting Records");
+    const [activeScreen, setActiveScreen] = useState("Dashboard");
 
     const renderActiveScreen = () => {
         switch (activeScreen) {
