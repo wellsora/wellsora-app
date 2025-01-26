@@ -14,7 +14,7 @@ import Privacy from './Privacy';
 import Benefits from './Benefits';
 import { Caregiver } from './Caregiver';
 import Settings from "./Settings"
-
+import img from "../assets/image.png"
 import "../App.css";
 import { redirectToLogin } from './FhirEpic/oauthHelpers';
 import { useSearchParams } from "react-router-dom";
@@ -302,45 +302,43 @@ const handleTabClick = (tab) => {
       <div className="left-container">
         <div className='dash-logo'>
           {/* <img className='logo' src={logoimage} alt="" /> */}
+          <span className="logo">Wellsora</span>
         </div>
          <div className="buttons-container">
-                  <div className="nav-left-buttons-container">
-                    <ul>
-                      <Link to="/" className="nav-link">
+                                    <div className="nav-left-buttons-container">
+                   <ul>
+                          <Link to="/" className="nav-link">
                         <li className={`nav-button ${isActive("Dashboard")}`}>
-                          <FaRegCalendarAlt size={20} style={{ marginRight: "10px" }} />
-                          Dashboard
+                            <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+                            Dashboard
                         </li>
-                      </Link>
-                      <Link to="/sorahealth" className="nav-link">
+                          </Link>
+                          <Link to="/sorahealth" className="nav-link">
                         <li className={`nav-button ${isActive("Sora Health")}`}>
-                          <BsHeartPulseFill size={20} style={{ marginRight: "10px" }} />
-                          Sora Health
+                            <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+                            Sora Health
                         </li>
-                      </Link>
-                      <Link to="/connectingrecords" className="nav-link">
+                          </Link>
+                          <Link to="/connectingrecords" className="nav-link">
                         <li className={`nav-button ${isActive("Connecting Records")}`}>
-                          <IoIosStats size={20} style={{ marginRight: "10px" }} />
-                          Connecting Records
+                            <IoIosStats size={20} style={{ marginRight: '10px' }} />
+                            Connecting records
                         </li>
-                      </Link>
-                      <Link to="/benefits" className="nav-link">
+                          </Link>
+                          <Link to="/benefits" className="nav-link">
                         <li className={`nav-button ${isActive("Benefits")}`}>
-                          <FaHandHoldingHeart
-                            size={20}
-                            style={{ marginRight: "10px" }}
-                          />
-                          Benefits
+                            <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+                            Benefits
                         </li>
-                      </Link>
-                      <Link to="/findcaregiver" className="nav-link">
+                          </Link>
+                          <Link to="/findcaregiver" className="nav-link">
                         <li className={`nav-button ${isActive("Find a Caregiver")}`}>
-                          <FaSearch size={20} style={{ marginRight: "10px" }} />
-                          Find a Caregiver
+                            <FaSearch size={20} style={{ marginRight: '10px' }} />
+                            Find a caregiver
                         </li>
-                      </Link>
-                    </ul>
-                  </div>
+                          </Link>
+                      </ul>
+                 </div>
                   <div className="nav-bottom-buttons-container">
                     <ul style={{ padding: "20px" }}>
                       <li
@@ -368,19 +366,43 @@ const handleTabClick = (tab) => {
 
       <div className="right-container">
         <div className='inner-c'>
-          <div className="right-header">
-            <div style={{ width: "40%" }} className="header-left-container">
-              <span className="Title-name">Connecting Records</span>
-            </div>
-            <div className="header-right-container">
-              <div className="header-bar">
-                <button className="create-plan-btn" onClick={openInsuranceModal}>Connect your records</button>
-                <div className="notification-icon">
-                  <FaBell />
+        <div className="right-header">
+                    <div className="header-left-container">
+                        <span className="name">Medical records</span>
+                        
+                    </div>
+                    <div className="header-right-container">
+                        <div className="header-bar">
+                            {/* Left Button */}
+                            <button  onClick={openInsuranceModal} className="create-plan-btn">Connect records</button>
+
+                            {/* Search Input */}
+                            {/* <div className="search-container">
+                                <FaSearch className="search-icon" />
+                                <input
+                                    type="text"
+                                    className="search-input"
+                                    placeholder="search activity"
+                                />
+                            </div> */}
+
+                            {/* Notification Icon */}
+                            <div className="notification-icon">
+                                <FaBell />
+                            </div>
+
+
+                            {/* Profile Section */}
+                            <div className="profile-container">
+                                <img
+                                    src={img}
+                                    alt="User Profile"
+                                    className="profile-picture"
+                                /><HiDotsVertical style={50} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
           {/* Navbar with Tab Selection */}
           <div className="navbar2">

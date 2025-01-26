@@ -127,16 +127,14 @@
   font-size: 12px;
   color: #2E02494D;
 }
-
 .header-bar {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   background-color: #fff;
   padding: 10px 20px;
-  /* border: 1px solid #e0e0e0; */
   border-radius: 8px;
-  gap: 6px;
+  gap: 24px;
 }
 .main-dashboard{
   display: flex;
@@ -171,7 +169,10 @@
 .table-container {
   width: 100%;
 }
-
+.three-dots {
+  display: flex;
+  justify-content: flex-end;
+}
 .name-container {
   display: flex;
   flex-direction: row;
@@ -227,14 +228,15 @@
   background-color: #f9f9f9;
 }
 .overlflow-control {
-  max-height: 457px;
+  max-height: 595px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0px;
   gap: 16px;
-  justify-content: flex-end;
+  justify-content: center;
   align-content: flex-start;
+  align-items: center;
 }
 .category-details {
   width: 49%;
@@ -263,7 +265,7 @@
   align-items: center;
   background-color: #f8f8f8;
   border-radius: 4px;
-  padding: 9px 6px;
+  padding: 9px 13px;
   width: 35%;
 }
 
@@ -282,17 +284,18 @@
 }
 
 .notification-icon {
-  font-size: 25px;
   color: #007f97;
   cursor: pointer;
   background-color: #f8f8f8;
   padding: 0% 2% 0% 2%;
   border-radius: 52px;
-  height: 41px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   align-content: center;
+  width: 50px;
+  font-size: 2em;
 }
 
 .profile-container {
@@ -302,12 +305,11 @@
 }
 
 .profile-picture {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   margin-right: 10px;
 }
-
 .profile-info {
   display: flex;
   flex-direction: column;
@@ -371,7 +373,7 @@
 /* Calendar container styles */
 .calendar {
   display: flex;
-  gap: 30px;
+  gap: 40px;
   padding: 20px;
   justify-content: start;
   flex-wrap: nowrap;
@@ -569,6 +571,7 @@
   padding: 10px;
   border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
+  font-size: 16px;
 }
 
 .table tr:nth-child(even) {
@@ -702,7 +705,7 @@
 }
 .accordion {
   width: 88%;
-  margin: 0 auto;
+  margin: 25px 104px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   overflow: auto;
@@ -752,28 +755,47 @@ details summary {
   color: #4a4a4a;
   background-color: #ffffff;
 }
+.search {
+  background-color: #007f97;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 13px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 16%;
+  font-weight: 500;
+}
 details[open] .expand-icon {
   color: #ffffffff;
   width: 28px;
-  /* display: flex
-; */
+  display: flex;
   align-content: center;
-  /* justify-content: center; */
-  /* align-items: center; */
   background-color: #1B779B;
   border-radius: 35px;
   flex-direction: column;
   flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
 .expand-icon {
-  font-size: 20px;
-  color: #b5b5b5;
-  display: flex
-;
-  align-items: center;
-  justify-content: center;
+  color: #ffffffff;
+  width: 30px;
+  display: flex;
   align-content: center;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: #1B779B;
+  border-radius: 35px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  position: relative;
+  right: 2px;
+  font-size: 23px;
+  height: 30px;
 }
+
+
 
 summary:hover {
   background-color: #f1faff;
@@ -811,23 +833,6 @@ summary:hover {
   text-decoration: underline;
 }
 
-.buttons {
-  display: flex;
-  gap: 10px;
-  padding: 22px 24px;
-}
-
-.buttons button {
-  padding: 11px 15px;
-  border: none;
-  border-radius: 4px;
-  background-color: #1B779B;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 20%;
-}
 
 /* .buttons button:hover {
   background-color: #1B779B;
@@ -1342,13 +1347,13 @@ summary::-webkit-details-marker {
 .question {
   display: flex;
   flex-direction: column;
-  gap: 19px;
-  border: 1px solid #2E02494D;
+  /* gap: 19px; */
+  border: 1px solid #1B779B;
   padding: 2%;
   border-radius: 18px;
   width: 100%;
+  margin-top: 25px;
 }
-
 .number-q {
   font-size: xx-large;
   color: #1B779B;
@@ -1365,12 +1370,13 @@ summary::-webkit-details-marker {
   display: flex;
   flex-direction: column;
   font-weight: 500;
+  font-size: 30px;
 }
-
 .text2 {
   font-weight: 400;
   color: #2E02494D;
   font-style: italic;
+  font-size: 19px;
 }
 
 .options {
@@ -1397,23 +1403,22 @@ summary::-webkit-details-marker {
   border-radius: 18px;
   width: 100%;
 }
-.final-button{
-    display: flex;
-    justify-content: flex-end;
-    margin: 7px 23px;
-    
+.final-button {
+  display: flex;
+  justify-content: flex-end;
+  margin: -4px 29px;
 }
 .option-button {
   background-color: #f0f0f0;
   color: #2E02494D;
-  font-size: 1em;
+  font-size: 0.81em;
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #2E02494D;
   cursor: pointer;
   transition: background-color 0.3s ease;
   background: white;
-  /* width: 100%; */
+  width: 23%;
   text-align: left;
   font-weight: 500;
 }
@@ -1425,13 +1430,14 @@ summary::-webkit-details-marker {
 
 
 .next-button {
-  background-color: #1B779B;
-  font-family: 'DM Sans';
-  padding: 1% 6%;
-  border-radius: 8px;
+  background-color: #007f97;
+  color: #fff;
   border: none;
-  color: white;
-  font-size: 1em;
+  border-radius: 4px;
+  padding: 13px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  width: 16%;
   font-weight: 500;
 }
 /* Modal Overlay */
@@ -1515,6 +1521,7 @@ p {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-top: 25px;
   align-content: center;
 }
 
@@ -1522,7 +1529,7 @@ p {
   background-color: #EFF8FC;
   border-radius: 10px;
   padding: 2%;
-  width: 88%;
+  width: 93%;
   font-size: 1em;
   color: #9E9E9E;
 }
@@ -1547,9 +1554,10 @@ p {
   flex-wrap: nowrap;
   flex-direction: column;
   gap: 20px;
-  padding: 3% 5%;
-  max-height: 35em;
-  overflow: scroll;
+  padding: 0% 6%;
+  max-height: 38em;
+  overflow-y: scroll;
+  margin-top: 25px;
 }
 .right-c{
   width: 45%;
@@ -1778,16 +1786,7 @@ h3 {
   width: calc(50% - 10px);
 }
 
-.button {
-  padding: 11px 12px;
-  background-color: #1B779B;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  /* margin-top: 10px; */
-  width: 20%;
-}
+
 
 .button:hover {
   background-color:#1B779B;
@@ -2131,6 +2130,8 @@ p {
   opacity: 0.8;
 }
 
+
+
 .signup-link {
   margin-top: 20px;
   text-align: center;
@@ -2343,17 +2344,6 @@ p {
   flex-direction: column;
   justify-content: center;
   align-content: center;
-}
-.insurance-container {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  gap: 20px;
-  padding: 3% 5%;
-  max-height: 38em;
-  overflow-y: scroll; /* Allows scrolling even when the scrollbar is hidden */
 }
 
 /* Webkit-based browsers (Chrome, Safari) */

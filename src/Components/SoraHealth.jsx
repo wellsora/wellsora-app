@@ -10,7 +10,7 @@ import { TbLogout2 } from "react-icons/tb";
 import ConnectingBoard from "./ConnectingBoard";
 import Dashboard_left from "./dash-right";
 import { Link } from 'react-router-dom'; 
-
+import img from "../assets/image.png"
 import Privacy from './Privacy';
 import Benefits from './Benefits';
 import { Caregiver } from './Caregiver';
@@ -161,6 +161,7 @@ const Sorahealth = () => {
                 <div className="left-container">
                     <div className='dash-logo'>
                         {/* <img className='logo' src={logoimage} alt="" /> */}
+                        <span className="logo">Wellsora</span>
                     </div>
                     <div className="buttons-container">
                     <div className="nav-left-buttons-container">
@@ -174,13 +175,13 @@ const Sorahealth = () => {
          <Link to="/sorahealth" className="nav-link">
        <li className={`nav-button ${isActive("Sora Health")}`}>
            <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-           Sora Health
+           Sora Health+
        </li>
          </Link>
          <Link to="/connectingrecords" className="nav-link">
        <li className={`nav-button ${isActive("Connecting Records")}`}>
            <IoIosStats size={20} style={{ marginRight: '10px' }} />
-           Connecting Records
+           Connecting records
        </li>
          </Link>
          <Link to="/benefits" className="nav-link">
@@ -192,7 +193,7 @@ const Sorahealth = () => {
          <Link to="/findcaregiver" className="nav-link">
        <li className={`nav-button ${isActive("Find a Caregiver")}`}>
            <FaSearch size={20} style={{ marginRight: '10px' }} />
-           Find a Caregiver
+           Find a caregiver
        </li>
          </Link>
      </ul>
@@ -218,34 +219,55 @@ const Sorahealth = () => {
     
                 <div className="right-container">
     
-      <div style={{ gap: "112px" }} className="right-header">
-        <div style={{ width: "40%" }} className="header-left-container">
-          <span className="Title-name">Sora health+</span>
-        </div>
-        <div className="header-right-container">
-          <div className="header-bar">
-            <div className="notification-icon">
-              <FaBell />
-            </div>
-            <div className="profile-container">
-              <img
-                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
-                alt="User Profile"
-                className="profile-picture"
-              />
-              <HiDotsVertical size={20} />
-            </div>
-          </div>
-        </div>
-      </div>
+                <div className="right-header">
+                    <div className="header-left-container">
+                        <span className="name">Sora health+</span>
+                        
+                    </div>
+                    <div className="header-right-container">
+                        <div className="header-bar">
+                            {/* Left Button */}
+                            
+
+                            {/* Search Input */}
+                            {/* <div className="search-container">
+                                <FaSearch className="search-icon" />
+                                <input
+                                    type="text"
+                                    className="search-input"
+                                    placeholder="search activity"
+                                />
+                            </div> */}
+
+                            {/* Notification Icon */}
+                            <div className="notification-icon">
+                                <FaBell />
+                            </div>
+
+
+                            {/* Profile Section */}
+                            <div className="profile-container">
+                                <img
+                                    src={img}
+                                    alt="User Profile"
+                                    className="profile-picture"
+                                /><HiDotsVertical style={50} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          padding: "30px 78px",
-          width: "99%",
-          paddingBottom: "0%",
+          alignitems: "center",
+          padding: "0px 72px 0% 6%",
+          width: "98%",
+          marginTop: "25px",
+          marginBottom: "25px",
+          justifycontent:" center",
+          aligncontent: "center",
+          flexdirection: "row",
         }}
       >
         <div
@@ -279,14 +301,7 @@ const Sorahealth = () => {
         </div>
 
         <button
-          style={{
-            padding: "10px 83px",
-            backgroundColor: "#1B779B",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+         className="search "
           onClick={fetchApiData} // Call the API when the button is clicked
         >
           Search

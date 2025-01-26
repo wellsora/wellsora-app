@@ -17,6 +17,7 @@ import Modal from './Modal';
 import { HiDotsVertical } from "react-icons/hi";
 import { GoDotFill } from "react-icons/go";
 import { Link } from 'react-router-dom'; 
+import img from "../assets/image.png"
 const Dashboard = () => {
     const [activeScreen, setActiveScreen] = useState("Dashboard");
 
@@ -235,40 +236,40 @@ const handleCloseModal = () => {
                    {/* <img className='logo' src={logoimage} alt="" /> */}
                 </div>
                 <div className="buttons-container">
-                <div className="nav-left-buttons-container">
-   <ul>
-          <Link to="/" className="nav-link">
-        <li className={`nav-button ${isActive("Dashboard")}`}>
-            <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
-            Dashboard
-        </li>
-          </Link>
-          <Link to="/sorahealth" className="nav-link">
-        <li className={`nav-button ${isActive("Sora Health")}`}>
-            <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-            Sora Health
-        </li>
-          </Link>
-          <Link to="/connectingrecords" className="nav-link">
-        <li className={`nav-button ${isActive("Connecting Records")}`}>
-            <IoIosStats size={20} style={{ marginRight: '10px' }} />
-            Connecting Records
-        </li>
-          </Link>
-          <Link to="/benefits" className="nav-link">
-        <li className={`nav-button ${isActive("Benefits")}`}>
-            <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
-            Benefits
-        </li>
-          </Link>
-          <Link to="/findcaregiver" className="nav-link">
-        <li className={`nav-button ${isActive("Find a Caregiver")}`}>
-            <FaSearch size={20} style={{ marginRight: '10px' }} />
-            Find a Caregiver
-        </li>
-          </Link>
-      </ul>
-</div>
+                                               <div className="nav-left-buttons-container">
+                              <ul>
+                                     <Link to="/" className="nav-link">
+                                   <li className={`nav-button ${isActive("Dashboard")}`}>
+                                       <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+                                       Dashboard
+                                   </li>
+                                     </Link>
+                                     <Link to="/sorahealth" className="nav-link">
+                                   <li className={`nav-button ${isActive("Sora Health")}`}>
+                                       <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+                                       Sora Health
+                                   </li>
+                                     </Link>
+                                     <Link to="/connectingrecords" className="nav-link">
+                                   <li className={`nav-button ${isActive("Connecting Records")}`}>
+                                       <IoIosStats size={20} style={{ marginRight: '10px' }} />
+                                       Connecting records
+                                   </li>
+                                     </Link>
+                                     <Link to="/benefits" className="nav-link">
+                                   <li className={`nav-button ${isActive("Benefits")}`}>
+                                       <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+                                       Benefits
+                                   </li>
+                                     </Link>
+                                     <Link to="/findcaregiver" className="nav-link">
+                                   <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+                                       <FaSearch size={20} style={{ marginRight: '10px' }} />
+                                       Find a caregiver
+                                   </li>
+                                     </Link>
+                                 </ul>
+                            </div>
                     <div className="nav-bottom-buttons-container">
                         <ul style={{padding: "20px"}}>
                             <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
@@ -301,14 +302,14 @@ const handleCloseModal = () => {
                             <button onClick={handleCreateClick} className="create-plan-btn">Create New Plan</button>
 
                             {/* Search Input */}
-                            <div className="search-container">
+                            {/* <div className="search-container">
                                 <FaSearch className="search-icon" />
                                 <input
                                     type="text"
                                     className="search-input"
                                     placeholder="search activity"
                                 />
-                            </div>
+                            </div> */}
 
                             {/* Notification Icon */}
                             <div className="notification-icon">
@@ -319,7 +320,7 @@ const handleCloseModal = () => {
                             {/* Profile Section */}
                             <div className="profile-container">
                                 <img
-                                    src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
+                                    src={img}
                                     alt="User Profile"
                                     className="profile-picture"
                                 /><HiDotsVertical style={50} />
@@ -381,24 +382,24 @@ const handleCloseModal = () => {
                                         </div>
                                     </div>
                 <table className="table">
-                    <thead>
-                        <tr>
-                            <th>Scheduled date</th>
-                            <th>Activity</th>
+                    <thead style={{ fontsize: "16px"}}>
+                        <tr style={{fontsize: "20px"}}>
+                            <th style={{width:"17%"}}>Scheduled date</th>
+                            <th  style={{width:"40%"}}>Activity</th>
                             <th>Services</th>
                             <th>Caring</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style={{fontsize: "17px"}}>
                         {eventlist.length > 0 ? (
                             eventlist.map((event, index) => (
                                 <tr key={index}>
                                    <td>
   <div style={{ display: "flex", flexDirection: "column" }} className="sch">
     {/* Format the date */}
-    <span>{new Date(event.date).toLocaleDateString()}</span>
-    
+    <span>{new Date(event.date).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })}</span>
+ 
     {/* Format the time (ensure it's 12-hour format with AM/PM) */}
     <span style={{ fontSize: "12px", color: "#777" }}>
       {new Date(`1970-01-01T${event.time}Z`).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
@@ -413,7 +414,7 @@ const handleCloseModal = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className="services-dropdown">{event.service}</div>
+                                      {event.service}
                                     </td>
                                     <td>
                                         <button style={{
@@ -423,19 +424,21 @@ const handleCloseModal = () => {
                                             padding: "5px 10px",
                                             cursor: "pointer",
                                         }} className="caring-btn">
-                                            <GoDotFill style={{
+                                            <GoDotFill size={20} style={{
                                                 position: "relative",
                                                 bottom: "-3px",
                                                 left: "-2px",
                                                 fontSize: "medium",
                                             }} />
-                                            <span style={{ color: "black", fontSize: "12px" }}>
+                                            <span style={{ color: "black", fontSize: "16px" }}>
                                                 {event.fullName}
                                             </span>
                                         </button>
                                     </td>
                                     <td>
-                                        <HiDotsVertical style={{ fontSize: "1.5rem" }} />
+                                        <div className="three-dots">
+                                        <HiDotsVertical style={{ fontSize: "1.5rem" }}/>
+                                        </div>
                                     </td>
                                 </tr>
                             ))

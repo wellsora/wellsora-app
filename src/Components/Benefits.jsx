@@ -15,7 +15,7 @@ import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import logoimage from "../assets/logoimage.svg";
-
+import img from "../assets/image.png"
 import {
   FaRegCalendarAlt,
   FaHandHoldingHeart,
@@ -419,6 +419,7 @@ const Benefits = () => {
       <div className="left-container">
         <div className="dash-logo">
           {/* <img className='logo' src={logoimage} alt="" /> */}
+          <span className="logo">Wellsora</span>
         </div>
         <div className="buttons-container">
           <div className="nav-left-buttons-container">
@@ -438,7 +439,7 @@ const Benefits = () => {
               <Link to="/connectingrecords" className="nav-link">
                 <li className={`nav-button ${isActive("Connecting Records")}`}>
                   <IoIosStats size={20} style={{ marginRight: "10px" }} />
-                  Connecting Records
+                  Connecting records
                 </li>
               </Link>
               <Link to="/benefits" className="nav-link">
@@ -453,7 +454,7 @@ const Benefits = () => {
               <Link to="/findcaregiver" className="nav-link">
                 <li className={`nav-button ${isActive("Find a Caregiver")}`}>
                   <FaSearch size={20} style={{ marginRight: "10px" }} />
-                  Find a Caregiver
+                  Find a caregiver
                 </li>
               </Link>
             </ul>
@@ -484,51 +485,51 @@ const Benefits = () => {
       </div>
 
       <div className="right-container">
-        <div style={{ gap: "38em" }} className="right-header">
-          <div style={{ width: "21%" }} className="header-left-container">
-            <span
-              style={{ fontWeight: "800", fontSize: "21px" }}
-              className="name"
-            >
-              Your personalized benefits
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignContent: "center",
-              justifyContent: "flexend",
-              gap: "20px",
-              width: "21%",
-            }}
-            className="header-right-container"
-          >
-            {/* Notification Icon */}
-            <button onClick={openModal} className="connect-insurancee">
-              Connect Insurance
-            </button>
-            <div className="notification-icon">
-              <FaBell />
-            </div>
-            {/* Profile Section */}
-            <div className="profile-container">
-              <img
-                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
-                alt="User Profile"
-                className="profile-picture"
-              />
-              <HiDotsVertical style={50} />
-            </div>
-          </div>
-        </div>
+      <div className="right-header">
+                    <div className="header-left-container">
+                        <span className="name">Benefits</span>
+                        
+                    </div>
+                    <div className="header-right-container">
+                        <div className="header-bar">
+                            {/* Left Button */}
+                            <button  className="create-plan-btn">Connect insurance</button>
+
+                            {/* Search Input */}
+                            {/* <div className="search-container">
+                                <FaSearch className="search-icon" />
+                                <input
+                                    type="text"
+                                    className="search-input"
+                                    placeholder="search activity"
+                                />
+                            </div> */}
+
+                            {/* Notification Icon */}
+                            <div className="notification-icon">
+                                <FaBell />
+                            </div>
+
+
+                            {/* Profile Section */}
+                            <div className="profile-container">
+                                <img
+                                    src={img}
+                                    alt="User Profile"
+                                    className="profile-picture"
+                                /><HiDotsVertical style={50} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            padding: "30px 98px 1%",
+            padding: "0px 98px 1%",
             width: "99%",
             paddingBottom: "0%",
+            marginTop:"25px"
           }}
         >
           <div
@@ -548,7 +549,7 @@ const Benefits = () => {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
-              placeholder="e.g. what symptoms signal hypertension?"
+              placeholder="e.g. is physical therapy covered?"
               style={{
                 flex: 1,
                 border: "none",
@@ -562,14 +563,7 @@ const Benefits = () => {
           </div>
 
           <button
-            style={{
-              padding: "10px 83px",
-              backgroundColor: "#1B779B",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
+            className="search"
             onClick={fetchApiData} // Call the API when the button is clicked
           >
             Search
@@ -580,7 +574,7 @@ const Benefits = () => {
           <div className="span-div">
             <span className="undersearch-text">
               {apiResult ||
-                "Sora Health+ is your caregiving companion. We provide resources, tips, and personalized guidance to help you care for loved ones with confidence. Think of us as a supportive friend, simplifying caregiving. For medical concerns or emergencies, please call your doctor immediately."}
+                "Instantly access your plan details with our AI-powered search. Get quick, accurate answers about your coverage, and benefits—no more navigating complex insurance documents"}
             </span>
           </div>
         </div>

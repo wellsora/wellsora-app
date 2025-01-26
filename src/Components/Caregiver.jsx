@@ -14,7 +14,7 @@ import Benefits from './Benefits';
 import Settings from "./Settings"
 import { Link } from 'react-router-dom'; 
 import logoimage from "../assets/logoimage.svg";
-
+import img from "../assets/image.png"
 
 export const Caregiver = () => {
   const [currentDate, setCurrentDate] = useState("");
@@ -86,42 +86,43 @@ export const Caregiver = () => {
                 <div className="left-container">
                     <div className='dash-logo'>
                         {/* <img className='logo' src={logoimage} alt="" /> */}
+                        <span className="logo">Wellsora</span>
                     </div>
                     <div className="buttons-container">
-                    <div className="nav-left-buttons-container">
-   <ul>
-        <Link to="/" className="nav-link">
-      <li className={`nav-button ${isActive("Dashboard")}`}>
-          <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
-          Dashboard
-      </li>
-        </Link>
-        <Link to="/sorahealth" className="nav-link">
-      <li className={`nav-button ${isActive("Sora Health")}`}>
-          <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-          Sora Health
-      </li>
-        </Link>
-        <Link to="/connectingrecords" className="nav-link">
-      <li className={`nav-button ${isActive("Connecting Records")}`}>
-          <IoIosStats size={20} style={{ marginRight: '10px' }} />
-          Connecting Records
-      </li>
-        </Link>
-        <Link to="/benefits" className="nav-link">
-      <li className={`nav-button ${isActive("Benefits")}`}>
-          <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
-          Benefits
-      </li>
-        </Link>
-        <Link to="/findcaregiver" className="nav-link">
-      <li className={`nav-button ${isActive("Find a Caregiver")}`}>
-          <FaSearch size={20} style={{ marginRight: '10px' }} />
-          Find a Caregiver
-      </li>
-        </Link>
-    </ul>
-</div>
+                                    <div className="nav-left-buttons-container">
+                   <ul>
+                          <Link to="/" className="nav-link">
+                        <li className={`nav-button ${isActive("Dashboard")}`}>
+                            <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+                            Dashboard
+                        </li>
+                          </Link>
+                          <Link to="/sorahealth" className="nav-link">
+                        <li className={`nav-button ${isActive("Sora Health")}`}>
+                            <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+                            Sora Health
+                        </li>
+                          </Link>
+                          <Link to="/connectingrecords" className="nav-link">
+                        <li className={`nav-button ${isActive("Connecting Records")}`}>
+                            <IoIosStats size={20} style={{ marginRight: '10px' }} />
+                            Connecting records
+                        </li>
+                          </Link>
+                          <Link to="/benefits" className="nav-link">
+                        <li className={`nav-button ${isActive("Benefits")}`}>
+                            <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+                            Benefits
+                        </li>
+                          </Link>
+                          <Link to="/findcaregiver" className="nav-link">
+                        <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+                            <FaSearch size={20} style={{ marginRight: '10px' }} />
+                            Find a caregiver
+                        </li>
+                          </Link>
+                      </ul>
+                 </div>
                         <div className="nav-bottom-buttons-container">
                             <ul style={{padding: "20px"}}>
                                 <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
@@ -143,44 +144,46 @@ export const Caregiver = () => {
     
                 <div className="right-container">
     
-      <div className="right-header">
-        <div className="header-left-container">
-          <span className="name">Welcome back, Gandi</span>
-          <span className="date">{currentDate}</span>
-        </div>
-        <div className="header-right-container">
-          <div
-            style={{ justifycontent: "flexend", gap: "10px" }}
-            className="header-bar"
-          >
-            <div style={{ width: "10%" }} className="notification-icon">
-              <FaBell />
-            </div>
+                <div className="right-header">
+                    <div className="header-left-container">
+                        <span className="name">Find a caregiver</span>
+                        
+                    </div>
+                    <div className="header-right-container">
+                        <div className="header-bar">
+                            {/* Left Button */}
 
-            <div className="profile-container">
-              <img
-                src="https://png.pngtree.com/png-vector/20230831/ourmid/pngtree-man-avatar-image-for-profile-png-image_9197908.png"
-                alt="User Profile"
-                className="profile-picture"
-              />
+                            {/* Search Input */}
+                            {/* <div className="search-container">
+                                <FaSearch className="search-icon" />
+                                <input
+                                    type="text"
+                                    className="search-input"
+                                    placeholder="search activity"
+                                />
+                            </div> */}
 
-              <HiDotsVertical style={50} />
-            </div>
-          </div>
-        </div>
-      </div>
+                            {/* Notification Icon */}
+                            <div className="notification-icon">
+                                <FaBell />
+                            </div>
+
+
+                            {/* Profile Section */}
+                            <div className="profile-container">
+                                <img
+                                    src={img}
+                                    alt="User Profile"
+                                    className="profile-picture"
+                                /><HiDotsVertical style={50} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
       <div className="maincargiver">
-        <div className="heart-line">
-          <FaHeartbeat
-            size={40}
-            style={{ color: "#EA7551", fontSize: "1em" }}
-          />
-          <span className="heart-text">Find the Perfect Caregiver</span>
-        </div>
-        <span className="text-b">
-          Answer the following questions and get your perfect caregiver
-        </span>
+       
+        
 
         <div className="question-container">
           {/* Question 1 */}
@@ -263,9 +266,7 @@ export const Caregiver = () => {
                 <div className="main-question">
                   <div className="question-text">
                     <span>
-                      What level of assistance is required for you or your loved
-                      one?
-                    </span>
+                      What level of assistance is required for you?                    </span>
                     <span className="text2">Please select an option</span>
                   </div>
                 </div>
@@ -306,7 +307,7 @@ export const Caregiver = () => {
               <div className="options">
                 {[
                   "Self Pay",
-                  "Long-Term Care Insurance",
+                  "Your Insurance",
                   "Medicaid",
                   "Other Method",
                 ].map((option) => (
