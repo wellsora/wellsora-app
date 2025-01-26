@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Cookies from "js-cookie"; // Import js-cookie
 import "../App.css"; // Your existing CSS styles
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -12,34 +13,27 @@ const Login = () => {
 
     try {
       // Make POST request to the login API
-      const response = await fetch(
+      const response =  await axios.post(
         "https://auth-service-dot-wellsora-app.uc.r.appspot.com/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+        
+          {
             email: email,
             password: password,
-          }),
-        }
+          },
+        
       );
-
-      // Handle response
-      const data = await response.json();
-
-      if (response.ok) {
-        // On successful login, save the token in cookies
-        // Cookies.set("authToken", data.token, { expires: 7 }); // Cookie expires in 7 days
-        console.log("Logged in successfully:", data);
-
-        // Redirect to another page or take appropriate action
-        // window.location.href = "/"; // Example redirect to dashboard
-      } else {
-        // Handle login failure
-        setError(data.message || "Login failed. Please try again.");
-      }
+      console.log("Protected Data:", response.data);
+      const { token, expiresIn } = response.data;
+      console.log(typeof expiresIn, expiresIn);
+      // Calculate cookie expiry in milliseconds
+      const cookieExpiry = expiresIn / (24 * 60 * 60);
+      // Set the token in the cookie
+      Cookies.set("wellsora_token", token, {
+        secure: false,
+        expires: cookieExpiry, // Token expiration time in milliseconds
+      });
+      // console.log(Cookies.get("wellsora_token"));
+      console.log("Cookie set successfully, Logged in successfully:");
     } catch (error) {
       // Handle network or other errors
       setError("An error occurred. Please try again later.");

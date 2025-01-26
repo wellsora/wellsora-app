@@ -1,46 +1,113 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { FaBell, FaWheelchair } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import { HiDotsVertical } from "react-icons/hi";
 import { CiSearch } from "react-icons/ci";
 import { TbVaccine } from "react-icons/tb";
-import { TbWheelchair } from "react-icons/tb";
 import "../App.css";
-import { GiMicroscope } from "react-icons/gi";
-import { FaHospital } from "react-icons/fa";
-import { LuHeartPulse } from "react-icons/lu";
-import { IoAnalytics } from "react-icons/io5";
-import { GiBrain } from "react-icons/gi";
-import { MdChecklist } from "react-icons/md";
+
 import { useState } from "react";
 import axios from "axios";
 import { FaHeartbeat } from "react-icons/fa";
 import { MdLocalHospital } from "react-icons/md";
-
-
-
-const getData = async () => {
-  try {
-    const response = await axios.get(
-      "https://benefits-service-dot-wellsora-app.uc.r.appspot.com/api/benefits?limit=100",
-      {
-        withCredentials: true, // Include cookies with the request
-      }
-    );
-    console.log("Data:", response.data);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-};
+import Cookies from "js-cookie"; // Import js-cookie
 
 const Benefits = () => {
   const [isModalOpen, setModalOpen] = useState(false); // Connect Insurance Modal
   const [isInsuranceChosen, setInsuranceChosen] = useState(false); // Choose Insurance Modal
   const [selectedInsurance, setSelectedInsurance] = useState(null); // Store selected insurance
+  const [benefits, setBenefits] = useState([]);
+   const [searchQuery, setSearchQuery] = useState("");
+    const [apiResult, setApiResult] = useState(""); // State to store the API result
+  // const openModal = () => setModalOpen(true);
+  // const closeModal = () => setModalOpen(false);
+  const [selectedBenefit, setSelectedBenefit] = useState(null);
+  const [modalState, setModalState] = useState({ open: false, benefit: null });
+  const openModal = (benefit) => setModalState({ open: true, benefit });
+  const closeModal = () => setModalState({ open: false, benefit: null });
+  
+    const [showModal, setShowModal] = useState(false);
+    const [modalItem, setModalItem] = useState(null); // Store the item clicked for options
+    const groupedBenefits = benefits.reduce((groups, benefit) => {
+      const category = benefit.benefitCategory || "Other"; // default category is "Other"
+      console.log(category)
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(benefit);
+      return groups;
+    }, {});
+  
+  const fetchBenefitsData = async () => {
+    try {
+      const token = Cookies.get("wellsora_token");
+      if (!token) {
+        console.error("No auth token found in cookies");
+        return;
+      }
 
-  // Open and close modal logic
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+      const response = await axios.get(
+        "https://benefits-service-dot-wellsora-app.uc.r.appspot.com/api/benefits?limit=100",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      
+      // Set the benefits data to the state
+      setBenefits(response.data.benefits || []);
+    } catch (error) {
+      console.error("Error fetching data:", error.message);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchBenefitsData();
+  }, []);
+
+
+  const fetchApiData = async () => {
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant.",
+            },
+            {
+              role: "user",
+              content: searchQuery || "Tell me something about health",
+            },
+          ],
+        }),
+      });
+
+      const data = await response.json();
+      const result = data.choices[0].message.content; // Get the response text from the API
+      setApiResult(result); // Update state with API result
+    } catch (error) {
+      console.error("Error fetching API data:", error);
+      setApiResult("Failed to fetch data from API.");
+    }
+  };
+
+  // const openModal = (item) => {
+  //   setModalItem(item);
+  //   setShowModal(true);
+  // };
+
+  // // Close modal
+  // const closeModal = () => {
+  //   setShowModal(false);
+  //   setModalItem(null);
+  // };
 
   const openChooseInsuranceModal = () => {
     setModalOpen(false); // Close the first modal
@@ -55,8 +122,6 @@ const Benefits = () => {
     setSelectedInsurance(insurance);
     setInsuranceChosen(false); // Close Choose Insurance modal
   };
-  getData();
-
   return (
     <>
       <div style={{ gap: "38em" }} className="right-header">
@@ -97,172 +162,100 @@ const Benefits = () => {
           </div>
         </div>
       </div>
-      <div
-        style={{ display: "flex", alignItems: "center", padding: "20px 80px" }}
-      >
-        {/* Search Input with Icon */}
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            alignItems: "center",
-            padding: "10px",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            marginRight: "10px",
-            backgroundColor: "#EFF8FC",
-          }}
-        >
-          <FiSearch style={{ marginRight: "10px", color: "#888" }} />
-          <input
-            type="text"
-            placeholder="Search procedures, treatments or services..."
-            style={{
-              flex: 1,
-              border: "none",
-              outline: "none",
-              fontSize: "14px",
-              backgroundColor: "#EFF8FC",
-            }}
-          />
-        </div>
+     <div
+           style={{
+             display: "flex",
+             alignItems: "center",
+             padding: "30px 78px",
+             width: "99%",
+             paddingBottom: "0%",
+           }}
+         >
+           <div
+             style={{
+               flex: 1,
+               display: "flex",
+               alignItems: "center",
+               padding: "13px",
+               border: "1px solid #ccc",
+               borderRadius: "5px",
+               marginRight: "10px",
+               backgroundColor: "#ffffffff",
+             }}
+           >
+             <FiSearch style={{ marginRight: "10px", color: "#888" }} />
+             <input
+               type="text"
+               value={searchQuery}
+               onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
+               placeholder="e.g. what symptoms signal hypertension?"
+               style={{
+                 flex: 1,
+                 border: "none",
+                 outline: "none",
+                 fontSize: "14px",
+                 backgroundColor: "#fffffff",
+                 color: "#9E9E9E",
+                 fontStyle: "italic",
+               }}
+             />
+           </div>
+   
+           <button
+             style={{
+               padding: "10px 83px",
+               backgroundColor: "#1B779B",
+               color: "white",
+               border: "none",
+               borderRadius: "5px",
+               cursor: "pointer",
+             }}
+             onClick={fetchApiData} // Call the API when the button is clicked
+           >
+             Search
+           </button>
+         </div>
+   
+         <div className="main-undersearch">
+           <div className="span-div">
+             <span className="undersearch-text">
+               {apiResult ||
+                 "Sora Health+ is your caregiving companion. We provide resources, tips, and personalized guidance to help you care for loved ones with confidence. Think of us as a supportive friend, simplifying caregiving. For medical concerns or emergencies, please call your doctor immediately."}
+             </span>
+           </div>
+         </div>
+   
 
-        {/* Button */}
-        <button
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#1B779B", // Adjust color to match the design
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-        >
-          Search Benefits
-        </button>
-      </div>
-      <div className="main-undersearch">
-        <div className="span-div">
-          <span className="undersearch-text">
-            Lorem ipsum dolor sit amet consectetur. Sem ac at velit lacinia
-            pellentesque vestibulum sed. Nulla aliquam dolor quam adipiscing
-            ultrices. Egestas blandit vitae massa rhoncus imperdiet vulputate
-            ornare nunc. Enim libero metus cursus volutpat risus.Lorem ipsum
-            dolor sit amet consectetur. Sem ac at velit lacinia pellentesque
-            vestibulum sed.{" "}
-          </span>
-        </div>
-      </div>
       <div className="insurance-container">
-        <div className="left-c">
-          <div className="element-container">
-            <div className="ico-text">
-              <CiSearch size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Preventive & screening services</span>
-              </div>
+        <div className="overlflow-control">
+        {Object.keys(groupedBenefits).map((category) => (
+          <details key={category} className="category-details">
+            <summary className="category-summary">
+              <span>{category} ({groupedBenefits[category].length})</span>
+            </summary>
+            <div className="benefit-items">
+              {groupedBenefits[category].map((benefit) => (
+                <div
+                  key={benefit._id}
+                  className="benefit-item"
+                  onClick={() => openModal(benefit)}
+                >
+                  <CiSearch size={20} color="#007b9e" />
+                  <div className="benefit-text">
+                    <span className="benefit-name">{benefit.benefitName}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-            <span className="description">
-              Welcome Visit - Cancer Screenings - Wellness Visits
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <TbVaccine size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Vaccines</span>
-              </div>
-            </div>
-            <span className="description">Flu - COVID 19 - Pneoumococal</span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <GiMicroscope size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Diagnostic & Laboratory Services</span>
-              </div>
-            </div>
-            <span className="description">
-              Lab Tests- Colonoscopies - Eye Exams
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <FaWheelchair size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Medical Equipment & Supplies</span>
-              </div>
-            </div>
-            <span className="description">
-              Wheelchairs - Hospital Beds - CPAP
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <FaHospital size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Surgical & Treatment Services</span>
-              </div>
-            </div>
-            <span className="description">
-              Surgery - Chemotherapy - Hospital Care
-            </span>
-          </div>
-        </div>
-        <div className="right-c">
-          <div className="element-container">
-            <div className="ico-text">
-              <LuHeartPulse size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Therapies & Rehabilitation</span>
-              </div>
-            </div>
-            <span className="description">
-              Physical Therapy- Speech Therapy - Cardiac Rehab
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <GiBrain size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Mental Health Services</span>
-              </div>
-            </div>
-            <span className="description">
-              Counseling - Inpatient Care - Assessment
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <MdChecklist size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Cancer & Specialized Screening</span>
-              </div>
-            </div>
-            <span className="description">
-              Breast Cancer - Colorectal - Macular
-            </span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <IoAnalytics size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Diabetic Care</span>
-              </div>
-            </div>
-            <span className="description">Training -Monitors - Insulin</span>
-          </div>
-          <div className="element-container">
-            <div className="ico-text">
-              <CiSearch size={20} color="#007b9e" />
-              <div className="text-span-container">
-                <span>Other</span>
-              </div>
-            </div>
-            <span className="description">Other Care - Other Services</span>
-          </div>
-        </div>
+          </details>   
+          
+        ))}
+       
       </div>
+      </div>
+
+      {/* Modal for Benefit Details */}
+    
       {/* Connect Insurance Modal */}
       {isModalOpen && (
         <div className="ins-modal-overlay">
@@ -367,6 +360,20 @@ const Benefits = () => {
           </div>
         </div>
       )}
+ {modalState.open && modalState.benefit && (
+  <div className="modal-overlay">
+    <div className="modal-content">
+      <h4>{modalState.benefit.benefitName}</h4>
+      <p><strong>Benefit Category:</strong> {modalState.benefit.benefitCategory}</p>
+      <p><strong>Benefit Information:</strong> {modalState.benefit.benefitInformation}</p>
+      <p><strong>Benefit Cost:</strong> {modalState.benefit.benefitCost}</p>
+      <p><strong>Essential Info:</strong> {modalState.benefit.essentialInfo}</p>
+      <p><strong>Provider:</strong> {modalState.benefit.benefitProvider}</p>
+      <button onClick={closeModal}>Close</button>
+    </div>
+  </div>
+)}
+
       {/* <div className="main-ccontainer-for-benefits">
       <span>Please Connect your ensurance to View the benefits</span>
     </div> */}
