@@ -2,6 +2,19 @@ import React, { useEffect, useState } from "react";
 import { FaBell } from "react-icons/fa";
 import "../App.css";
 import { HiDotsVertical } from "react-icons/hi";
+import "../App.css";
+import ConnectingBoard from "./ConnectingBoard";
+import Dashboard_left from "./dash-right";
+import Sorahealth from "./SoraHealth";
+import Benefits from './Benefits';
+import { Caregiver } from './Caregiver';
+import Settings from "./Settings"
+import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'react-icons/fa'; // Icons from react-icons
+import { BsHeartPulseFill } from 'react-icons/bs'; // Another icon from react-icons
+import { IoIosStats } from 'react-icons/io'; // Stats icon from react-icons
+import { TbLogout2 } from "react-icons/tb";
+import { Link } from 'react-router-dom'; 
+
 
 const policyText = `
 Privacy Policy:
@@ -26,6 +39,31 @@ We may update our privacy policy from time to time. We will notify you of any ch
 
 const Privacy = () => {
   const [isColored, setIsColored] = useState(false);
+  const [activeScreen, setActiveScreen] = useState("Privacy Policy");
+
+  const renderActiveScreen = () => {
+      switch (activeScreen) {
+          case "Dashboard":
+              return <Dashboard_left />;
+          case "Sora Health":
+              return <Sorahealth />;
+          case "Connecting Records":
+              return <ConnectingBoard />;
+          case "Benefits":
+              return <Benefits />;
+          case "Find a Caregiver":
+              return <Caregiver/>;
+          case "Setting":
+              return <Settings/>;
+          case "Privacy Policy":
+              return <Privacy />;
+          default:
+              return <div>Select a section</div>;
+      }
+  };
+
+  // Function to check if the button is the active one
+  const isActive = (screen) => activeScreen === screen ? 'active-button' : '';
 
   // Inline styles
   const defaultStyle = {
@@ -94,7 +132,67 @@ const Privacy = () => {
   };
 
   return (
-    <>
+            <div className='dash-container'>
+                <div className="left-container">
+                    <div className='dash-logo'>
+                        {/* <img className='logo' src={logoimage} alt="" /> */}
+                    </div>
+                    <div className="buttons-container">
+                    <div className="nav-left-buttons-container">
+  <ul>
+    <li className={`nav-button ${isActive("Dashboard")}`}>
+      <Link to="/" className="nav-link">
+        <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+        Dashboard
+      </Link>
+    </li>
+    <li className={`nav-button ${isActive("Sora Health")}`}>
+      <Link to="/sorahealth" className="nav-link">
+        <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+        Sora Health
+      </Link>
+    </li>
+    <li className={`nav-button ${isActive("Connecting Records")}`}>
+      <Link to="/connectingrecords" className="nav-link">
+        <IoIosStats size={20} style={{ marginRight: '10px' }} />
+        Connecting Records
+      </Link>
+    </li>
+    <li className={`nav-button ${isActive("Benefits")}`}>
+      <Link to="/benefits" className="nav-link">
+        <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+        Benefits
+      </Link>
+    </li>
+    <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+      <Link to="/findcaregiver" className="nav-link">
+        <FaSearch size={20} style={{ marginRight: '10px' }} />
+        Find a Caregiver
+      </Link>
+    </li>
+  </ul>
+</div>
+                        <div className="nav-bottom-buttons-container">
+                            <ul style={{padding: "20px"}}>
+                                <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
+                                    <FaCog size={20} style={{ marginRight: '10px' }} />
+                                    Setting
+                                </li>
+                                <li onClick={() => setActiveScreen("Privacy Policy")} className={`nav-button ${isActive("Privacy Policy")}`}>
+                                    <FaLock size={20} style={{ marginRight: '10px' }} />
+                                    Privacy Policy
+                                </li>
+                                <li className="nav-button">
+                                    <TbLogout2 size={20} style={{ marginRight: '10px' }} />
+                                    Logout
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    
+                <div className="right-container">
+            
       <div style={{ gap: "38em" }} className="right-header">
         <div style={{ width: "26%" }} className="header-left-container">
           <span style={{ fontWeight: "800" }} className="name">
@@ -196,8 +294,11 @@ const Privacy = () => {
         </div>
 
         {/* Buttons */}
-      </div>
-    </>
+        </div>
+        </div>
+        
+              </div>
+  
   );
 };
 

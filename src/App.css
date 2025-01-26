@@ -228,22 +228,25 @@
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0px;
-  gap: 14px;
-  justify-content: center;
+  gap: 16px;
+  justify-content: flex-end;
   align-content: flex-start;
 }
 .category-details {
-  width: 43%;
+  width: 49%;
   display: flex;
   gap: 0px;
   padding: 0px;
-  flex-direction: column;
+  flex-direction: row;
   border: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
 .category-summary {
   font-weight: bold;
   cursor: pointer;
-  padding: 10px;
+  padding: 15px 13px;
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -1250,8 +1253,8 @@ summary::-webkit-details-marker {
 }
 
 .active-button {
-  background-color: #ffffff; /* Blue background for active button */
-  color: #005f6b; /* White text for active button */
+  background-color: #005f6b; /* Blue background for active button */
+  color: #ffffff; /* White text for active button */
 }
 .dash-icons {
   font-size: x-large;
@@ -1530,14 +1533,15 @@ p {
   min-height: 8em;
   font-size: 2em;
   font-weight: 400;
-}.insurance-container {
+}
+.insurance-container {
   display: flex;
   align-items: flex-start;
   justify-content: center;
   flex-wrap: nowrap;
   flex-direction: column;
   gap: 20px;
-  padding: 3% 6%;
+  padding: 3% 5%;
   max-height: 35em;
   overflow: scroll;
 }
@@ -2307,4 +2311,15 @@ p {
 .health-provider-item.selected {
   background-color: #f0f0f0;
   border-color: #007bff;
+}
+.nav-link {
+  color: #ffffff;
+  text-decoration: none;
+
+}
+.catnum {
+  background: black;
+  padding: 0% 3%;
+  border-radius: 6px;
+  color: #ffffff;
 }

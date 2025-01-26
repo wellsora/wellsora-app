@@ -6,7 +6,15 @@ import logoimage from "../assets/logoimage.svg";
 import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'react-icons/fa';
 import { BsHeartPulseFill } from 'react-icons/bs';
 import { IoIosStats } from 'react-icons/io';
-import { TbLogout2 } from "react-icons/tb";
+import { Link } from 'react-router-dom'; 
+
+import Dashboard_left from "./dash-right";
+import Sorahealth from "./SoraHealth";
+import Privacy from './Privacy';
+import Benefits from './Benefits';
+import { Caregiver } from './Caregiver';
+import Settings from "./Settings"
+
 import "../App.css";
 
 // Dummy data for each section
@@ -34,6 +42,29 @@ const ConnectingBoard = () => {
   const [showModal, setShowModal] = useState(false); // Modal state to show content
   const [modalItem, setModalItem] = useState(null); // Store the item clicked for options
   const [selectedProvider, setSelectedProvider] = useState(null); // Track selected provider
+  const [activeScreen, setActiveScreen] = useState("Connecting Records");
+  const isActive = (screen) => activeScreen === screen ? 'active-button' : '';
+
+  const renderActiveScreen = () => {
+      switch (activeScreen) {
+          case "Dashboard":
+              return <Dashboard_left />;
+          case "Sora Health":
+              return <Sorahealth />;
+          case "Connecting Records":
+              return <ConnectingBoard />;
+          case "Benefits":
+              return <Benefits />;
+          case "Find a Caregiver":
+              return <Caregiver/>;
+          case "Setting":
+              return <Settings/>;
+          case "Privacy Policy":
+              return <Privacy />;
+          default:
+              return <div>Select a section</div>;
+      }
+  };
 
   // Handle tab selection
   const handleTabClick = (tab) => {
@@ -144,30 +175,40 @@ const ConnectingBoard = () => {
           <img className='logo' src={logoimage} alt="" />
         </div>
         <div className="buttons-container">
-          <div className="nav-left-buttons-container">
-            <ul>
-              <li className={`nav-button`}>
-                <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
-                Dashboard
-              </li>
-              <li className={`nav-button`}>
-                <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-                Sora Health
-              </li>
-              <li className={`nav-button`}>
-                <IoIosStats size={20} style={{ marginRight: '10px' }} />
-                Connecting Records
-              </li>
-              <li className={`nav-button`}>
-                <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
-                Benefits
-              </li>
-              <li className={`nav-button`}>
-                <FaSearch size={20} style={{ marginRight: '10px' }} />
-                Find a Caregiver
-              </li>
-            </ul>
-          </div>
+        <div className="nav-left-buttons-container">
+  <ul>
+      <Link to="/" className="nav-link">
+    <li className={`nav-button ${isActive("Dashboard")}`}>
+        <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+        Dashboard
+    </li>
+      </Link>
+      <Link to="/sorahealth" className="nav-link">
+    <li className={`nav-button ${isActive("Sora Health")}`}>
+        <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+        Sora Health
+    </li>
+      </Link>
+      <Link to="/connectingrecords" className="nav-link">
+    <li className={`nav-button ${isActive("Connecting Records")}`}>
+        <IoIosStats size={20} style={{ marginRight: '10px' }} />
+        Connecting Records
+    </li>
+      </Link>
+      <Link to="/benefits" className="nav-link">
+    <li className={`nav-button ${isActive("Benefits")}`}>
+        <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+        Benefits
+    </li>
+      </Link>
+      <Link to="/findcaregiver" className="nav-link">
+    <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+        <FaSearch size={20} style={{ marginRight: '10px' }} />
+        Find a Caregiver
+    </li>
+      </Link>
+  </ul>
+</div>
         </div>
       </div>
 
@@ -198,6 +239,14 @@ const ConnectingBoard = () => {
             <a href="#allergies" onClick={() => handleTabClick('allergies')} className={selectedTab === 'allergies' ? 'selected' : ''}>
               <FaAllergies /> Allergies
             </a>
+            <a href="#Care Team" onClick={() => handleTabClick('CareTeam')} className={selectedTab === 'CareTeam' ? 'selected' : ''}>
+  <FaUserFriends size={20} style={{ marginRight: '10px' }} /> {/* Updated icon */}
+  Care Team
+</a>
+<a href="Conditions" onClick={() => handleTabClick('Conditions')} className={selectedTab === 'Conditions' ? 'selected' : ''}>
+  <FaHeart size={20} style={{ marginRight: '10px' }} /> {/* Updated icon */}
+  Conditions
+</a>
           </div>
 
           {/* Tab Content */}

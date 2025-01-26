@@ -1,7 +1,19 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FaSearch, FaBell, FaHeartbeat } from "react-icons/fa";
+import {  FaBell, FaHeartbeat } from "react-icons/fa";
 import Modal from "./Modal";
 import { HiDotsVertical } from "react-icons/hi";
+import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'react-icons/fa'; // Icons from react-icons
+import { BsHeartPulseFill } from 'react-icons/bs'; // Another icon from react-icons
+import { IoIosStats } from 'react-icons/io'; // Stats icon from react-icons
+import { TbLogout2 } from "react-icons/tb";
+import ConnectingBoard from "./ConnectingBoard";
+import Dashboard_left from "./dash-right";
+import Sorahealth from "./SoraHealth";
+import Privacy from './Privacy';
+import Benefits from './Benefits';
+import Settings from "./Settings"
+import { Link } from 'react-router-dom'; 
+
 
 export const Caregiver = () => {
   const [currentDate, setCurrentDate] = useState("");
@@ -12,6 +24,31 @@ export const Caregiver = () => {
     question3: "",
     question4: "",
   });
+  const [activeScreen, setActiveScreen] = useState("Find a Caregiver");
+
+  const renderActiveScreen = () => {
+      switch (activeScreen) {
+          case "Dashboard":
+              return <Dashboard_left />;
+          case "Sora Health":
+              return <Sorahealth />;
+          case "Connecting Records":
+              return <ConnectingBoard />;
+          case "Benefits":
+              return <Benefits />;
+          case "Find a Caregiver":
+              return <Caregiver/>;
+          case "Setting":
+              return <Settings/>;
+          case "Privacy Policy":
+              return <Privacy />;
+          default:
+              return <div>Select a section</div>;
+      }
+  };
+
+  // Function to check if the button is the active one
+  const isActive = (screen) => activeScreen === screen ? 'active-button' : '';
 
   // Handle selecting an option for each question
   const handleOptionSelect = (question, option) => {
@@ -44,7 +81,67 @@ export const Caregiver = () => {
   const handleCreateClick = () => setModalVisible(true);
 
   return (
-    <>
+      <div className='dash-container'>
+                <div className="left-container">
+                    <div className='dash-logo'>
+                        {/* <img className='logo' src={logoimage} alt="" /> */}
+                    </div>
+                    <div className="buttons-container">
+                    <div className="nav-left-buttons-container">
+   <ul>
+        <Link to="/" className="nav-link">
+      <li className={`nav-button ${isActive("Dashboard")}`}>
+          <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
+          Dashboard
+      </li>
+        </Link>
+        <Link to="/sorahealth" className="nav-link">
+      <li className={`nav-button ${isActive("Sora Health")}`}>
+          <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
+          Sora Health
+      </li>
+        </Link>
+        <Link to="/connectingrecords" className="nav-link">
+      <li className={`nav-button ${isActive("Connecting Records")}`}>
+          <IoIosStats size={20} style={{ marginRight: '10px' }} />
+          Connecting Records
+      </li>
+        </Link>
+        <Link to="/benefits" className="nav-link">
+      <li className={`nav-button ${isActive("Benefits")}`}>
+          <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
+          Benefits
+      </li>
+        </Link>
+        <Link to="/findcaregiver" className="nav-link">
+      <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+          <FaSearch size={20} style={{ marginRight: '10px' }} />
+          Find a Caregiver
+      </li>
+        </Link>
+    </ul>
+</div>
+                        <div className="nav-bottom-buttons-container">
+                            <ul style={{padding: "20px"}}>
+                                <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
+                                    <FaCog size={20} style={{ marginRight: '10px' }} />
+                                    Setting
+                                </li>
+                                <li onClick={() => setActiveScreen("Privacy Policy")} className={`nav-button ${isActive("Privacy Policy")}`}>
+                                    <FaLock size={20} style={{ marginRight: '10px' }} />
+                                    Privacy Policy
+                                </li>
+                                <li className="nav-button">
+                                    <TbLogout2 size={20} style={{ marginRight: '10px' }} />
+                                    Logout
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+    
+                <div className="right-container">
+    
       <div className="right-header">
         <div className="header-left-container">
           <span className="name">Welcome back, Gandi</span>
@@ -270,6 +367,7 @@ export const Caregiver = () => {
           </div>
         </div>
       )}
-    </>
+     </div>
+     </div>
   );
 };
