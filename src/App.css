@@ -16,7 +16,7 @@
   width: 100%;
 }
 .left-container {
-  background-color: #1B779B;
+  background-color: #007b9e;
   width: 15%;
   height: 100%;
 }
@@ -50,12 +50,12 @@
 }
 
 .nav-left-buttons-container {
-  background-color: #1B779B; /* Background color for the container */
+  background-color: #007b9e;
   padding: 20px;
 }
-
 .nav-left-buttons-container ul {
   list-style-type: none;
+  background-color: #007b9e;
   padding: 0;
   margin: 0;
   display: flex; /* Use flexbox to align items horizontally */
@@ -67,7 +67,7 @@
   background-color: #1B779B;
   color: #ffffff;
   padding: 5% 5% 5% 5%;
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
   border: none;
   border-radius: 50px;
@@ -2137,11 +2137,14 @@ p {
 .brand-logo {
   background-color: #1B779B;
   color: white;
-  padding: 26% 14%;
   text-align: center;
   font-size: 32px;
   font-weight: bold;
   width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* Add this to your existing CSS file */
 .error-message {
@@ -2264,9 +2267,9 @@ p {
 .overlflow-control{}
 
 .benefit-items {
-  padding-left: 20px;
+  padding-left: 5px;
+  width: 45em;
 }
-
 .benefit-item {
   cursor: pointer;
   padding: 10px;
@@ -2334,4 +2337,26 @@ p {
   flex-direction: column;
   justify-content: center;
   align-content: center;
+}
+.insurance-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 20px;
+  padding: 3% 5%;
+  max-height: 38em;
+  overflow-y: scroll; /* Allows scrolling even when the scrollbar is hidden */
+}
+
+/* Webkit-based browsers (Chrome, Safari) */
+.insurance-container::-webkit-scrollbar {
+  width: 0px; /* Hides the scrollbar */
+  height: 0px; /* If horizontal scrollbar is needed */
+}
+
+/* Firefox */
+.insurance-container {
+  scrollbar-width: none; /* Hides the scrollbar */
 }

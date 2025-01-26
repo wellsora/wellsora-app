@@ -14,6 +14,8 @@ import { useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import logoimage from "../assets/logoimage.svg";
+
 import {
   FaRegCalendarAlt,
   FaHandHoldingHeart,
@@ -416,7 +418,7 @@ const Benefits = () => {
     <div className="dash-container">
       <div className="left-container">
         <div className="dash-logo">
-          {/* <img className='logo' src={logoimage} alt="" /> */}
+          <img className='logo' src={logoimage} alt="" />
         </div>
         <div className="buttons-container">
           <div className="nav-left-buttons-container">
@@ -524,7 +526,7 @@ const Benefits = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            padding: "30px 78px",
+            padding: "30px 98px 1%",
             width: "99%",
             paddingBottom: "0%",
           }}

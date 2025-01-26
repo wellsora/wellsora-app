@@ -2,38 +2,46 @@ import React, { useState } from "react";
 import Cookies from "js-cookie"; // Import js-cookie
 import "../App.css"; // Your existing CSS styles
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import logoimage from "../assets/logoimage.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // To handle errors
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       // Make POST request to the login API
-      const response =  await axios.post(
+      const response = await axios.post(
         "https://auth-service-dot-wellsora-app.uc.r.appspot.com/auth/login",
-        
-          {
-            email: email,
-            password: password,
-          },
-        
+        {
+          email: email,
+          password: password,
+        }
       );
+
       console.log("Protected Data:", response.data);
       const { token, expiresIn } = response.data;
       console.log(typeof expiresIn, expiresIn);
+
       // Calculate cookie expiry in milliseconds
       const cookieExpiry = expiresIn / (24 * 60 * 60);
+      
       // Set the token in the cookie
       Cookies.set("wellsora_token", token, {
         secure: false,
         expires: cookieExpiry, // Token expiration time in milliseconds
       });
-      // console.log(Cookies.get("wellsora_token"));
+      
       console.log("Cookie set successfully, Logged in successfully:");
+
+      // Redirect to Dashboard after successful login
+      navigate("/");
+
     } catch (error) {
       // Handle network or other errors
       setError("An error occurred. Please try again later.");

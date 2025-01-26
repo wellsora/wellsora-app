@@ -13,6 +13,7 @@ import Privacy from './Privacy';
 import Benefits from './Benefits';
 import Settings from "./Settings"
 import { Link } from 'react-router-dom'; 
+import logoimage from "../assets/logoimage.svg";
 
 
 export const Caregiver = () => {
@@ -84,7 +85,7 @@ export const Caregiver = () => {
       <div className='dash-container'>
                 <div className="left-container">
                     <div className='dash-logo'>
-                        {/* <img className='logo' src={logoimage} alt="" /> */}
+                        <img className='logo' src={logoimage} alt="" />
                     </div>
                     <div className="buttons-container">
                     <div className="nav-left-buttons-container">

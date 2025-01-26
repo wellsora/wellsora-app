@@ -7,7 +7,7 @@ import { FaRegCalendarAlt, FaHandHoldingHeart, FaSearch, FaCog, FaLock } from 'r
 import { BsHeartPulseFill } from 'react-icons/bs';
 import { IoIosStats } from 'react-icons/io';
 import { Link } from 'react-router-dom'; 
-
+import { TbLogout2 } from "react-icons/tb";
 import Dashboard_left from "./dash-right";
 import Sorahealth from "./SoraHealth";
 import Privacy from './Privacy';
@@ -174,42 +174,67 @@ const ConnectingBoard = () => {
         <div className='dash-logo'>
           <img className='logo' src={logoimage} alt="" />
         </div>
-        <div className="buttons-container">
-        <div className="nav-left-buttons-container">
-  <ul>
-      <Link to="/" className="nav-link">
-    <li className={`nav-button ${isActive("Dashboard")}`}>
-        <FaRegCalendarAlt size={20} style={{ marginRight: '10px' }} />
-        Dashboard
-    </li>
-      </Link>
-      <Link to="/sorahealth" className="nav-link">
-    <li className={`nav-button ${isActive("Sora Health")}`}>
-        <BsHeartPulseFill size={20} style={{ marginRight: '10px' }} />
-        Sora Health
-    </li>
-      </Link>
-      <Link to="/connectingrecords" className="nav-link">
-    <li className={`nav-button ${isActive("Connecting Records")}`}>
-        <IoIosStats size={20} style={{ marginRight: '10px' }} />
-        Connecting Records
-    </li>
-      </Link>
-      <Link to="/benefits" className="nav-link">
-    <li className={`nav-button ${isActive("Benefits")}`}>
-        <FaHandHoldingHeart size={20} style={{ marginRight: '10px' }} />
-        Benefits
-    </li>
-      </Link>
-      <Link to="/findcaregiver" className="nav-link">
-    <li className={`nav-button ${isActive("Find a Caregiver")}`}>
-        <FaSearch size={20} style={{ marginRight: '10px' }} />
-        Find a Caregiver
-    </li>
-      </Link>
-  </ul>
-</div>
-        </div>
+         <div className="buttons-container">
+                  <div className="nav-left-buttons-container">
+                    <ul>
+                      <Link to="/" className="nav-link">
+                        <li className={`nav-button ${isActive("Dashboard")}`}>
+                          <FaRegCalendarAlt size={20} style={{ marginRight: "10px" }} />
+                          Dashboard
+                        </li>
+                      </Link>
+                      <Link to="/sorahealth" className="nav-link">
+                        <li className={`nav-button ${isActive("Sora Health")}`}>
+                          <BsHeartPulseFill size={20} style={{ marginRight: "10px" }} />
+                          Sora Health
+                        </li>
+                      </Link>
+                      <Link to="/connectingrecords" className="nav-link">
+                        <li className={`nav-button ${isActive("Connecting Records")}`}>
+                          <IoIosStats size={20} style={{ marginRight: "10px" }} />
+                          Connecting Records
+                        </li>
+                      </Link>
+                      <Link to="/benefits" className="nav-link">
+                        <li className={`nav-button ${isActive("Benefits")}`}>
+                          <FaHandHoldingHeart
+                            size={20}
+                            style={{ marginRight: "10px" }}
+                          />
+                          Benefits
+                        </li>
+                      </Link>
+                      <Link to="/findcaregiver" className="nav-link">
+                        <li className={`nav-button ${isActive("Find a Caregiver")}`}>
+                          <FaSearch size={20} style={{ marginRight: "10px" }} />
+                          Find a Caregiver
+                        </li>
+                      </Link>
+                    </ul>
+                  </div>
+                  <div className="nav-bottom-buttons-container">
+                    <ul style={{ padding: "20px" }}>
+                      <li
+                        onClick={() => setActiveScreen("Setting")}
+                        className={`nav-button ${isActive("Setting")}`}
+                      >
+                        <FaCog size={20} style={{ marginRight: "10px" }} />
+                        Setting
+                      </li>
+                      <li
+                        onClick={() => setActiveScreen("Privacy Policy")}
+                        className={`nav-button ${isActive("Privacy Policy")}`}
+                      >
+                        <FaLock size={20} style={{ marginRight: "10px" }} />
+                        Privacy Policy
+                      </li>
+                      <li className="nav-button">
+                        <TbLogout2 size={20} style={{ marginRight: "10px" }} />
+                        Logout
+                      </li>
+                    </ul>
+                  </div>
+                </div>
       </div>
 
       <div className="right-container">
