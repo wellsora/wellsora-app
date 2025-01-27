@@ -23,7 +23,7 @@ apiClient.interceptors.response.use(
       } catch (refreshError) {
         console.error("Unable to refresh token:", refreshError);
         // window.location.href = "/connectingrecords";
-        alert("Unauthorized, Plese connect your records ");
+        // alert("Unauthorized, Plese connect your records ");
       }
     }
     return Promise.reject(error);

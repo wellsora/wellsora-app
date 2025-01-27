@@ -22,22 +22,6 @@ import { exchangeCodeForToken, setTokens } from "./FhirEpic/oauthHelpers";
 import { apiClient } from "./FhirEpic/apiClient";
 
 
-// Dummy data for each section
-const dummyData = {
-  'past-visits': [
-    { title: 'Annual Check up', doctor: 'Dr. Smith', clinic: 'Primary Care Clinic', date: '01/01/2025', visitType: 'Office Visit', description: 'ECG Cardiology Procedures' },
-    { title: 'Annual Check up', doctor: 'Dr. Smith', clinic: 'Primary Care Clinic', date: '02/01/2025', visitType: 'Office Visit', description: 'ECG Cardiology Procedures' },
-    { title: 'Annual Check up', doctor: 'Dr. Smith', clinic: 'Primary Care Clinic', date: '03/01/2025', visitType: 'Office Visit', description: 'ECG Cardiology Procedures' },
-  ],
-  medications: [
-    { name: 'Aspirin', dosage: '100mg', date: '01/01/2025', directions: 'Take 1 Tablet daily after meals' },
-    { name: 'Ibuprofen', dosage: '200mg', date: '02/01/2025', directions: 'Take 1 Tablet daily after meals' },
-  ],
-  allergies: ['Peanuts', 'Dust', 'Pollen'],
-  'care-team': ['Dr. Smith', 'Nurse Jane', 'Dr. John'],
-  conditions: ['Hypertension', 'Asthma'],
-};
-
 const ConnectingBoard = () => {
   const [selectedTab, setSelectedTab] = useState('past-visits');
   const [showInsuranceModal, setShowInsuranceModal] = useState(false);
@@ -202,10 +186,28 @@ const handleTabClick = (tab) => {
     redirectToLogin();
   };
 
-  const handleConfirmStep3 = () => {
-    setShowStep3Modal(false);
-    alert('All steps completed!');
+  const checkPatientId = () => {
+    const patientId = sessionStorage.getItem('patientId') || localStorage.getItem('patientId');
+    console.log('Patient ID:', patientId); // Debugging log
+
+    return patientId ? true : false; // Return true if patientId exists, otherwise false
   };
+  useEffect(() => {
+    // Timeout to simulate a 5-second delay
+    const timeoutId = setTimeout(() => {
+      // Check for the patientId after 5 seconds
+      if (!checkPatientId()) {
+        setShowInsuranceModal(true); // Show modal if the patientId is not present
+      }
+    },100); // Wait for 5000ms (5 seconds)
+
+    // Cleanup function to clear the timeout if the component is unmounted
+    return () => clearTimeout(timeoutId);
+  }, []);// Empty dependency array ensures this runs only once on component mount
+
+
+
+ 
 
   // console.log(dummyData);
 
@@ -440,8 +442,8 @@ const handleTabClick = (tab) => {
             <h2 className="ins-modal-title">Access all your records</h2>
             <p className="ins-modal-description">Access your medical information in one place</p>
             <div className="ins-modal-actions">
-              <button onClick={handleConfirmInsurance}>Connect Records</button>
-              <button onClick={closeInsuranceModal}>Cancel</button>
+              <button style={{color:"white"}} className="modelbutton" onClick={handleConfirmInsurance}>Connect Records</button>
+              <button className="modelbutton" onClick={closeInsuranceModal}>Cancel</button>
             </div>
           </div>
         </div>
@@ -468,7 +470,7 @@ const handleTabClick = (tab) => {
           </div>
         ))}
       </div>
-      <button 
+      <button className="model-button"
         onClick={handleConfirmStep1} 
         disabled={!selectedProvider} // Disable continue button if no provider is selected
       >

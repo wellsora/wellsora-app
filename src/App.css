@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-*{
+
+* {
   margin: 0;
   box-sizing: border-box;
   font-family: 'DM Sans';
@@ -15,6 +16,7 @@
   height: 100vh;
   width: 100%;
 }
+
 .left-container {
   background-color: #007b9e;
   width: 15%;
@@ -24,8 +26,10 @@
 .right-container {
   background-color: #ffffff;
   width: 85%;
-  height: 100%; /* Stretch to match the parent height */
+  height: 100%;
+  /* Stretch to match the parent height */
 }
+
 .dash-logo {
   width: 100%;
   height: 10%;
@@ -35,6 +39,7 @@
   align-content: center;
   flex-direction: row;
 }
+
 .logo {
   width: 100%;
   color: white;
@@ -42,6 +47,7 @@
   font-size: 3em;
   font-weight: 600;
 }
+
 /* Container styling */
 .buttons-container {
   display: flex;
@@ -57,18 +63,22 @@
   background-color: #007b9e;
   padding: 20px;
 }
+
 .nav-left-buttons-container ul {
   list-style-type: none;
   background-color: #007b9e;
   padding: 0;
   margin: 0;
-  display: flex; /* Use flexbox to align items horizontally */
-  flex-direction: column; /* Stack items vertically */
-  gap: 10px; /* Adds space between each button */
+  display: flex;
+  /* Use flexbox to align items horizontally */
+  flex-direction: column;
+  /* Stack items vertically */
+  gap: 10px;
+  /* Adds space between each button */
 }
 
 .nav-button {
-  
+
   color: #ffffff;
   padding: 5% 5% 5% 5%;
   font-size: 20px;
@@ -84,18 +94,26 @@
   justify-content: flex-start;
   font-weight: 500;
 }
+
 .nav-button.selected {
-  background-color: #007bff; /* Highlight color */
-  color: white; /* Text color for better contrast */
+  background-color: #007bff;
+  /* Highlight color */
+  color: white;
+  /* Text color for better contrast */
 }
+
 .nav-button:active {
-  background-color: #ffffff; /* Change background on active */
-  color: #1B779B; /* Change text color on active */
-  transform: scale(0.95); /* Slightly shrink the button when clicked */
+  background-color: #ffffff;
+  /* Change background on active */
+  color: #1B779B;
+  /* Change text color on active */
+  transform: scale(0.95);
+  /* Slightly shrink the button when clicked */
 }
 
 .nav-button:focus {
-  outline: none; /* Remove the default focus outline */
+  outline: none;
+  /* Remove the default focus outline */
 }
 
 .right-header {
@@ -109,24 +127,28 @@
   border: 1px solid #ddd;
   gap: 150px;
 }
-.header-left-container{
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      align-content: flex-start;
-      justify-content: center;
-      width: 35%;
+
+.header-left-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+  width: 35%;
 }
+
 .name {
   font-size: 38px;
-  font-family: 'DM Sans',sans-serif;
+  font-family: 'DM Sans', sans-serif;
   font-weight: 500;
 }
+
 .date {
   font-weight: 400;
   font-size: 12px;
   color: #2E02494D;
 }
+
 .header-bar {
   display: flex;
   align-items: center;
@@ -136,10 +158,12 @@
   border-radius: 8px;
   gap: 24px;
 }
-.main-dashboard{
+
+.main-dashboard {
   display: flex;
   height: 85vh;
 }
+
 .create-plan-btn {
   background-color: #007f97;
   color: #fff;
@@ -151,6 +175,7 @@
   width: 32%;
   font-weight: 500;
 }
+
 .connect-insurancee {
   background-color: #007f97;
   color: #fff;
@@ -162,17 +187,21 @@
   width: 60%;
   font-weight: 500;
 }
+
 .create-plan-btn:hover {
   background-color: #005f78;
 }
+
 /* Container for the table */
 .table-container {
   width: 100%;
 }
+
 .three-dots {
   display: flex;
   justify-content: flex-end;
 }
+
 .name-container {
   display: flex;
   flex-direction: row;
@@ -181,7 +210,8 @@
   align-items: center;
   align-content: center;
 }
-.name-input{
+
+.name-input {
   width: 50%;
 }
 
@@ -198,21 +228,27 @@
 /* Make the header sticky */
 .scrollable-table thead {
   position: sticky;
-  top: 0; /* Fix the header at the top */
-  background-color: #fff; /* Optional: set a background color to prevent transparency */
-  z-index: 1; /* Ensure header stays above table body */
+  top: 0;
+  /* Fix the header at the top */
+  background-color: #fff;
+  /* Optional: set a background color to prevent transparency */
+  z-index: 1;
+  /* Ensure header stays above table body */
 }
 
 /* Styling for the body */
 .table-body {
-  max-height: 300px; /* Set the height for the scrollable body */
-  overflow-y: auto; /* Allow vertical scrolling */
+  max-height: 300px;
+  /* Set the height for the scrollable body */
+  overflow-y: auto;
+  /* Allow vertical scrolling */
 }
 
 /* Make the table body scrollable while keeping the header fixed */
 .scrollable-table {
   width: 100%;
-  border-collapse: collapse; /* Ensure borders are joined */
+  border-collapse: collapse;
+  /* Ensure borders are joined */
 }
 
 /* Styling for table cells */
@@ -227,6 +263,7 @@
 .scrollable-table tr:hover {
   background-color: #f9f9f9;
 }
+
 .overlflow-control {
   max-height: 595px;
   display: flex;
@@ -238,6 +275,7 @@
   align-content: flex-start;
   align-items: center;
 }
+
 .category-details {
   width: 49%;
   display: flex;
@@ -249,6 +287,7 @@
   justify-content: center;
   align-items: center;
 }
+
 .category-summary {
   font-weight: bold;
   cursor: pointer;
@@ -310,6 +349,7 @@
   border-radius: 50%;
   margin-right: 10px;
 }
+
 .profile-info {
   display: flex;
   flex-direction: column;
@@ -326,24 +366,29 @@
   color: #007f97;
   text-decoration: underline;
 }
-.main-dash{
+
+.main-dash {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
   align-items: center;
 }
-.main-dash-left{
+
+.main-dash-left {
   width: 70%;
 
 }
-.main-dash-left{
+
+.main-dash-left {
   width: 70%;
 
 }
-.main-dash-right{
+
+.main-dash-right {
   width: 30%;
-  
+
 }
+
 .inner_dash {
   display: flex;
   align-items: center;
@@ -353,6 +398,7 @@
   height: 90%;
   gap: 60px;
 }
+
 .envets_dash_container {
   height: 100%;
   width: 90%;
@@ -364,12 +410,12 @@
   align-content: flex-start;
 }
 
-.upcoming-heading{
- font-weight: 700;
-  color:#0F1527;
-  font-size:20px
-
+.upcoming-heading {
+  font-weight: 700;
+  color: #0F1527;
+  font-size: 20px
 }
+
 /* Calendar container styles */
 .calendar {
   display: flex;
@@ -386,7 +432,8 @@
 }
 
 .calendar::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+  display: none;
+  /* For Chrome, Safari, and Opera */
 }
 
 /* Individual day styles */
@@ -411,6 +458,7 @@
   color: #DE496E !important;
   font-weight: bold;
 }
+
 /* Day number styling */
 .day-number {
   font-size: 33px;
@@ -427,6 +475,7 @@
 .calendar-day:hover {
   background-color: #f9f9f9;
 }
+
 /* Timeline container styles */
 .timeline-container {
   border: 1px solid #ddd;
@@ -437,6 +486,7 @@
   height: 100%;
   border-top: none;
 }
+
 .timeline {
   display: flex;
   flex-direction: column;
@@ -469,6 +519,7 @@
   position: relative;
   gap: 10px;
 }
+
 .time-slot .events {
   width: 80%;
   border: 1px solid #e0e0e0;
@@ -535,10 +586,12 @@
 .timeline-container::-webkit-scrollbar-track {
   background-color: #f1f1f1;
 }
-.main-dash-left{
+
+.main-dash-left {
   display: flex;
   flex-direction: column;
 }
+
 .table-container {
   border-radius: 0px;
   overflow-x: auto;
@@ -624,6 +677,7 @@
   align-items: center;
   gap: 10px;
 }
+
 .Title-name {
   font-size: 38px;
   font-weight: 500;
@@ -675,6 +729,7 @@
 .table .icons svg:hover {
   color: #555;
 }
+
 /* Search bar container */
 .search-container2 {
   display: flex;
@@ -685,6 +740,7 @@
   background-color: #fff;
   width: 240px;
 }
+
 /* Search input */
 .search-container2 input[type="text"] {
   border: none;
@@ -703,6 +759,7 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
 .accordion {
   width: 88%;
   margin: 25px 104px;
@@ -713,30 +770,40 @@
   max-height: 460px;
   height: fit-content;
 }
+
 /* Custom Scrollbar Styles */
 .accordion::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
+  /* Width of the scrollbar */
 }
 
 .accordion::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Light background for the track */
-  border-radius: 8px; /* Rounded edges for the track */
+  background: #f1f1f1;
+  /* Light background for the track */
+  border-radius: 8px;
+  /* Rounded edges for the track */
 }
 
 .accordion::-webkit-scrollbar-thumb {
-  background: #1B779B; /* Scrollbar thumb color */
-  border-radius: 8px; /* Rounded edges for the thumb */
-  border: 2px solid #f1f1f1; /* Adds space between thumb and track */
+  background: #1B779B;
+  /* Scrollbar thumb color */
+  border-radius: 8px;
+  /* Rounded edges for the thumb */
+  border: 2px solid #f1f1f1;
+  /* Adds space between thumb and track */
 }
 
 .accordion::-webkit-scrollbar-thumb:hover {
-  background: #1B779B; /* Darker color on hover for the thumb */
+  background: #1B779B;
+  /* Darker color on hover for the thumb */
 }
 
 /* Support for Firefox */
 .accordion {
-  scrollbar-width: thin; /* Thin scrollbar */
-  scrollbar-color: #1B779B #f1f1f1; /* Thumb and track colors */
+  scrollbar-width: thin;
+  /* Thin scrollbar */
+  scrollbar-color: #1B779B #f1f1f1;
+  /* Thumb and track colors */
 }
 
 
@@ -755,6 +822,7 @@ details summary {
   color: #4a4a4a;
   background-color: #ffffff;
 }
+
 .search {
   background-color: #007f97;
   color: #fff;
@@ -766,6 +834,7 @@ details summary {
   width: 16%;
   font-weight: 500;
 }
+
 details[open] .expand-icon {
   color: #ffffffff;
   width: 28px;
@@ -778,6 +847,7 @@ details[open] .expand-icon {
   justify-content: center;
   align-items: center;
 }
+
 .expand-icon {
   color: #ffffffff;
   width: 30px;
@@ -842,6 +912,7 @@ summary:hover {
 summary::-webkit-details-marker {
   display: none;
 }
+
 .inner-c {
   display: flex;
   flex-direction: column;
@@ -851,10 +922,12 @@ summary::-webkit-details-marker {
   height: 100%;
   gap: 20px;
 }
+
 .detail-title {
   width: 95%;
   font-size: 1.5em;
 }
+
 .card-grid {
   display: flex;
   justify-content: center;
@@ -864,6 +937,7 @@ summary::-webkit-details-marker {
   width: 84%;
   align-items: center;
 }
+
 .card {
   width: 22%;
   padding: 20px;
@@ -895,17 +969,19 @@ summary::-webkit-details-marker {
   font-size: 24px;
   font-weight: bold;
 }
-.card-content{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: flex-start;
+
+.card-content {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .card-label {
   font-size: 16px;
   color: #666666;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -932,6 +1008,7 @@ summary::-webkit-details-marker {
   justify-content: flex-end;
   gap: 10px;
 }
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -944,21 +1021,28 @@ summary::-webkit-details-marker {
   align-items: center;
   z-index: 1000;
 }
+
 /* Hide scrollbar but keep scrolling functionality */
 .hide-scrollbar {
-  overflow: scroll; /* Hide the scrollbar */
-  scrollbar-width: none;  /* For Firefox */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
+  overflow: scroll;
+  /* Hide the scrollbar */
+  scrollbar-width: none;
+  /* For Firefox */
+  -ms-overflow-style: none;
+  /* For Internet Explorer and Edge */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* For Webkit browsers (Chrome, Safari) */
+  display: none;
+  /* For Webkit browsers (Chrome, Safari) */
 }
 
 /* Make sure the element is scrollable */
 .scrollable-content {
-  overflow-y: scroll;  /* Enable vertical scroll */
-  height: 300px;  /* Adjust based on your requirements */
+  overflow-y: scroll;
+  /* Enable vertical scroll */
+  height: 300px;
+  /* Adjust based on your requirements */
 }
 
 .modal-container {
@@ -1014,12 +1098,15 @@ summary::-webkit-details-marker {
   border-radius: 0px;
   font-size: 14px;
   border-bottom: 1px solid #007f97;
-  outline: none;  /* Removes default focus outline */
+  outline: none;
+  /* Removes default focus outline */
 }
 
 .modal-form input:focus {
-  border-bottom: 2px solid #007f97;  /* Thicker border on focus */
-  outline: none;  /* Removes additional outline */
+  border-bottom: 2px solid #007f97;
+  /* Thicker border on focus */
+  outline: none;
+  /* Removes additional outline */
 }
 
 .status-buttons {
@@ -1070,6 +1157,7 @@ summary::-webkit-details-marker {
   cursor: pointer;
   font-weight: 500;
 }
+
 .btn {
   background-color: #007f97;
   color: #fff;
@@ -1079,10 +1167,12 @@ summary::-webkit-details-marker {
   cursor: pointer;
   font-weight: 500;
 }
+
 .datetime-container {
   display: flex;
   gap: 15px;
 }
+
 .status-buttons {
   display: flex;
   gap: 12px;
@@ -1146,25 +1236,30 @@ summary::-webkit-details-marker {
   max-width: 280px;
   padding: 12px;
   font-size: 14px;
-  border: 1px solid #c2b8d0;  /* Light border similar to the image */
+  border: 1px solid #c2b8d0;
+  /* Light border similar to the image */
   border-radius: 8px;
   outline: none;
-  background-color: #f6f5f9;  /* Light gray background */
+  background-color: #f6f5f9;
+  /* Light gray background */
   color: #a18faf;
   text-align: center;
 }
 
 .date-input::placeholder,
 .time-input::placeholder {
-  color: #a18faf;  /* Placeholder text color */
+  color: #a18faf;
+  /* Placeholder text color */
 }
 
 .date-input:focus,
 .time-input:focus {
-  border-color: #7a639e;  /* Focused border color */
+  border-color: #7a639e;
+  /* Focused border color */
   background-color: #ffffff;
   color: #333;
 }
+
 .status-buttons {
   display: flex;
   gap: 12px;
@@ -1184,7 +1279,8 @@ summary::-webkit-details-marker {
 }
 
 .btn.active {
-  background-color: #007f97;  /* Active button */
+  background-color: #007f97;
+  /* Active button */
   color: white;
   border: none;
   font-size: 16px;
@@ -1199,6 +1295,7 @@ summary::-webkit-details-marker {
   border-color: #007f97;
   color: #007f97;
 }
+
 .btn-bottom {
   background-color: #007f97;
   color: white;
@@ -1209,6 +1306,7 @@ summary::-webkit-details-marker {
   font-weight: 500;
   border-radius: 5px;
 }
+
 .btn-bottom {
   background-color: white;
   color: grey;
@@ -1231,25 +1329,32 @@ summary::-webkit-details-marker {
     cursor: pointer;
     font-weight: 500;
     border-radius: 5px;
+  }
 }
-}
+
 .right-content ::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
+  /* Width of the scrollbar */
 }
 
 .right-content ::-webkit-scrollbar-thumb {
-  background-color: #007b9e; /* Color of the scrollbar thumb (the draggable part) */
-  border-radius: 10px; /* Round the corners of the thumb */
+  background-color: #007b9e;
+  /* Color of the scrollbar thumb (the draggable part) */
+  border-radius: 10px;
+  /* Round the corners of the thumb */
 }
 
 .right-content ::-webkit-scrollbar-track {
-  background-color: #f7f7f7; /* Color of the track (the background of the scrollbar) */
+  background-color: #f7f7f7;
+  /* Color of the track (the background of the scrollbar) */
   border-radius: 10px;
 }
 
 .right-content ::-webkit-scrollbar-thumb:hover {
-  background-color: #005f6b; /* Darker thumb on hover */
+  background-color: #005f6b;
+  /* Darker thumb on hover */
 }
+
 .nav-button {
   padding: 10px;
   cursor: pointer;
@@ -1258,15 +1363,18 @@ summary::-webkit-details-marker {
 
 .nav-button:hover {
   background-color: #005f6b;
-  color:white
+  color: white
 }
 
 .active-button {
-  background-color: #ffffff; /* Blue background for active button */
-  color:#005f6b ; /* White text for active button */
+  background-color: #ffffff;
+  /* Blue background for active button */
+  color: #005f6b;
+  /* White text for active button */
 
 
 }
+
 .dash-icons {
   font-size: x-large;
   width: 100%;
@@ -1280,6 +1388,7 @@ summary::-webkit-details-marker {
   border-radius: 28px;
   padding: 7%;
 }
+
 .table-container {
   max-height: 500px;
   overflow-y: auto;
@@ -1287,9 +1396,11 @@ summary::-webkit-details-marker {
 }
 
 .table-container::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Chrome, Safari, Edge */
+  display: none;
+  /* Hide scrollbar for Chrome, Safari, Edge */
 }
-.services{
+
+.services {
   padding: 12px;
   border: none;
   border-radius: 0px;
@@ -1297,7 +1408,8 @@ summary::-webkit-details-marker {
   border-bottom: 1px solid #007f97;
   outline: none;
 }
-.opition{
+
+.opition {
   padding: 12px;
   border: none;
   border-radius: 0px;
@@ -1305,9 +1417,11 @@ summary::-webkit-details-marker {
   border-bottom: 1px solid #007f97;
   outline: none;
 }
-.header-right-container{
+
+.header-right-container {
   width: 41%;
 }
+
 .maincargiver {
   display: flex;
   flex-direction: column;
@@ -1315,6 +1429,7 @@ summary::-webkit-details-marker {
   padding: 0.5% 2%;
   gap: 7px;
 }
+
 .heart-line {
   font-size: medium;
   width: 80%;
@@ -1354,6 +1469,7 @@ summary::-webkit-details-marker {
   width: 100%;
   margin-top: 25px;
 }
+
 .number-q {
   font-size: xx-large;
   color: #1B779B;
@@ -1372,6 +1488,7 @@ summary::-webkit-details-marker {
   font-weight: 500;
   font-size: 30px;
 }
+
 .text2 {
   font-weight: 400;
   color: #2E02494D;
@@ -1385,15 +1502,17 @@ summary::-webkit-details-marker {
   gap: 10px;
 }
 
-.question-content{
+.question-content {
   display: flex;
-    gap: 20px;
+  gap: 20px;
 }
-.short-questions{
+
+.short-questions {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
+
 .question {
   display: flex;
   flex-direction: column;
@@ -1403,11 +1522,13 @@ summary::-webkit-details-marker {
   border-radius: 18px;
   width: 100%;
 }
+
 .final-button {
   display: flex;
   justify-content: flex-end;
   margin: -4px 29px;
 }
+
 .option-button {
   background-color: #f0f0f0;
   color: #2E02494D;
@@ -1422,6 +1543,7 @@ summary::-webkit-details-marker {
   text-align: left;
   font-weight: 500;
 }
+
 .option-button.selected {
   background-color: #ffffff;
   color: #145b77;
@@ -1440,6 +1562,12 @@ summary::-webkit-details-marker {
   width: 16%;
   font-weight: 500;
 }
+.titlecost{
+    display: flex;
+    gap: 10px;
+    font-size: 1.2em;
+}
+
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;
@@ -1447,13 +1575,82 @@ summary::-webkit-details-marker {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Make sure the modal appears above the content */
+  z-index: 1000;
+  /* Make sure the modal appears above the content */
 }
 
+/* Modal Content for the benefits */
+.modal-contentben {
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 505px;
+  width: 100%;
+  min-height: fit-content;
+  max-height: 116vh;
+}
+.modelbentitle {
+  font-size: 40px;
+  font-weight: bold;
+}
+.modelbencostbox {
+  border: 1px solid #bbbbbc;
+  border-radius: 5px;
+  padding: 2% 1%;
+  margin: 5px 0px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.modelbencost {
+  padding: 0px 33px;
+  margin: 7px 1px;
+  color: #34B570;
+  font-weight: bold;
+}
+.titlecost span{
+  display: flex
+  ;
+      align-items: center;
+      align-content: center;
+      gap: 10px;
+      font-size: 1.3em;
+      font-weight: 700;
+}
+.costdes {
+  padding-left: 8%;
+  font-size: 14px;
+  color: black;
+}
+.heading-container{
+  width: 100%;
+    display: flex
+;
+    justify-content: space-between;
+    background: none;
+}
+.decilmertext{
+ color:"lightgrey"
+}
+.modelbencategory {
+  background: #f2f2f3;
+  padding: 5px 20px;
+  border-radius: 5px;
+}
 /* Modal Content */
 .modal-content {
   background-color: white;
@@ -1472,7 +1669,13 @@ summary::-webkit-details-marker {
   flex-wrap: nowrap;
   gap: 10px;
   height: 50em;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
 }
+
 /* Modal Header */
 .modal-header {
   color: #ea7551;
@@ -1484,16 +1687,15 @@ summary::-webkit-details-marker {
 
 /* Modal Text */
 h2 {
-  font-size: 1.5em;
+  font-size: 35px;
   margin-bottom: 10px;
+  text-align: center;
 }
-.para-text{
 
-}
 p {
-    font-size: 1em;
-    color: #777;
-    text-align: left;
+  font-size: 1em;
+  color: #777;
+  text-align: center;
 }
 
 /* Close Button */
@@ -1507,14 +1709,17 @@ p {
   transition: background-color 0.3s;
   width: -webkit-fill-available;
 }
+
 .close-btn:hover {
   background-color: #145b77;
 }
+
 .img-absolute {
   position: relative;
   top: -71px;
   left: 483px;
 }
+
 .main-undersearch {
   display: flex;
   width: 100%;
@@ -1533,11 +1738,13 @@ p {
   font-size: 1em;
   color: #9E9E9E;
 }
+
 .span-div span {
   text-align: center;
   font-style: italic;
   font-size: 1.2em;
 }
+
 .main-ccontainer-for-benefits {
   display: flex;
   align-items: center;
@@ -1546,6 +1753,16 @@ p {
   min-height: 8em;
   font-size: 2em;
   font-weight: 400;
+}
+
+.benefits-text {
+
+  display: flex;
+  justify-content: space-between;
+
+}
+.view-button{
+  color: #9E9E9E;
 }
 .insurance-container {
   display: flex;
@@ -1559,12 +1776,13 @@ p {
   overflow-y: scroll;
   margin-top: 25px;
 }
-.right-c{
+
+.right-c {
   width: 45%;
   display: flex;
   flex-direction: column;
   gap: 11px;
-} 
+}
 
 .left-c {
   width: 45%;
@@ -1572,6 +1790,7 @@ p {
   flex-direction: column;
   gap: 11px;
 }
+
 .element-container {
   display: flex;
   flex-direction: column;
@@ -1579,21 +1798,25 @@ p {
   border: 1px solid #2E02494D;
   border-radius: 12px;
 }
+
 .ico-text {
   display: flex;
   gap: 10px;
   font-size: 1.17em;
 }
-.description{
+
+.description {
   color: #747070;
 }
+
 .modal-overlay-new {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1616,7 +1839,8 @@ p {
   margin-bottom: 20px;
 }
 
-.connect-btn-new, .cancel-btn-new {
+.connect-btn-new,
+.cancel-btn-new {
   padding: 10px 20px;
   font-size: 16px;
   margin: 5px;
@@ -1679,6 +1903,7 @@ p {
   margin-top: 20px;
   text-align: center;
 }
+
 .sleft {
   display: flex;
   gap: 20px;
@@ -1697,7 +1922,8 @@ p {
   flex-direction: column;
 }
 
-.profile-card, .info-card {
+.profile-card,
+.info-card {
   background-color: #EFF8FC;
   padding: 20px;
   border-radius: 10px;
@@ -1730,11 +1956,13 @@ p {
   color: #555;
 }
 
-.info-details, .preferences {
+.info-details,
+.preferences {
   margin-top: 20px;
 }
 
-.info-item, .preference-item {
+.info-item,
+.preference-item {
   font-size: 14px;
   margin-bottom: 5px;
 }
@@ -1743,6 +1971,7 @@ p {
   font-weight: bold;
   color: red;
 }
+
 .sRight {
   width: 70%;
   padding: 20px;
@@ -1755,6 +1984,7 @@ p {
   margin: 0 auto;
   padding-top: 4%;
 }
+
 .section {
   margin-bottom: 20px;
 }
@@ -1776,6 +2006,7 @@ h3 {
   border-radius: 5px;
   background: #F3F4F6;
 }
+
 .tel-group {
   display: flex;
   gap: 10px;
@@ -1789,7 +2020,7 @@ h3 {
 
 
 .button:hover {
-  background-color:#1B779B;
+  background-color: #1B779B;
 }
 
 .notification-toggle {
@@ -1804,6 +2035,12 @@ h3 {
   display: flex;
 }
 
+.par {
+  font-size: 16px;
+  color: #888;
+  text-align: center;
+}
+
 .forgot-password {
   text-align: center;
   margin-top: 10px;
@@ -1815,9 +2052,17 @@ h3 {
   text-decoration: none;
 }
 
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .forgot-password a:hover {
   text-decoration: underline;
 }
+
 .switch {
   position: relative;
   display: inline-block;
@@ -1855,11 +2100,11 @@ h3 {
   transition: 0.4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #1B779B;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   transform: translateX(14px);
 }
 
@@ -1867,12 +2112,15 @@ label {
   font-size: 14px;
   margin-right: 10px;
 }
-.S-container{
+
+.S-container {
   display: flex;
 }
-.section-n{
+
+.section-n {
   display: flex;
 }
+
 .section-n {
   display: flex;
   flex-direction: column;
@@ -1880,6 +2128,7 @@ label {
   align-items: flex-start;
   width: 24%;
 }
+
 .notification-toggle {
   display: flex;
   justify-content: space-between;
@@ -1887,9 +2136,11 @@ label {
   margin-bottom: 10px;
   width: 100%;
 }
-.str{
-  width:10%
+
+.str {
+  width: 10%
 }
+
 .navbar2 {
   display: flex;
   justify-content: flex-start;
@@ -1938,7 +2189,8 @@ label {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  width: 400px; /* You can adjust the width */
+  width: 400px;
+  /* You can adjust the width */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   position: relative;
 }
@@ -1956,7 +2208,7 @@ label {
 }
 
 /* Main button style (like "Connect Records") */
-button {
+/* button {
   padding: 10px 20px;
   margin: 10px 0;
   background-color: #007f97;
@@ -1964,7 +2216,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-}
+} */
 
 /* Footer information section (like "HIPP Source" and "Encrypted") */
 .footer-info {
@@ -1976,7 +2228,7 @@ button {
 }
 
 /* Optional styling for text input fields */
-.in{
+.in {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
@@ -1998,12 +2250,14 @@ button {
 .custom-modal-content::-webkit-scrollbar-thumb:hover {
   background-color: rgba(0, 0, 0, 0.5);
 }
-.tab-content{
+
+.tab-content {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 .item-c {
   display: flex;
   align-items: center;
@@ -2014,12 +2268,14 @@ button {
   border-radius: 15px;
   padding: 1%;
 }
-.main-d{
+
+.main-d {
   width: 95%;
   display: flex;
   flex-direction: column;
   gap: 13px;
 }
+
 .l {
   display: flex;
   align-content: center;
@@ -2027,6 +2283,7 @@ button {
   align-items: center;
   gap: 12px;
 }
+
 /* Login.css */
 .login-container {
   display: flex;
@@ -2044,14 +2301,14 @@ button {
 }
 
 h2 {
-  font-size: 28px;
+  font-size: 42px;
   margin-bottom: 10px;
 }
 
-p {
+/* p {
   font-size: 16px;
   color: #888;
-}
+} */
 
 .input-field {
   margin-bottom: 20px;
@@ -2073,6 +2330,8 @@ p {
 
 .remember-me {
   margin-bottom: 20px;
+  display: flex;
+  gap: 4px;
 }
 
 .remember-me label {
@@ -2096,16 +2355,22 @@ p {
 
 .forgot-password {
   margin-top: 10px;
-}
-
-.forgot-password a {
   color: #1B779B;
   font-size: 14px;
   text-decoration: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
 }
+
+
 
 .social-login {
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
 
 .social-button {
@@ -2141,6 +2406,7 @@ p {
   color: #1B779B;
   text-decoration: none;
 }
+
 .brand-logo {
   background-color: #1B779B;
   color: white;
@@ -2153,6 +2419,7 @@ p {
   justify-content: center;
   align-items: center;
 }
+
 /* Add this to your existing CSS file */
 .error-message {
   color: red;
@@ -2160,6 +2427,7 @@ p {
   font-size: 14px;
   text-align: center;
 }
+
 /* Insurance Modal Overlay */
 .ins-modal-overlay {
   position: fixed;
@@ -2214,16 +2482,19 @@ p {
   justify-content: center;
   align-content: center;
 }
-.svg-model{
+
+.svg-model {
   position: relative;
-    bottom: 241px;
-    left: 398px;
+  bottom: 241px;
+  left: 398px;
 }
+
 .icons-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
+
 /* Insurance List */
 .ins-list-container {
   display: flex;
@@ -2231,6 +2502,7 @@ p {
   gap: 0.8rem;
   /* margin: 1.5rem 0; */
 }
+
 .ins-list-item {
   padding: 1rem;
   border: 1px solid #ddd;
@@ -2271,12 +2543,13 @@ p {
   font-weight: 500;
 }
 
-.overlflow-control{}
+.overlflow-control {}
 
 .benefit-items {
   padding-left: 5px;
   width: 45em;
 }
+
 .benefit-item {
   cursor: pointer;
   padding: 10px;
@@ -2298,13 +2571,8 @@ p {
   align-items: center;
 }
 
-.modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 100%;
-}
+
+
 .health-provider-list {
   margin-bottom: 20px;
   display: flex;
@@ -2322,17 +2590,20 @@ p {
   background-color: #f0f0f0;
   border-color: #007bff;
 }
+
 .nav-link {
   color: #ffffff;
   text-decoration: none;
 
 }
+
 .catnum {
   background: black;
   padding: 0% 3%;
   border-radius: 6px;
   color: #ffffff;
 }
+
 .ins-modal-content2 {
   background: white;
   padding: 2rem;
@@ -2348,13 +2619,16 @@ p {
 
 /* Webkit-based browsers (Chrome, Safari) */
 .insurance-container::-webkit-scrollbar {
-  width: 0px; /* Hides the scrollbar */
-  height: 0px; /* If horizontal scrollbar is needed */
+  width: 0px;
+  /* Hides the scrollbar */
+  height: 0px;
+  /* If horizontal scrollbar is needed */
 }
 
 /* Firefox */
 .insurance-container {
-  scrollbar-width: none; /* Hides the scrollbar */
+  scrollbar-width: none;
+  /* Hides the scrollbar */
 }
 
 /* Signup specific styles */
@@ -2565,4 +2839,30 @@ p {
     flex-direction: column;
     gap: 0;
   }
+}
+
+.login-icons {
+  background: white;
+  border: none;
+}
+
+.text-div-signin {
+  color: #0000006B;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.text-span1 {
+  font-size: 16px;
+}
+
+.text-span2 {
+  font-size: 14px;
+  text-align: center;
+  width: 34em;
 }

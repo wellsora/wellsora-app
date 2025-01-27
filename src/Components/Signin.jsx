@@ -5,6 +5,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import logoimage from "../assets/logoimage.svg";
 import { Eye, EyeOff } from "lucide-react"
+import { FaFacebook } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+import { IoLogoApple } from "react-icons/io5";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -86,28 +89,33 @@ const Login = () => {
             <input type="checkbox" id="remember-me" />
             <label htmlFor="remember-me">Remember me</label>
           </div>
+          <div className="forgot-password">
+          <a href="/forgot-password">Forgot Password?</a>
+        </div>
 
           <button type="submit" className="login-button">
             Login
           </button>
         </form>
 
-        <div className="forgot-password">
-          <a href="/forgot-password">Forgot Password?</a>
-        </div>
-
-        <div className="social-login">
-          <button className="social-button google">Sign in with Google</button>
-          <button className="social-button facebook">
-            Sign in with Facebook
-          </button>
-        </div>
-
         <div className="signup-link">
-          <p>
+          <p className="par">
             Not have an account? <a href="/signup">Sign up</a>
           </p>
         </div>
+
+     
+        <div className="social-login">
+          <button className="login-icons"> <FcGoogle size={40} /> </button>
+        <button  className="login-icons"><FaFacebook size={40}  color="#1778F2"/></button>
+        <button  className="login-icons"><IoLogoApple size={45}/></button>
+        </div>
+
+        <span className="text-div-signin">
+          <span className="text-span1">By continuing, you agree to our Terms & Conditions and Privacy Policy</span>
+          <span className="text-span2">our data is secure with us. We’re HIPAA complaint and 
+use industry-leading encryption</span>
+        </span>
       </div>
       <div className="brand-logo">
         <h1>Wellsora</h1>

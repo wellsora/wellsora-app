@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid"; // Install 'uuid' package using `npm install uuid`
-import LocationInput from "./PlaceAutocomplete/LocationInput"; // Ensure this is a valid component
+import LocationInput from "./PlaceAutocomplete/LocationInput";
 
-const Modal = ({ isVisible, onClose }) => {
+
+const Modal = ({ eventList, setEventList, isVisible, onClose, editingEvent }) => {
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -11,8 +13,36 @@ const Modal = ({ isVisible, onClose }) => {
     location: "",
     date: "",
     time: "",
-    service: "Transport", // Default value for services dropdown
-  });
+    service: "Transport",
+  })
+
+  // Pre-fill form data when editing
+  useEffect(() => {
+    if (editingEvent) {
+      setFormData({
+        firstName: editingEvent.firstName || "",
+        lastName: editingEvent.lastName || "",
+        appointmentName: editingEvent.appointmentName || "",
+        status: editingEvent.status || "New",
+        location: editingEvent.location || "",
+        date: editingEvent.date || "",
+        time: editingEvent.time || "",
+        service: editingEvent.service || "Transport",
+      })
+    } else {
+      // Reset form when creating new event or when modal is closed
+      setFormData({
+        firstName: "",
+        lastName: "",  
+        appointmentName: "",
+        status: "New",
+        location: "",
+        date: "",
+        time: "",
+        service: "Transport",
+      })
+    }
+  }, [editingEvent, isVisible])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -30,22 +60,33 @@ const Modal = ({ isVisible, onClose }) => {
   };
 
   const handleSave = (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault()
 
-    const uniqueId = uuidv4(); // Generate a unique ID
-    const savedData = { id: uniqueId, ...formData };
+    let updatedEventList
+    const existingData = JSON.parse(localStorage.getItem("formEntries")) || []
 
-    // Retrieve existing data from local storage or initialize an empty array
-    const existingData = JSON.parse(localStorage.getItem("formEntries")) || [];
+    if (editingEvent) {
+      // Update existing event
+      const updatedData = {
+        ...formData,
+        id: editingEvent.id, // Preserve the original ID
+      }
 
-    // Save the new data with the unique ID
-    localStorage.setItem(
-      "formEntries",
-      JSON.stringify([...existingData, savedData])
-    );
+      updatedEventList = existingData.map((event) => (event.id === editingEvent.id ? updatedData : event))
+    } else {
+      // Create new event
+      const newData = {
+        ...formData,
+        id: uuidv4(), // Generate new ID only for new events
+      }
+      updatedEventList = [...existingData, newData]
+    }
 
-    onClose(); // Close the modal after saving the data
-  };
+    // Update localStorage and state
+    localStorage.setItem("formEntries", JSON.stringify(updatedEventList))
+    setEventList(updatedEventList)
+    onClose()
+  }
 
   if (!isVisible) return null;
 
@@ -110,7 +151,6 @@ const Modal = ({ isVisible, onClose }) => {
             </button>
           </div>
 
-          {/* LocationInput component */}
           <LocationInput formData={formData} setFormData={setFormData} />
 
           <div className="datetime-section">

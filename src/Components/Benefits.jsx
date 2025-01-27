@@ -15,7 +15,12 @@ import axios from "axios";
 import Cookies from "js-cookie"; // Import js-cookie
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import logoimage from "../assets/logoimage.svg";
+import { MdHealthAndSafety } from "react-icons/md";
 import img from "../assets/image.png"
+import { FiDollarSign } from "react-icons/fi";
+import { CiClock2 } from "react-icons/ci";
+import { IoClose } from "react-icons/io5";
+import { GrCircleQuestion } from "react-icons/gr";
 import {
   FaRegCalendarAlt,
   FaHandHoldingHeart,
@@ -607,13 +612,14 @@ const Benefits = () => {
           <div
             key={benefit._id}
             className="benefit-item"
-            onClick={() => openModal(benefit)}
+           
           >
-            <CiSearch size={20} color="#007b9e" />
-            <div className="benefit-text">
+          
+            <div className="benefits-text">
               <span className="benefit-name">
                 {benefit.benefitName}
               </span>
+              <span className="view-button" onClick={() => openModal(benefit)}>View Details</span>
             </div>
           </div>
         ))}
@@ -635,6 +641,7 @@ const Benefits = () => {
               </p>
               <div className="ins-modal-actions">
                 <button
+                   
                   className="ins-btn-primary"
                   onClick={openChooseInsuranceModal}
                 >
@@ -698,27 +705,74 @@ const Benefits = () => {
 
         {modalState.open && modalState.benefit && (
           <div className="modal-overlay">
-            <div className="modal-content">
-              <h4>{modalState.benefit.benefitName}</h4>
-              <p>
-                <strong>Benefit Category:</strong>{" "}
+            <div className="modal-contentben">
+           <div className="heading-container">
+              <span className="modelbentitle">{modalState.benefit.benefitName}</span>
+              <button style={{border:"none",background:"none"}} onClick={closeModal}><IoClose size={40} />
+</button>
+           </div>
+              <span className="modelbencategory">
                 {modalState.benefit.benefitCategory}
-              </p>
-              <p>
-                <strong>Benefit Information:</strong>{" "}
-                {modalState.benefit.benefitInformation}
-              </p>
-              <p>
-                <strong>Benefit Cost:</strong> {modalState.benefit.benefitCost}
-              </p>
-              <p>
-                <strong>Essential Info:</strong>{" "}
-                {modalState.benefit.essentialInfo}
-              </p>
-              <p>
-                <strong>Provider:</strong> {modalState.benefit.benefitProvider}
-              </p>
-              <button onClick={closeModal}>Close</button>
+              </span>
+              <div className="modelbencostbox">
+              <div className="titlecost">
+
+<span classname="costspan" ><svg style={{color:"rgb(27, 119, 155)"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="12" y1="1" x2="12" y2="23"></line>
+  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+</svg>
+Cost</span>
+              </div>
+              <span className="modelbencost" >
+              0$ -You Pay nothing
+              {/* {modalState.benefit.benefitCost} */}
+              </span>
+              <span className="costdes">When using a provider who accepts Medicare assignment</span>
+              </div>
+              <div className="modelbencostbox">
+              <div className="titlecost">
+<span classname="costspan" >
+              <MdHealthAndSafety color="rgb(27, 119, 155)"/>
+
+              Eligibility Requirements</span>
+              </div>
+              <span className="modelbencost" >
+             
+              {/* {modalState.benefit.benefitCost} */}
+              </span>
+              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>
+              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>
+              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>  
+</div>
+              <div className="modelbencostbox">
+              <div className="titlecost">
+<span classname="costspan" >
+
+
+              <CiClock2  color="rgb(27, 119, 155)"/>
+
+              Frequency</span>
+              </div>
+             
+              <span className="costdes">Cover once every three year</span>
+</div>
+  
+              
+
+            <span className="decilmertext">Provided under Original Medicare (Parts A and B)</span>
+            <div className="modelbencostbox">
+              <div className="titlecost">
+<span classname="costspan" >
+
+
+
+<GrCircleQuestion color="rgb(27, 119, 155)"/>
+
+              Question about coverage</span>
+              </div>
+             
+              <span className="costdes">Contact member services</span>
+</div>
             </div>
           </div>
         )}
