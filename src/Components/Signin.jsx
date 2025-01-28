@@ -113,12 +113,11 @@ const Login = () => {
 
         <span className="text-div-signin">
           <span className="text-span1">By continuing, you agree to our Terms & Conditions and Privacy Policy</span>
-          <span className="text-span2">our data is secure with us. We’re HIPAA complaint and 
-use industry-leading encryption</span>
+          <span className="text-span2">Your data is secure with us, and we are HIPAA compliant, using industry leading encryption.</span>
         </span>
       </div>
       <div className="brand-logo">
-        <h1>Wellsora</h1>
+        <h1>Wellsora Health</h1>
       </div>
     </div>
   );

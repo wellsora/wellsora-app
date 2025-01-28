@@ -111,7 +111,7 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-form-wrapper">
         <form onSubmit={handleSubmit} className="signup-form">
-          <h1>Sign up</h1>
+          <h1>Sign Up</h1>
           <p className="subtitle">Join Wellsora Health to manage care</p>
 
           {apiError && <div className="error-message">{apiError}</div>}
@@ -125,7 +125,7 @@ const Signup = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                placeholder="John"
+                placeholder="Bernie"
                 className={errors.firstName ? "error" : ""}
               />
               {errors.firstName && <span className="error-text">{errors.firstName}</span>}
@@ -139,7 +139,7 @@ const Signup = () => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                placeholder="Smith"
+                placeholder="Sanders"
                 className={errors.lastName ? "error" : ""}
               />
               {errors.lastName && <span className="error-text">{errors.lastName}</span>}
@@ -154,7 +154,7 @@ const Signup = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="johnsmith@gmail.com"
+              placeholder="bernie.sanders@gmail.com"
               className={errors.email ? "error" : ""}
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
@@ -223,7 +223,7 @@ const Signup = () => {
         </form>
       </div>
       <div className="brand-section">
-        <h1 style={{color: "white", fontSize: "65px"}}>Wellsora</h1>
+        <h1 style={{color: "white", fontSize: "65px"}}>Wellsora Health</h1>
       </div>
     </div>
   )

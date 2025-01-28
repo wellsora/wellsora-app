@@ -266,7 +266,7 @@
 
 .overlflow-control {
   max-height: 595px;
-  display: flex;
+  /* display: flex; */
   flex-wrap: wrap;
   flex-direction: row;
   gap: 0px;
@@ -275,9 +275,8 @@
   align-content: flex-start;
   align-items: center;
 }
-
 .category-details {
-  width: 49%;
+  /* width: 49%; */
   display: flex;
   gap: 0px;
   padding: 0px;
@@ -286,8 +285,12 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  background-color: whitesmoke;
+  padding: 6px 6px;
+  border-radius: 18px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
-
 .category-summary {
   font-weight: bold;
   cursor: pointer;
@@ -2286,20 +2289,20 @@ label {
 
 /* Login.css */
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+    overflow: hidden;
 }
 
 .login-form {
   background-color: white;
-  padding: 195px;
+  padding: 290px;
   border-radius: 8px;
   width: 50%;
 }
-
 h2 {
   font-size: 42px;
   margin-bottom: 10px;
@@ -2326,6 +2329,8 @@ h2 {
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  border: none;
+  border-bottom: 1px solid #1B779B;
 }
 
 .remember-me {
@@ -2657,8 +2662,8 @@ h2 {
   margin-bottom: 8px;
   color: #333;
   font-weight: 600;
+  text-align: center;
 }
-
 .signup-form .subtitle {
   font-size: 16px;
   color: #666;
@@ -2858,11 +2863,13 @@ h2 {
 }
 
 .text-span1 {
-  font-size: 16px;
+  /* font-size: 15px; */
+  text-align: center;
 }
 
 .text-span2 {
-  font-size: 14px;
+  /* font-size: 14px; */
   text-align: center;
-  width: 34em;
+  width: 26em;
+  margin: 10px 0px;
 }

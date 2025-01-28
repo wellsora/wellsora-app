@@ -32,7 +32,6 @@ import { BsHeartPulseFill } from "react-icons/bs"; // Another icon from react-ic
 import { IoIosStats } from "react-icons/io"; // Stats icon from react-icons
 import { TbLogout2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
-
 const categoryIcons = {
   "Cancer & Specialized Screenings": (
     <svg
@@ -586,47 +585,86 @@ const Benefits = () => {
 
         <div className="insurance-container">
           
-<div className="overlflow-control">
-  {Object.keys(groupedBenefits).map((category) => (
-    <details key={category} className="category-details">
-      <summary className="category-summary">
-        <span style={{ width: "100%", display: "flex", gap: "20px" }}>
-          {/* Render icon and category name */}
-          {categoryIcons[category] && (
-            <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
-          )}
-          {category}{" "}
-          <span className="catnum">
-            {groupedBenefits[category].length} benefits
-          </span>
-
-          {/* Dropdown icon */}
-          <span className="dropdown-icon" style={{ marginLeft: 'auto' , color: "rgb(27, 119, 155)"}}>
-            {/* This could be a state-based toggle to change icon */}
-            <FaChevronDown size={20} />
-          </span>
-        </span>
-      </summary>
-      <div className="benefit-items">
-        {groupedBenefits[category].map((benefit) => (
-          <div
-            key={benefit._id}
-            className="benefit-item"
-           
-          >
-          
-            <div className="benefits-text">
-              <span className="benefit-name">
-                {benefit.benefitName}
+        <div className="overlflow-control">
+  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div style={{ width: '48%' }}>
+      {/* Left Column */}
+      {Object.keys(groupedBenefits).slice(0, 7).map((category) => (
+        <details key={category} className="category-details">
+          <summary className="category-summary">
+            <span style={{ width: "100%", display: "flex", gap: "20px" }}>
+              {/* Render icon and category name */}
+              {categoryIcons[category] && (
+                <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
+              )}
+              {category}{" "}
+              <span className="catnum">
+                {groupedBenefits[category].length} benefits
               </span>
-              <span className="view-button" onClick={() => openModal(benefit)}>View Details</span>
-            </div>
+
+              {/* Dropdown icon */}
+              <span className="dropdown-icon" style={{ marginLeft: 'auto' , color: "rgb(27, 119, 155)"}}>
+                {/* This could be a state-based toggle to change icon */}
+                <FaChevronDown size={20} />
+              </span>
+            </span>
+          </summary>
+          <div className="benefit-items">
+            {groupedBenefits[category].map((benefit) => (
+              <div key={benefit._id} className="benefit-item">
+                <div className="benefits-text">
+                  <span className="benefit-name">
+                    {benefit.benefitName}
+                  </span>
+                  <span className="view-button" onClick={() => openModal(benefit)}>View Details</span>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </details>
-  ))}
+        </details>
+      ))}
+    </div>
+
+    <div style={{ width: '48%' }}>
+      {/* Right Column */}
+      {Object.keys(groupedBenefits).slice(7, 14).map((category) => (
+        <details key={category} className="category-details">
+          <summary className="category-summary">
+            <span style={{ width: "100%", display: "flex", gap: "20px" }}>
+              {/* Render icon and category name */}
+              {categoryIcons[category] && (
+                <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
+              )}
+              {category}{" "}
+              <span className="catnum">
+                {groupedBenefits[category].length} benefits
+              </span>
+
+              {/* Dropdown icon */}
+              <span className="dropdown-icon" style={{ marginLeft: 'auto' , color: "rgb(27, 119, 155)"}}>
+                {/* This could be a state-based toggle to change icon */}
+                <FaChevronDown size={20} />
+              </span>
+            </span>
+          </summary>
+          <div className="benefit-items">
+            {groupedBenefits[category].map((benefit) => (
+              <div key={benefit._id} className="benefit-item">
+                <div className="benefits-text">
+                  <span className="benefit-name">
+                    {benefit.benefitName}
+                  </span>
+                  <span className="view-button" onClick={() => openModal(benefit)}>View Details</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
 </div>
+
         </div>
 
         {/* Modal for Benefit Details */}
