@@ -33,7 +33,7 @@ const getStatusColors = (status) => {
     case "in progress":
       return { color: "#FFCF33", backgroundColor: "#FFCF331A" };
     case "resolved":
-      return { color: "#33FF52", backgroundColor: "#33FF521A" };
+      return { color: "rgb(51 143 65)", backgroundColor: "#33FF521A" };
     default:
       return { color: "gray", backgroundColor: "lightgray" };
   }
@@ -157,17 +157,17 @@ const Dashboard = () => {
   
   }, [eventList, todayRef]);
 
-
+  
   const handleDateClick = (day) => {
     console.log("Clicked date: ", day);
-
+  
     // Construct the selected date using the current year and month
     const selectedDate = new Date(currentYear, currentMonth, day);
     selectedDate.setHours(0, 0, 0, 0); // Normalize the selected date to midnight
-
+  
     // Fetch events from localStorage
     const storedEvents = JSON.parse(localStorage.getItem("formEntries") || "[]");
-
+  
     // Filter events for the selected day
     const filteredEvents = storedEvents.filter(event => {
       const eventDate = new Date(event.date);
@@ -183,11 +183,11 @@ const Dashboard = () => {
         hour12: true,
       }),
     }));
-
+  
     // Update the selected date and today's events
     setSelectedDate(day);
     setTodaysEvents(filteredEvents);
-
+  
     // Log for debugging
     console.log("Filtered Events for Selected Date:", filteredEvents);
   };
@@ -222,7 +222,7 @@ const Dashboard = () => {
     <div className="dash-container">
       <div className="left-container">
         <div className="dash-logo">
-          <span className="logo">Wellsora+</span>
+          <span className="logo">Wellsora</span>
           {/* <img className='logo' src={logoimage} alt="" /> */}
         </div>
         <div className="buttons-container">
@@ -450,7 +450,7 @@ const Dashboard = () => {
                                   <span
                                     style={{ color: "black", fontSize: "12px" }}
                                   >
-                                    {event.firstName + event.lastName}
+                                    {event.firstName +" "+ event.lastName}
                                   </span>
                                 </button>
                               </td>
@@ -512,7 +512,12 @@ const Dashboard = () => {
                             <div style={{color: color,
                                     backgroundColor: backgroundColor}} className="event" key={eventIndex}>
                               <div className="details">
+                                <div style={{width:"19em"}}>
+                                  <span>
+
                                 <strong>{event.appointmentName}</strong>
+                                  </span>
+                                </div>
                                 <div>{new Date(event.date).toLocaleDateString(
                                       "en-US",
                                       {
@@ -539,7 +544,7 @@ const Dashboard = () => {
                                   }}
                                 />
                                 <FaApple
-                                  size={15}
+                                  size={17}
                                   style={{ cursor: "pointer" }}
                                 />
                               </div>

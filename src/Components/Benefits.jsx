@@ -285,6 +285,44 @@ const categoryIcons = {
   ),
 };
 
+
+  const benefitData = {
+    _id: {
+      $oid: "6799139310683e6c20c5f73d"
+    },
+    benefitCategory: "Preventive & Screening Services",
+    benefitCost: {
+      bold: "$0 - You pay nothing",
+      description: [
+        {
+          value: `When part of your yearly "Wellness" visit with a provider who accepts Medicare assignment Note: If received as part of other medical treatment, Part B deductible and coinsurance apply`
+        }
+      ]
+    },
+    benefitEligibility: [
+      {
+        heading: "Medical records, including immunization records",
+        value: ["Family health history"]
+      },
+      {
+        value: "Medical records, including immunization records"
+      }
+    ],
+    benefitFrequency: [
+      {
+        heading: "Must be within first 12 months of having Medicare Part B",
+        value: [
+          "Contact your provider or attorney",
+          "Visit eldercare.acl.gov"
+        ]
+      },
+      {
+        value: "Contact your state health department"
+      }
+    ],
+    benefitName: "Advance care planning",
+    benefitProvider: "Original Medicare (Parts A and B)"
+  };
 const Benefits = () => {
   const [isModalOpen, setModalOpen] = useState(false); // Connect Insurance Modal
   const [isInsuranceChosen, setInsuranceChosen] = useState(false); // Choose Insurance Modal
@@ -321,14 +359,14 @@ const Benefits = () => {
   // const closeModal = () => setModalOpen(false);
   const [selectedBenefit, setSelectedBenefit] = useState(null);
   const [modalState, setModalState] = useState({ open: false, benefit: null });
-  const openModal = (benefit) => setModalState({ open: true, benefit });
+  const openModal = (benefit) => setModalState({ open: true, benefit:benefitData });
   const closeModal = () => setModalState({ open: false, benefit: null });
 
   const [showModal, setShowModal] = useState(false);
   const [modalItem, setModalItem] = useState(null); // Store the item clicked for options
   const groupedBenefits = benefits.reduce((groups, benefit) => {
     const category = benefit.benefitCategory || "Other"; // default category is "Other"
-    console.log(category);
+    
     if (!groups[category]) {
       groups[category] = [];
     }
@@ -586,25 +624,25 @@ const Benefits = () => {
         <div className="insurance-container">
           
         <div className="overlflow-control">
-  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-    <div style={{ width: '48%' }}>
+  <div style={{ display: 'flex', justifyContent: 'space-between',width:"100%" }}>
+    <div style={{ width: '100%' }}>
       {/* Left Column */}
-      {Object.keys(groupedBenefits).slice(0, 7).map((category) => (
+      {Object.keys(groupedBenefits).slice(0, 14).map((category) => (
         <details key={category} className="category-details">
           <summary className="category-summary">
+            <div className="left-category"></div>
             <span style={{ width: "100%", display: "flex", gap: "20px" }}>
               {/* Render icon and category name */}
               {categoryIcons[category] && (
                 <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
               )}
-              {category}{" "}
+              <span className="categoryname"> {category}{" "}</span>
               <span className="catnum">
                 {groupedBenefits[category].length} benefits
               </span>
 
               {/* Dropdown icon */}
               <span className="dropdown-icon" style={{ marginLeft: 'auto' , color: "rgb(27, 119, 155)"}}>
-                {/* This could be a state-based toggle to change icon */}
                 <FaChevronDown size={20} />
               </span>
             </span>
@@ -625,15 +663,15 @@ const Benefits = () => {
       ))}
     </div>
 
-    <div style={{ width: '48%' }}>
+    {/* <div style={{ width: '48.5%' }}>
       {/* Right Column */}
-      {Object.keys(groupedBenefits).slice(7, 14).map((category) => (
+      {Object.keys(groupedBenefits).slice(7, 7).map((category) => (
         <details key={category} className="category-details">
           <summary className="category-summary">
             <span style={{ width: "100%", display: "flex", gap: "20px" }}>
               {/* Render icon and category name */}
               {categoryIcons[category] && (
-                <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
+                <span className="categoryname" style={{color: "rgb(27, 119, 155)",width:"17em"}}>{categoryIcons[category]}</span>
               )}
               {category}{" "}
               <span className="catnum">
@@ -661,7 +699,7 @@ const Benefits = () => {
           </div>
         </details>
       ))}
-    </div>
+    {/* </div> */} 
   </div>
 </div>
 
@@ -741,79 +779,125 @@ const Benefits = () => {
           </div>
         )}
 
-        {modalState.open && modalState.benefit && (
-          <div className="modal-overlay">
-            <div className="modal-contentben">
-           <div className="heading-container">
-              <span className="modelbentitle">{modalState.benefit.benefitName}</span>
-              <button style={{border:"none",background:"none"}} onClick={closeModal}><IoClose size={40} />
-</button>
-           </div>
-              <span className="modelbencategory">
-                {modalState.benefit.benefitCategory}
-              </span>
-              <div className="modelbencostbox">
-              <div className="titlecost">
+{modalState.open && modalState.benefit && (
+  <div className="modal-overlay">
+    <div className="modal-contentben">
+      <div className="heading-container">
+        <span className="modelbentitle">{modalState.benefit.benefitName}</span>
+        <button 
+          style={{border: "none", background: "none", position: "relative", top: "-1em", right: "-1em"}} 
+          onClick={closeModal}
+        >
+          <IoClose size={40} />
+        </button>
+      </div>
+      
+      <span className="modelbencategory">
+        {modalState.benefit.benefitCategory}
+      </span>
 
-<span classname="costspan" ><svg style={{color:"rgb(27, 119, 155)"}} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="12" y1="1" x2="12" y2="23"></line>
-  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-</svg>
-Cost</span>
+      {/* Cost Section */}
+      <div style={{ paddingBottom: "5%" }} className="modelbencostbox">
+        <div className="titlecost">
+          <span className="costspan">
+            <svg style={{ color: "rgb(27, 119, 155)" }} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            Cost
+          </span>
+        </div>
+        <span className="modelbencost">
+          {modalState.benefit.benefitCost.bold}
+        </span>
+        {modalState.benefit.benefitCost.description.map((desc, index) => (
+          <span key={index} className="costdes">
+            {desc.value}
+          </span>
+        ))}
+      </div>
+
+      {/* Eligibility Section */}
+      <div style={{ paddingBottom: "5%" }} className="modelbencostbox">
+        <div className="titlecost">
+          <span className="costspan">
+            <MdHealthAndSafety color="rgb(27, 119, 155)" />
+            Eligibility requirements
+          </span>
+        </div>
+        {modalState.benefit.benefitEligibility.map((item, index) => (
+          <div key={index}>
+            {item.heading ? (
+              <div style={{paddingLeft:"8%",width:"26em" }}>
+
+                <div style={{gap:"6px",display:"flex"}} className="eligibility-heading"><i style={{ color: "#34B570" }} className="fas fa-check"></i>{item.heading}</div>
+                <ul>
+                  {Array.isArray(item.value) ? (
+                    item.value.map((valueItem, i) => (
+                      <li key={i} className="costdes rp">
+                         {valueItem}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="costdes rp">
+                      <i style={{ color: "#34B570" }} className="fas fa-check"></i> {item.value}
+                    </li>
+                  )}
+                </ul>
               </div>
-              <span className="modelbencost" >
-              0$ -You Pay nothing
-              {/* {modalState.benefit.benefitCost} */}
-              </span>
-              <span className="costdes">When using a provider who accepts Medicare assignment</span>
-              </div>
-              <div className="modelbencostbox">
-              <div className="titlecost">
-<span classname="costspan" >
-              <MdHealthAndSafety color="rgb(27, 119, 155)"/>
-
-              Eligibility Requirements</span>
-              </div>
-              <span className="modelbencost" >
-             
-              {/* {modalState.benefit.benefitCost} */}
-              </span>
-              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>
-              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>
-              <span className="costdes"><i style={{color:"#34B570"}} className="fas fa-check"></i> When using a provider who accepts Medicare assignment</span>  
-</div>
-              <div className="modelbencostbox">
-              <div className="titlecost">
-<span classname="costspan" >
-
-
-              <CiClock2  color="rgb(27, 119, 155)"/>
-
-              Frequency</span>
-              </div>
-             
-              <span className="costdes">Cover once every three year</span>
-</div>
-  
-              
-
-            <span className="decilmertext">Provided under Original Medicare (Parts A and B)</span>
-            <div className="modelbencostbox">
-              <div className="titlecost">
-<span classname="costspan" >
-
-
-
-<GrCircleQuestion color="rgb(27, 119, 155)"/>
-
-              Question about coverage</span>
-              </div>
-             
-              <span className="costdes">Contact member services</span>
-</div>
-            </div>
+            ) : (
+              <div style={{paddingLeft:"8%", width:"26em",gap:"6px",display:"flex"}} className="eligibility-heading">
+                <i style={{ color: "#34B570" }} className="fas fa-check"></i>
+                {item.value}</div>
+            )}
           </div>
-        )}
+        ))}
+      </div>
+
+      {/* Frequency Section */}
+      <div style={{ paddingBottom: "5%" }} className="modelbencostbox">
+        <div className="titlecost">
+          <span className="costspan">
+            <CiClock2 color="rgb(27, 119, 155)" />
+            Frequency
+          </span>
+        </div>
+        {modalState.benefit.benefitFrequency.map((item, index) => (
+          <div key={index}>
+            {item.heading ? (
+              <div>
+                <div className="frequency-heading">{item.heading}</div>
+                <ul style={{paddingLeft:"10%"}}>
+                  {Array.isArray(item.value) ? (
+                    item.value.map((valueItem, i) => (
+                      <li key={i} className="costdes rp">
+                        {valueItem}
+                      </li>
+                    ))
+                  ) : (
+                    <li style={{ padding:"0%" }} className="costdes rp">{item.value}</li>
+                  )}
+                </ul>
+              </div>
+            ) : (
+              <div style={{ paddingLeft:"8%"}} className="frequency-heading">{item.value}</div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Footer Section */}
+      <div className="modelbencostbox2">
+        <div className="titlecost2">
+          <span className="costdes2">
+            Question about coverage? Contact Member Services
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
 
         {/* <div className="main-ccontainer-for-benefits">
       <span>Please Connect your ensurance to View the benefits</span>

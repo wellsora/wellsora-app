@@ -18,8 +18,7 @@ import Settings from "./Settings"
 
 
 // API URL and key (You should ideally store the key securely)
-const apiUrl = process.env.apiUrl;
-const apiKey =process.env.apiKey
+
 const initialAccordionData = [
   {
     number: "01",

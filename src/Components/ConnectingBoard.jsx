@@ -222,12 +222,12 @@ const handleTabClick = (tab) => {
               visit.resource.resourceType === 'Encounter' && (
           <div className='item-c' key={index}>
             <div className="r">
-              <h4>{visit.resource.type?.[0].text || "NA"}</h4>
+               <h4 style={{fontsize:"24px"}} >{visit.resource.type?.[0].text || "NA"}</h4>
               <p>{visit.resource.participant?.[0]?.individual?.type|| "NA"} - {visit.resource.participant?.[0]?.individual?.display || "NA"}</p>
               <p>{visit.resource.location?.[0]?.location?.display || "NA"}</p>
             </div>
             <div className="l">
-              <p>{visit.resource.period?.start.split('T')[0] || "NA"}</p>
+              <p>{new Date(visit.resource.period?.start.split('T')[0]).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) || "NA"}</p>
               <button onClick={() => openModal(visit)}>Visit Results</button>
             </div>
           </div>
@@ -247,7 +247,7 @@ const handleTabClick = (tab) => {
                   <p>{med.resource.medicationReference?.display || "NA"}</p>
                 </div>
                 <div className="l">
-                  <p>{med.resource.authoredOn || "NA"}</p>
+                  <p>{ new Date(med.resource.authoredOn).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })|| "NA"}</p>
                   <button onClick={() => openModal(med)}>View Details</button>
                 </div>
               </div>
@@ -511,7 +511,8 @@ const handleTabClick = (tab) => {
                     <h3>{modalItem.resource.type?.[0].text || "NA"}</h3>
                     <p><strong>Doctor:</strong> {modalItem.resource.participant?.[0]?.individual?.display || "NA"}</p>
                     <p><strong>Clinic:</strong> {modalItem.resource.location?.[0]?.location?.display || "NA"}</p>
-                    <p><strong>Date:</strong> {modalItem.resource.period?.start.split('T')[0] || "NA"}</p>
+                    <p className='mar'><strong>Date:</strong> {new Date(modalItem.resource.period?.start.split('T')[0]).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) || "NA"}</p>
+                    
                     {/* <p><strong>Description:</strong> {modalItem.resource.text?.div || "NA"}</p> */}
                   </div>
                 );
@@ -520,8 +521,8 @@ const handleTabClick = (tab) => {
                   <div>
                     <h3>{modalItem.resource.medicationReference?.display || "NA"}</h3>
                     {/* <p><strong>Dosage:</strong> {modalItem.resource.dosageInstruction?.[0]?.text || "NA"}</p> */}
-                    <p><strong>Date:</strong> {modalItem.resource.authoredOn || "NA"}</p>
-                    <p><strong>Directions:</strong> {modalItem.resource.dosageInstruction?.[0]?.text || "NA"}</p>
+                    <p><strong>Date:</strong> {new Date(modalItem.resource.authoredOn).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) || "NA"}</p>
+                    <p className='mar' style={{ marginbottom: "14px"}}><strong>Directions:</strong> {modalItem.resource.dosageInstruction?.[0]?.text || "NA"}</p>
                   </div>
                 );
               case 'AllergyIntolerance':
