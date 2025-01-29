@@ -331,7 +331,10 @@ const Benefits = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [apiResult, setApiResult] = useState(""); // State to store the API
   const [activeScreen, setActiveScreen] = useState("Benefits");
-
+  const [isConnectInsuranceModalOpen, setConnectInsuranceModalOpen] = useState(false); // Connect Insurance Modal
+  const [isChooseInsuranceModalOpen, setChooseInsuranceModalOpen] = useState(false); // Choose Insurance Modal
+  const [isConfirmInsuranceModalOpen, setConfirmInsuranceModalOpen] = useState(false); // Second Modal
+  
   const renderActiveScreen = () => {
     switch (activeScreen) {
       case "Dashboard":
@@ -399,7 +402,7 @@ const Benefits = () => {
   useEffect(() => {
     fetchBenefitsData();
   }, []);
-
+  
   const fetchApiData = async () => {
     try {
       const response = await fetch(apiUrl, {
@@ -508,7 +511,7 @@ const Benefits = () => {
                 className={`nav-button ${isActive("Setting")}`}
               >
                 <FaCog size={20} style={{ marginRight: "10px" }} />
-                Setting
+                Settings
               </li>
               <li
                 onClick={() => setActiveScreen("Privacy Policy")}
@@ -530,12 +533,15 @@ const Benefits = () => {
       <div className="right-header">
                     <div className="header-left-container">
                         <span className="name">Benefits</span>
+                        <span style={{ color: "#909096" }}>
+                        Explore your benefits: cost, coverage & savings
+            </span>
                         
                     </div>
                     <div className="header-right-container">
                         <div className="header-bar">
                             {/* Left Button */}
-                            <button  className="create-plan-btn">Connect insurance</button>
+                            <button onClick={() => setConnectInsuranceModalOpen(true)}  className="create-plan-btn">Connect insurance</button>
 
                             {/* Search Input */}
                             {/* <div className="search-container">
@@ -568,8 +574,8 @@ const Benefits = () => {
           style={{
             display: "flex",
             alignItems: "center",
-            padding: "0px 98px 1%",
-            width: "99%",
+            padding: "0px 97px 0%",
+            width: "100%",
             paddingBottom: "0%",
             marginTop:"25px"
           }}
@@ -579,14 +585,13 @@ const Benefits = () => {
               flex: 1,
               display: "flex",
               alignItems: "center",
-              padding: "13px",
+              padding: "6px 12px",
               border: "1px solid #ccc",
               borderRadius: "5px",
-              marginRight: "10px",
               backgroundColor: "#ffffffff",
             }}
           >
-            <FiSearch style={{ marginRight: "10px", color: "#888" }} />
+          
             <input
               type="text"
               value={searchQuery}
@@ -598,18 +603,18 @@ const Benefits = () => {
                 outline: "none",
                 fontSize: "14px",
                 backgroundColor: "#fffffff",
-                color: "#9E9E9E",
-                fontStyle: "italic",
+                color: "#C0C4CB",
+                fontstyle: "normal",
               }}
             />
-          </div>
-
           <button
             className="search"
             onClick={fetchApiData} // Call the API when the button is clicked
           >
             Search
           </button>
+          </div>
+
         </div>
 
         <div className="main-undersearch">
@@ -708,76 +713,111 @@ const Benefits = () => {
         {/* Modal for Benefit Details */}
 
         {/* Connect Insurance Modal */}
-        {isModalOpen && (
-          <div className="ins-modal-overlay">
-            <div className="ins-modal-content">
-              <h2 className="ins-modal-title">Connect Insurance</h2>
-              <p className="ins-modal-description">
-                Access all your insurance in one place
-              </p>
-              <div className="ins-modal-actions">
-                <button
-                   
-                  className="ins-btn-primary"
-                  onClick={openChooseInsuranceModal}
-                >
-                  Choose Insurance
-                </button>
-                <button className="ins-btn-secondary" onClick={closeModal}>
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+  {isConnectInsuranceModalOpen && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+      <h2 className="ins-modal-title">Connect Insurance</h2>
+      <p className="ins-modal-description">
+        You will choose your insurance from the list of available insurance providers
+      </p>
+      <div className="ins-modal-actions">
+        <button
+          className="ins-btn-primary"
+          onClick={() => {
+            setConnectInsuranceModalOpen(false); // Close Connect Insurance modal
+            setChooseInsuranceModalOpen(true); // Open Choose Insurance modal
+          }}
+        >
+          Proceed
+        </button>
+        <button className="ins-btn-secondary" onClick={() => setConnectInsuranceModalOpen(false)}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
-        {isInsuranceChosen && (
-          <div className="ins-modal-overlay">
-            <div className="ins-modal-content">
-              <div className="img-absolute">
-                <svg
-                  width="96"
-                  height="122"
-                  viewBox="0 0 96 122"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M114.412 -24C127.912 -24 139.219 -18.9981 148.331 -8.99444C157.444 1.00926 162 12.9056 162 26.6944C162 29.1278 161.865 31.5273 161.595 33.8931C161.325 36.2588 160.852 38.5907 160.178 40.8889H109.552L95.7825 20.2056C95.1075 19.1241 94.1625 18.2454 92.9475 17.5694C91.7325 16.8935 90.45 16.5556 89.1 16.5556C87.345 16.5556 85.7588 17.0963 84.3412 18.1778C82.9238 19.2593 81.945 20.6111 81.405 22.2333L70.47 55.0833L63.3825 44.5389C62.7075 43.4574 61.7625 42.5787 60.5475 41.9028C59.3325 41.2269 58.05 40.8889 56.7 40.8889H1.8225C1.1475 38.5907 0.675 36.2588 0.405 33.8931C0.135 31.5273 0 29.1954 0 26.8972C0 12.9731 4.5225 1.00926 13.5675 -8.99444C22.6125 -18.9981 33.885 -24 47.385 -24C53.865 -24 59.9738 -22.7157 65.7113 -20.1472C71.4488 -17.5787 76.545 -13.9963 81 -9.4C85.32 -13.9963 90.3487 -17.5787 96.0863 -20.1472C101.824 -22.7157 107.933 -24 114.412 -24ZM81 122C78.57 122 76.2412 121.561 74.0137 120.682C71.7862 119.803 69.795 118.485 68.04 116.728L13.77 62.1806C12.96 61.3694 12.2175 60.5583 11.5425 59.7472C10.8675 58.9361 10.1925 58.0574 9.5175 57.1111H52.245L66.015 77.7944C66.69 78.8759 67.635 79.7546 68.85 80.4305C70.065 81.1065 71.3475 81.4444 72.6975 81.4444C74.4525 81.4444 76.0725 80.9037 77.5575 79.8222C79.0425 78.7407 80.055 77.3889 80.595 75.7667L91.53 42.9167L98.415 53.4611C99.225 54.5426 100.238 55.4213 101.452 56.0972C102.668 56.7731 103.95 57.1111 105.3 57.1111H152.28L150.255 59.5444L148.23 61.9778L93.7575 116.728C92.0025 118.485 90.045 119.803 87.885 120.682C85.725 121.561 83.43 122 81 122Z"
-                    fill="#4CA7A8"
-                    fill-opacity="0.12"
-                  />
-                </svg>
-              </div>
+{isChooseInsuranceModalOpen && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+      <h2 className="ins-modal-title">Choose Your Insurance</h2>
+      <p className="ins-modal-description">
+        Choose your insurance from the list below.
+      </p>
 
-              <h2 className="ins-modal-title">Choose Your Insurance</h2>
-              <p className="ins-modal-description">
-                Choose your insurance from the list below.
-              </p>
-              <div className="ins-list-container">
-                {["HealthGuard", "MediSafe", "SecureCare", "FamilyShield"].map(
-                  (insurance) => (
-                    <div
-                      key={insurance}
-                      className="ins-list-item"
-                      onClick={() => handleSelectInsurance(insurance)}
-                    >
-                      {insurance}
-                    </div>
-                  )
-                )}
-              </div>
-              <div className="ins-modal-actions">
-                <button
-                  className="ins-btn-secondary"
-                  onClick={closeChooseInsuranceModal}
-                >
-                  Cancel
-                </button>
-              </div>
+      {/* Search bar */}
+      <input
+        type="text"
+        placeholder="Search Insurance"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)} // Update search query
+        className="search-input-in"
+      />
+
+      {/* Filtered insurance options */}
+      <div className="ins-list-container">
+        {["Aetna Medicare","Medicare", "Allwell","AmeriHealth","Capital BlueCross","Cigna HealthSpring","Cigna-HealthSpring", "True Choice","Clear Spring"," Health Value", "Rx",
+"Clover Health"]
+          .filter((insurance) => insurance.toLowerCase().includes(searchQuery.toLowerCase())) // Filter insurances
+          .map((insurance) => (
+            <div
+              key={insurance}
+              className="ins-list-item"
+              onClick={() => {
+                setSelectedInsurance(insurance); // Set selected insurance
+                setChooseInsuranceModalOpen(false); // Close this modal
+                setConfirmInsuranceModalOpen(true); // Open the confirmation modal
+              }}
+            >
+              {insurance}
             </div>
-          </div>
+          ))}
+
+        {/* If no results found */}
+        {searchQuery && !["Aetna Medicare","Medicare", "Allwell","AmeriHealth","Capital BlueCross","Cigna HealthSpring","Cigna-HealthSpring", "True Choice","Clear Spring"," Health Value", "Rx",
+"Clover Health"]
+          .filter((insurance) => insurance.toLowerCase().includes(searchQuery.toLowerCase()))
+          .length && (
+            <div className="no-results">No insurance found</div>
         )}
+      </div>
+
+      <div className="ins-modal-actions">
+        <button className="ins-btn-secondary" onClick={() => setChooseInsuranceModalOpen(false)}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+{isConfirmInsuranceModalOpen && (
+  <div className="ins-modal-overlay">
+    <div className="ins-modal-content">
+      <h2 className="ins-modal-title">You Chose:</h2>
+      <p className="ins-modal-description">
+        You have selected <strong>{selectedInsurance}</strong> insurance.
+      </p>
+
+      {/* Proceed button */}
+      <div className="ins-modal-actions">
+        <button
+          className="ins-btn-primary"
+          onClick={() => {
+            setConfirmInsuranceModalOpen(false); // Close the second modal
+            // Proceed with the next step here (e.g., save selection or trigger next action)
+          }}
+        >
+          Proceed
+        </button>
+        <button className="ins-btn-secondary" onClick={() => setConfirmInsuranceModalOpen(false)}>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
 {modalState.open && modalState.benefit && (
   <div className="modal-overlay">
@@ -899,9 +939,7 @@ const Benefits = () => {
 )}
 
 
-        {/* <div className="main-ccontainer-for-benefits">
-      <span>Please Connect your ensurance to View the benefits</span>
-    </div> */}
+        
       </div>
     </div>
   );

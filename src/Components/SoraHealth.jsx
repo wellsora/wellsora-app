@@ -18,7 +18,6 @@ import Settings from "./Settings"
 
 
 // API URL and key (You should ideally store the key securely)
-
 const initialAccordionData = [
   {
     number: "01",
@@ -201,7 +200,7 @@ const Sorahealth = () => {
                             <ul style={{padding: "20px"}}>
                                 <li onClick={() => setActiveScreen("Setting")}  className={`nav-button ${isActive("Setting")}`}>
                                     <FaCog size={20} style={{ marginRight: '10px' }} />
-                                    Setting
+                                    Settings
                                 </li>
                                 <li onClick={() => setActiveScreen("Privacy Policy")} className={`nav-button ${isActive("Privacy Policy")}`}>
                                     <FaLock size={20} style={{ marginRight: '10px' }} />
@@ -220,8 +219,10 @@ const Sorahealth = () => {
     
                 <div className="right-header">
                     <div className="header-left-container">
-                        <span className="name">Sora health+</span>
-                        
+                        <span className="name">Sora Health+</span>
+                        <span style={{ color: "#909096" }}>
+                        Your trusted partner in providing the non-clinical support you need
+            </span>
                     </div>
                     <div className="header-right-container">
                         <div className="header-bar">
@@ -256,56 +257,52 @@ const Sorahealth = () => {
                     </div>
                 </div>
 
-      <div
-        style={{
-          display: "flex",
-          alignitems: "center",
-          padding: "0px 72px 0% 6%",
-          width: "98%",
-          marginTop: "25px",
-          marginBottom: "25px",
-          justifycontent:" center",
-          aligncontent: "center",
-          flexdirection: "row",
-        }}
-      >
-        <div
+                <div
           style={{
-            flex: 1,
             display: "flex",
             alignItems: "center",
-            padding: "13px",
-            border: "1px solid #ccc",
-            borderRadius: "5px",
-            marginRight: "10px",
-            backgroundColor: "#ffffffff",
+            padding: "0px 97px 0%",
+            width: "100%",
+            paddingBottom: "0%",
+            marginTop:"25px"
           }}
         >
-          <FiSearch style={{ marginRight: "10px", color: "#888" }} />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
-            placeholder="e.g. what symptoms signal hypertension?"
+          <div
             style={{
               flex: 1,
-              border: "none",
-              outline: "none",
-              fontSize: "14px",
-              backgroundColor: "#fffffff",
-              color: "#9E9E9E",
-              fontStyle: "italic",
+              display: "flex",
+              alignItems: "center",
+              padding: "6px 12px",
+              border: "1px solid #ccc",
+              borderRadius: "5px",
+              backgroundColor: "#ffffffff",
             }}
-          />
-        </div>
+          >
+          
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} // Update the search query
+               placeholder="e.g. what symptoms signal hypertension?"
+              style={{
+                flex: 1,
+                border: "none",
+                outline: "none",
+                fontSize: "14px",
+                backgroundColor: "#fffffff",
+                color: "#C0C4CB",
+                fontstyle: "normal",
+              }}
+            />
+          <button
+            className="search"
+            onClick={fetchApiData} // Call the API when the button is clicked
+          >
+            Search
+          </button>
+          </div>
 
-        <button
-         className="search "
-          onClick={fetchApiData} // Call the API when the button is clicked
-        >
-          Search
-        </button>
-      </div>
+        </div>
 
       <div className="main-undersearch">
         <div className="span-div">

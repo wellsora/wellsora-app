@@ -19,7 +19,6 @@ const LocationInput = ({ formData, setFormData }) => {
         };
 
         const script = document.createElement("script");
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDW9_d-XNve_5my1KTvIMK0bfK1rSUQnpc&libraries=places&callback=initGoogleMaps&loading=async`;
         script.async = true;
         script.onerror = reject;
         document.head.appendChild(script);
