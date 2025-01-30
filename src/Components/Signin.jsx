@@ -20,7 +20,7 @@ const Login = () => {
     try {
       // Make POST request to the login API
       const response = await axios.post(
-        "https://auth-service-dot-wellsora-app.uc.r.appspot.com/auth/login",
+        process.env.REACT_APP_LOGIN_URL,
         {
           email: email,
           password: password,

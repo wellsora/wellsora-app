@@ -2781,13 +2781,13 @@ h2 {
 
 .signup-form .input-field input {
   width: 100%;
-  padding: 12px 0;
+  padding: 12px 12px;
   font-size: 14px;
-  border: none;
-  border-bottom: 1px solid #1b779b;
   outline: none;
   transition: border-color 0.3s ease;
   background: transparent;
+  padding: 12px 12px;
+  border: 1px solid #d2d1d1;
 }
 
 .signup-form .input-field input::placeholder {
@@ -2806,6 +2806,22 @@ h2 {
   color: #dc3545;
   font-size: 12px;
   margin-top: 4px;
+}
+
+.signup-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 3px;
+}
+
+.signup-subheader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .name-fields {
@@ -2829,21 +2845,21 @@ h2 {
 
 .password-toggle {
   position: absolute;
-  right: 0;
+  right: 1%;
   top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  color: #1b779b;
+  color: #d2d1d1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .password-toggle:hover {
-  color: #156785;
+  color: #000000;
 }
 
 .password-input-wrapper input {

@@ -27,6 +27,8 @@ import { ActionDropdown } from "./DropDown/ActionDropdown";
 import profileImg from "../assets/image.png";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
+import { SettingsDropdown } from "./DropDown/SettingsDropdown";
+
 
 const getStatusColors = (status) => {
   switch (status.toLowerCase()) {
@@ -399,7 +401,8 @@ const Dashboard = () => {
                   alt="User Profile"
                   className="profile-picture"
                 />
-                <HiDotsVertical style={50} />
+                {/* <HiDotsVertical style={50} /> */}
+                <SettingsDropdown />
               </div>
             </div>
           </div>

@@ -19,6 +19,7 @@ const LocationInput = ({ formData, setFormData }) => {
         };
 
         const script = document.createElement("script");
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places&callback=initGoogleMaps&loading=async`;
         script.async = true;
         script.onerror = reject;
         document.head.appendChild(script);

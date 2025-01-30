@@ -32,6 +32,8 @@ import { BsHeartPulseFill } from "react-icons/bs"; // Another icon from react-ic
 import { IoIosStats } from "react-icons/io"; // Stats icon from react-icons
 import { TbLogout2 } from "react-icons/tb";
 import { Link } from "react-router-dom";
+
+
 const categoryIcons = {
   "Cancer & Specialized Screenings": (
     <svg
@@ -323,6 +325,7 @@ const categoryIcons = {
     benefitName: "Advance care planning",
     benefitProvider: "Original Medicare (Parts A and B)"
   };
+
 const Benefits = () => {
   const [isModalOpen, setModalOpen] = useState(false); // Connect Insurance Modal
   const [isInsuranceChosen, setInsuranceChosen] = useState(false); // Choose Insurance Modal
@@ -362,7 +365,7 @@ const Benefits = () => {
   // const closeModal = () => setModalOpen(false);
   const [selectedBenefit, setSelectedBenefit] = useState(null);
   const [modalState, setModalState] = useState({ open: false, benefit: null });
-  const openModal = (benefit) => setModalState({ open: true, benefit:benefitData });
+  const openModal = (benefit) => setModalState({ open: true, benefit: benefit });
   const closeModal = () => setModalState({ open: false, benefit: null });
 
   const [showModal, setShowModal] = useState(false);
@@ -386,7 +389,7 @@ const Benefits = () => {
       }
 
       const response = await axios.get(
-        "https://benefits-service-dot-wellsora-app.uc.r.appspot.com/api/benefits?limit=100",
+        process.env.REACT_APP_BENEFITS_URL,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -405,11 +408,11 @@ const Benefits = () => {
   
   const fetchApiData = async () => {
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(process.env.REACT_APP_OPENAPI_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAPI_KEY}`,
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
@@ -847,13 +850,30 @@ const Benefits = () => {
             Cost
           </span>
         </div>
-        <span className="modelbencost">
+        {modalState.benefit.benefitCost.bold && <span className="modelbencost">
           {modalState.benefit.benefitCost.bold}
-        </span>
-        {modalState.benefit.benefitCost.description.map((desc, index) => (
-          <span key={index} className="costdes">
-            {desc.value}
-          </span>
+        </span>}
+        {modalState.benefit.benefitCost.description.map((item, index) => (
+          <div key={index}>
+          {item.heading ? (
+            <div>
+              <div className="frequency-heading">{item.heading}</div>
+              <ul style={{paddingLeft:"10%"}}>
+                {Array.isArray(item.value) ? (
+                  item.value.map((valueItem, i) => (
+                    <li key={i} className="costdes rp">
+                      {valueItem}
+                    </li>
+                  ))
+                ) : (
+                  <li style={{ padding:"0%" }} className="costdes rp">{item.value}</li>
+                )}
+              </ul>
+            </div>
+          ) : (
+            <div style={{ paddingLeft:"8%"}} className="frequency-heading">{item.value}</div>
+          )}
+        </div>
         ))}
       </div>
 

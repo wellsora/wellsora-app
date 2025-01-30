@@ -2,7 +2,7 @@ import axios from "axios";
 import { refreshAccessToken } from "./oauthHelpers";
 
 const apiClient = axios.create({
-  baseURL: "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4",
+  baseURL: process.env.REACT_APP_FHIR_BASE_URL,
 });
 
 apiClient.interceptors.request.use((config) => {

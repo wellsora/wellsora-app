@@ -81,7 +81,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch("https://auth-service-dot-wellsora-app.uc.r.appspot.com/auth/signup", {
+      const response = await fetch(process.env.REACT_APP_SIGNUP_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -111,8 +111,12 @@ const Signup = () => {
     <div className="signup-container">
       <div className="signup-form-wrapper">
         <form onSubmit={handleSubmit} className="signup-form">
-          <h1>Sign Up</h1>
-          <p className="subtitle">Join Wellsora Health to manage care</p>
+          <div className="signup-header">
+            <h1 style={{fontSize: "50px", fontFamily: "sans-serif"}}>Sign up</h1>
+          </div>
+          <div className="signup-subheader">
+            <p className="subtitle">Join Wellsora Health to manage care</p>
+          </div>
 
           {apiError && <div className="error-message">{apiError}</div>}
 
@@ -212,11 +216,11 @@ const Signup = () => {
 
           <div className="terms">
             By continuing, you agree to our{" "}
-            <a href="/terms" className="terms-link">
+            <a href="https://storage.googleapis.com/wellsora-cdn/assets/terms-conditions.html" target="_blank" rel="noopener noreferrer" className="terms-link">
               Terms & Conditions
             </a>{" "}
             and{" "}
-            <a href="/privacy" className="terms-link">
+            <a href="https://storage.googleapis.com/wellsora-cdn/assets/privacy-policy.html" target="_blank" rel="noopener noreferrer" className="terms-link">
               Privacy Policy
             </a>
           </div>

@@ -110,11 +110,11 @@ const Sorahealth = () => {
 
   const fetchApiData = async () => {
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(process.env.REACT_APP_OPENAPI_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+          Authorization: `Bearer ${process.env.REACT_APP_OPENAPI_KEY}`,
         },
         body: JSON.stringify({
           model: "gpt-3.5-turbo",
