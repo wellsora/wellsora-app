@@ -27,8 +27,6 @@ import { ActionDropdown } from "./DropDown/ActionDropdown";
 import profileImg from "../assets/image.png";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { IoChevronBack } from "react-icons/io5";
-import { SettingsDropdown } from "./DropDown/SettingsDropdown";
-
 
 const getStatusColors = (status) => {
   switch (status.toLowerCase()) {
@@ -326,7 +324,7 @@ const Dashboard = () => {
             <div className="name_des">
               <span className="name">Welcome, Bernie</span>
               <svg
-                style={{ height: "3em", width: "2em" }}
+                className="hyfi"
                 viewBox="0 0 64 64"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -368,7 +366,7 @@ const Dashboard = () => {
                 </g>
               </svg>
             </div>
-            <span style={{ color: "#909096" }}>
+            <span style={{ color: "#909096",width:"30em" }}>
               Here's what's happening with your appointments today
             </span>
           </div>
@@ -401,8 +399,7 @@ const Dashboard = () => {
                   alt="User Profile"
                   className="profile-picture"
                 />
-                {/* <HiDotsVertical style={50} /> */}
-                <SettingsDropdown />
+                <HiDotsVertical style={50} />
               </div>
             </div>
           </div>
@@ -411,38 +408,93 @@ const Dashboard = () => {
           <div className="main-dash-left">
             <div className="inner_dash">
               <div className="calendar">
-                {[...Array(daysInMonth)].map((_, index) => {
-                  const day = index + 1;
-                  const isSelected = day === selectedDate;
-                  const isToday = day === currentDay;
+                {(() => {
+                  // Determine the weekday of the first day of the current month
+                  const firstDayOfMonth = new Date(
+                    currentYear,
+                    currentMonth,
+                    1
+                  ).getDay();
+                  // 'daysInMonth' is already defined in your code.
+                  // Determine the last date of the previous month
+                  const prevMonthLastDate = new Date(
+                    currentYear,
+                    currentMonth,
+                    0
+                  ).getDate();
 
-                  return (
-                    <div
-                      key={day}
-                      className={`calendar-day ${
-                        isSelected ? "selected" : ""
-                      } ${isToday ? "today" : ""}`}
-                      onClick={() => handleDateClick(day)}
-                      ref={isToday ? todayRef : null} // Reference the element for today's date
-                    >
-                      <div className="day-number">{day}</div>
-                      <div className="day-label">
-                        {new Date(
-                          currentYear,
-                          currentMonth,
-                          day
-                        ).toLocaleString("en-US", { weekday: "short" })}
+                  // Build an array to hold all the day objects for the calendar grid.
+                  const calendarDays = [];
+
+                  // 1. Add the trailing days from the previous month.
+                  // If the first day of the current month is not Sunday (getDay() !== 0),
+                  // then add that many days from the previous month.
+                  for (let i = firstDayOfMonth; i > 0; i--) {
+                    const day = prevMonthLastDate - i + 1;
+                    calendarDays.push({
+                      day,
+                      isCurrentMonth: false,
+                      date: new Date(currentYear, currentMonth - 1, day),
+                    });
+                  }
+
+                  // 2. Add all days of the current month.
+                  for (let i = 1; i <= daysInMonth; i++) {
+                    calendarDays.push({
+                      day: i,
+                      isCurrentMonth: true,
+                      date: new Date(currentYear, currentMonth, i),
+                    });
+                  }
+
+                  // 3. Add days from the next month to complete the last week, if needed.
+                  while (calendarDays.length % 7 !== 0) {
+                    const nextDay =
+                      calendarDays.length - (daysInMonth + firstDayOfMonth) + 1;
+                    calendarDays.push({
+                      day: nextDay,
+                      isCurrentMonth: false,
+                      date: new Date(currentYear, currentMonth + 1, nextDay),
+                    });
+                  }
+
+                  // Now render the calendar cells.
+                  return calendarDays.map((dayObj, index) => {
+                    // Mark "today" only if the day belongs to the current month.
+                    const isToday =
+                      dayObj.isCurrentMonth && dayObj.day === currentDay;
+                    // Mark as selected only if it belongs to the current month.
+                    const isSelected =
+                      dayObj.isCurrentMonth && dayObj.day === selectedDate;
+
+                    return (
+                      <div
+                        key={index}
+                        className={`calendar-day ${
+                          isSelected ? "selected" : ""
+                        } ${isToday ? "today" : ""} ${
+                          !dayObj.isCurrentMonth ? "non-current" : ""
+                        }`}
+                        onClick={() => {
+                          // Only allow selecting days from the current month.
+                          if (dayObj.isCurrentMonth) {
+                            handleDateClick(dayObj.day);
+                          }
+                        }}
+                        ref={isToday ? todayRef : null} // Reference today's element if needed.
+                      >
+                        <div className="day-number">{dayObj.day}</div>
+                        <div className="day-label">
+                          {dayObj.date.toLocaleString("en-US", {
+                            weekday: "short",
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  });
+                })()}
               </div>
               <div className="envets_dash_container">
-                {/* <div className="upcomming-heading">
-                                    <span className="upcoming-heading">
-                                        Upcoming events
-                                    </span>
-                                </div> */}
                 <div className="table-container">
                   <div className="search-bar">
                     <div>
@@ -613,8 +665,8 @@ const Dashboard = () => {
                           display: "flex",
                           borderradius: "5px",
                           padding: "5px 12px",
-                          justifyContent:"center",
-                          width:"6em"
+                          justifyContent: "center",
+                          width: "6em",
                         }}
                         onClick={() =>
                           setCurrentPage((prev) =>
@@ -623,7 +675,7 @@ const Dashboard = () => {
                         }
                         disabled={currentPage === totalPages}
                       >
-                        Next <IoChevronForwardSharp size={15}/>
+                        Next <IoChevronForwardSharp size={15} />
                       </button>
                     </div>
                   )}

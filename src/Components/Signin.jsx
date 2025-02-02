@@ -8,19 +8,21 @@ import { Eye, EyeOff } from "lucide-react"
 import { FaFacebook } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // To handle errors
   const navigate = useNavigate(); // Initialize navigate
-
+  const login = process.env.REACT_APP_LOGIN_URL
+  console.log(login)
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       // Make POST request to the login API
       const response = await axios.post(
-        process.env.REACT_APP_LOGIN_URL,
+             login,
         {
           email: email,
           password: password,

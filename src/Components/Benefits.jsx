@@ -408,6 +408,7 @@ const Benefits = () => {
   
   const fetchApiData = async () => {
     try {
+      console.log(process.env.REACT_APP_BENEFITS_URL)
       const response = await fetch(process.env.REACT_APP_OPENAPI_URL, {
         method: "POST",
         headers: {
@@ -574,14 +575,7 @@ const Benefits = () => {
                     </div>
                 </div>
         <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0px 97px 0%",
-            width: "100%",
-            paddingBottom: "0%",
-            marginTop:"25px"
-          }}
+      className="search-container-ser"
         >
           <div
             style={{
@@ -644,6 +638,7 @@ const Benefits = () => {
               {categoryIcons[category] && (
                 <span style={{color: "rgb(27, 119, 155)"}}>{categoryIcons[category]}</span>
               )}
+             
               <span className="categoryname"> {category}{" "}</span>
               <span className="catnum">
                 {groupedBenefits[category].length} benefits

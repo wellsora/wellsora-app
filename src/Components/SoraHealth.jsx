@@ -257,16 +257,7 @@ const Sorahealth = () => {
                     </div>
                 </div>
 
-                <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            padding: "0px 97px 0%",
-            width: "100%",
-            paddingBottom: "0%",
-            marginTop:"25px"
-          }}
-        >
+                <div className="search-container-ser">
           <div
             style={{
               flex: 1,
